@@ -22,6 +22,8 @@ void genRound() {
 }
 
 void makeMove(string choice) {
+    cout << "Enter H or L for high or low." << endl;
+    cin >> choice;
     if(choice == "H") {
         if(num2>num1) cout << "Yay you win! It was higher." << endl;
         else cout << "Womp womp it was lower." << endl;
@@ -38,8 +40,7 @@ void makeMove(string choice) {
 int main() {
     // int choice; // 0 = lower, 1 = higher
     genRound();
-    cout << "Enter H or L for high or low." << endl;
-    cin >> choice;
+    
     makeMove(choice);
     return 0;
 }
