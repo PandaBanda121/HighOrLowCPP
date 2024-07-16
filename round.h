@@ -8,8 +8,8 @@
 
 using namespace std;
 
-struct round {
-    int roundNum;
+struct Round {
+    int roundNum, quota, turns;
 };
 
 #endif

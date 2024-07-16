@@ -5,13 +5,18 @@
 #include <algorithm>
 #include <math.h>
 #include <cstdlib>
+
+#include "round.h"
+#include "turn.h"
+
+
 using namespace std;
 
 string choice;
 int N = 20;
 int rounds, attempts, quota;
 int num1, num2;
-double current, mult;
+double current=10, mult=1;
 double deposit = 0;
 bool gameFinish = false;
 void intro() {
@@ -62,23 +67,40 @@ void genTurn() {
 }
 
 void makeMove(string choice) {
-    cout << "Enter H or L for higher or lower." << endl;
+    cout << "Enter h/H or l/L for higher or lower." << endl;
     cin >> choice;
-    if(choice == "H") {
+    if(choice == "H" || choice == "h") {
         if(num2>num1) cout << "Yay you win! It was higher (" << num2 << ")" << endl;
-        else cout << "Womp womp it was lower." << endl;
-    } else if(choice == "L") {
+        else cout << "Womp womp it was lower (" << num2 << ")" << endl;
+    } else if(choice == "L" || choice == "l") {
         if(num2<num1) cout << "Yay you win! It was lower (" << num2 << ")" << endl;
-        else cout << "Womp womp it was higher." << endl;
+        else cout << "Womp womp it was higher." << num2 << ")" << endl;
     } else {
         cout << "Bro invalid input. ";
         makeMove(choice);
     }
 }
 
+void genRound(Round *rou) {
+    for(int turnNum = 1; turnNum <= rou->turns; turnNum++) {
+        genTurn();
+        
+    }
+}
+
 int main() {
+    srand(time(0)); 
     intro();
+    Round *r1 = new Round(), *r2 = new Round(), *r3 = new Round(), *r4 = new Round(), *r5 = new Round();
     genTurn();
-    makeMove(choice);
+    r1->roundNum = 1, r1->quota = 12, r1->turns = 10;
+    r2->roundNum = 2, r2->quota = 15, r2->turns = 10;
+    r3->roundNum = 3, r3->quota = 18, r3->turns = 7;
+    r4->roundNum = 4, r4->quota = 25, r4->turns = 6;
+    r5->roundNum = 5, r5->quota = 43, r5->turns = 5;
+    // cout << r1->roundNum << " " << r1->quota << " " << r1->turns << endl;
+    genRound(r1);
+    string s;
+    cin >> s;
     return 0;
 }

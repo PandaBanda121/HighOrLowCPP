@@ -8,7 +8,7 @@
 
 using namespace std;
 
-struct turn {
+struct Turn {
     int turnNum;
     int num1;
     int num2;
