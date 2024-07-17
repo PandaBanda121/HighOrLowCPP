@@ -20,6 +20,7 @@ double current=10, mult=1;
 double deposit = 0;
 bool gameFinish = false;
 bool winRound = false;
+bool lost = false;
 void intro() {
     cout << "Welcome! This game is a game of risk taking, both high and low." << endl;
     cout << "[1] Game Background" << endl;
@@ -64,7 +65,7 @@ void genTurn() {
     num1 = rand()%N+1;
     num2 = rand()%N+1;
     while(num1 == num2) num2 = rand()%N+1;
-    cout << "The first number is " << num1 << "." << num2 << endl;
+    cout << "The first number is " << num1 << ". " << num2 << endl;
 }
 
 void makeMove() {
@@ -85,7 +86,7 @@ void makeMove() {
     if(choice=="l" || choice == "L") multAdd = 1.00-multAdd;
     if(!win) multAdd = -multAdd;
     mult = mult+multAdd;
-    cout << "Your multiplier is now " << mult << endl << endl;
+    cout << "You now have " << (current*mult) << endl << endl;
 
 
 }
@@ -102,6 +103,12 @@ void checkDeposit() {
         }
         if(choice == "y" || choice == "Y") {
             cout << "Congratulations! You finished round #" << (rounds+1) << ". Entering next round." << endl;
+            deposit = quota;
+            current = mult*current;
+            current = current-quota;
+            current = round(current);
+            cout << "Deposit: " << deposit << endl;
+            cout << "Current: " << current << endl;
             winRound = true;
         } else if (choice == "n" || choice == "N") {
             cout << "Alrighty, keep the risks rolling!" << endl;
@@ -111,14 +118,23 @@ void checkDeposit() {
 }
 
 void genRound(Round *rou) {
+    winRound = false;
+    mult = 1;
     turns = rou->turns;
     quota = rou->quota;
+    cout << "Round #" << rou->roundNum << endl;
+    cout << "Number of turns: " << rou->turns << endl;
+    cout << "Quota: " << rou->quota << endl;
     for(int turnNum = 1; turnNum <= rou->turns; turnNum++) {
         cout << "Turn #" << turnNum << endl;
         genTurn();
         makeMove();
         checkDeposit();
         if(winRound) break;
+    }
+    if(current*mult < quota) {
+        cout << "Womp womp, you lost. Try harder next time :(" << endl;
+        lost = true;
     }
 }
 
@@ -133,6 +149,10 @@ int main() {
     r5->roundNum = 5, r5->quota = 43, r5->turns = 5;
     // cout << r1->roundNum << " " << r1->quota << " " << r1->turns << endl;
     genRound(r1);
+    if(lost) return 0;
+    genRound(r2);
+    if(lost) return 0;
+    // genRound(r3);
     cout << "Game finished, type a string and hit enter to quit";
     string s;
     cin >> s;
