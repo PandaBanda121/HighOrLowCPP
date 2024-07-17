@@ -14,11 +14,12 @@ using namespace std;
 
 string choice;
 int N = 20;
-int rounds, attempts, quota;
+int rounds, turns, quota;
 int num1, num2;
 double current=10, mult=1;
 double deposit = 0;
 bool gameFinish = false;
+bool winRound = false;
 void intro() {
     cout << "Welcome! This game is a game of risk taking, both high and low." << endl;
     cout << "[1] Game Background" << endl;
@@ -63,28 +64,61 @@ void genTurn() {
     num1 = rand()%N+1;
     num2 = rand()%N+1;
     while(num1 == num2) num2 = rand()%N+1;
-    cout << "The first number is " << num1 << "." << endl;
+    cout << "The first number is " << num1 << "." << num2 << endl;
 }
 
-void makeMove(string choice) {
+void makeMove() {
     cout << "Enter h/H or l/L for higher or lower." << endl;
     cin >> choice;
+    bool win = ( (choice=="H"||choice=="h") && num2>num1 ) || ( (choice=="L"||choice=="l") && num2<num1 );
     if(choice == "H" || choice == "h") {
         if(num2>num1) cout << "Yay you win! It was higher (" << num2 << ")" << endl;
         else cout << "Womp womp it was lower (" << num2 << ")" << endl;
     } else if(choice == "L" || choice == "l") {
         if(num2<num1) cout << "Yay you win! It was lower (" << num2 << ")" << endl;
-        else cout << "Womp womp it was higher." << num2 << ")" << endl;
+        else cout << "Womp womp it was higher (" << num2 << ")" << endl;
     } else {
         cout << "Bro invalid input. ";
-        makeMove(choice);
+        makeMove();
+    }
+    double multAdd = (double) num1/N;
+    if(choice=="l" || choice == "L") multAdd = 1.00-multAdd;
+    if(!win) multAdd = -multAdd;
+    mult = mult+multAdd;
+    cout << "Your multiplier is now " << mult << endl << endl;
+
+
+}
+
+void checkDeposit() {
+    if(mult*current >= quota) {
+        cout << "You reached the quota for this round, play it safe and deposit all or keep the risks going?" << endl;
+        cout << "If you keep going, you can earn more before next round, or win this round first." << endl;
+        cout << "Enter y/Y to deposit, or n/N to keep going" << endl;
+        cin >> choice;
+        while(choice != "y" && choice != "Y" && choice != "n" && choice != "N") {
+            cout << "Bro invalid input." << endl;
+            cin >> choice;
+        }
+        if(choice == "y" || choice == "Y") {
+            cout << "Congratulations! You finished round #" << (rounds+1) << ". Entering next round." << endl;
+            winRound = true;
+        } else if (choice == "n" || choice == "N") {
+            cout << "Alrighty, keep the risks rolling!" << endl;
+            winRound = false;
+        }
     }
 }
 
 void genRound(Round *rou) {
+    turns = rou->turns;
+    quota = rou->quota;
     for(int turnNum = 1; turnNum <= rou->turns; turnNum++) {
+        cout << "Turn #" << turnNum << endl;
         genTurn();
-        
+        makeMove();
+        checkDeposit();
+        if(winRound) break;
     }
 }
 
@@ -92,7 +126,6 @@ int main() {
     srand(time(0)); 
     intro();
     Round *r1 = new Round(), *r2 = new Round(), *r3 = new Round(), *r4 = new Round(), *r5 = new Round();
-    genTurn();
     r1->roundNum = 1, r1->quota = 12, r1->turns = 10;
     r2->roundNum = 2, r2->quota = 15, r2->turns = 10;
     r3->roundNum = 3, r3->quota = 18, r3->turns = 7;
@@ -100,6 +133,7 @@ int main() {
     r5->roundNum = 5, r5->quota = 43, r5->turns = 5;
     // cout << r1->roundNum << " " << r1->quota << " " << r1->turns << endl;
     genRound(r1);
+    cout << "Game finished, type a string and hit enter to quit";
     string s;
     cin >> s;
     return 0;
