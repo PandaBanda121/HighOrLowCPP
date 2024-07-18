@@ -6,6 +6,8 @@
 #include <vector>
 #include <string>
 
+#include "turn.h"
+
 using namespace std;
 
 struct Round {

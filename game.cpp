@@ -75,10 +75,10 @@ void makeMove(Round *rou) {
     cin >> choice;
     bool win = ( (choice=="H"||choice=="h") && num2>num1 ) || ( (choice=="L"||choice=="l") && num2<num1 );
     if(choice == "H" || choice == "h") {
-        if(num2>num1) cout << "Yay you win! It was higher (" << num2 << ")" << endl;
+        if(num2>num1) cout << "Congrats, it was higher (" << num2 << ")" << endl;
         else cout << "Womp womp it was lower (" << num2 << ")" << endl;
     } else if(choice == "L" || choice == "l") {
-        if(num2<num1) cout << "Yay you win! It was lower (" << num2 << ")" << endl;
+        if(num2<num1) cout << "Congrats, it was lower (" << num2 << ")" << endl;
         else cout << "Womp womp it was higher (" << num2 << ")" << endl;
     } else {
         cout << "Bro invalid input. ";
