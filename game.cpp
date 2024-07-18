@@ -7,8 +7,6 @@
 #include <cstdlib>
 
 #include "round.h"
-#include "turn.h"
-
 
 using namespace std;
 
@@ -61,12 +59,9 @@ void intro() {
 }
 
 void genTurn(Round *rou) {
-    rou->turn = new Turn();
     num1 = rand()%N+1;
     num2 = rand()%N+1;
     while(num1 == num2) num2 = rand()%N+1;
-    rou->turn->num1 = num1;
-    rou->turn->num2 = num2;
     cout << "The first number is " << num1 << ". " << num2 << endl;
 }
 
@@ -122,7 +117,7 @@ void checkDeposit(Round *rou) {
 void genRound(Round *rou) {
     winRound = false;
     mult = 1;
-    cout << "Round #" << rou->roundNum << endl;
+    cout << "ROUND #" << rou->roundNum << endl;
     cout << "Number of turns: " << rou->turns << endl;
     cout << "Quota: " << rou->quota << endl;
     for(int turnNum = 1; turnNum <= rou->turns; turnNum++) {
@@ -130,13 +125,17 @@ void genRound(Round *rou) {
         genTurn(rou);
         makeMove(rou);
         if(turnNum == rou->turns) {
-            cout << "Aight, you just finished your last move fo this turn, time to end it" << endl;
+            cout << "Aight, you just finished your last move for this turn, time to end it" << endl;
         } else checkDeposit(rou);
         if(winRound) break;
     }
-    if(current*mult < rou->quota && !winRound) {
-        cout << "Womp womp, you lost. Try harder next time :(" << endl;
-        lost = true;
+    if(!winRound) {
+        if(current*mult < rou->quota) {
+            cout << "Womp womp, you lost. Try harder next time :(" << endl << endl;
+            lost = true;
+        } else {
+            cout << "Wow, played until the last round to win huh, time to go to the next round" << endl << endl;
+        }
     }
 }
 
@@ -144,7 +143,6 @@ int main() {
     srand(time(0));
     intro();
     Round *r1 = new Round(), *r2 = new Round(), *r3 = new Round(), *r4 = new Round(), *r5 = new Round();
-    Turn *turn = new Turn();
     r1->roundNum = 1, r1->quota = 12, r1->turns = 10;
     r2->roundNum = 2, r2->quota = 15, r2->turns = 10;
     r3->roundNum = 3, r3->quota = 18, r3->turns = 7;
