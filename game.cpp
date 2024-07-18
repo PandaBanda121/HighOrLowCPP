@@ -14,9 +14,8 @@ using namespace std;
 
 string choice;
 int N = 20;
-int rounds, turns, quota;
-int num1, num2;
 double current=10, mult=1;
+int num1, num2;
 double deposit = 0;
 bool gameFinish = false;
 bool winRound = false;
@@ -61,14 +60,17 @@ void intro() {
     cout << "Alright, let the risks begin!" << endl << endl;
 }
 
-void genTurn() {
+void genTurn(Round *rou) {
+    rou->turn = new Turn();
     num1 = rand()%N+1;
     num2 = rand()%N+1;
     while(num1 == num2) num2 = rand()%N+1;
+    rou->turn->num1 = num1;
+    rou->turn->num2 = num2;
     cout << "The first number is " << num1 << ". " << num2 << endl;
 }
 
-void makeMove() {
+void makeMove(Round *rou) {
     cout << "Enter h/H or l/L for higher or lower." << endl;
     cin >> choice;
     bool win = ( (choice=="H"||choice=="h") && num2>num1 ) || ( (choice=="L"||choice=="l") && num2<num1 );
@@ -80,7 +82,7 @@ void makeMove() {
         else cout << "Womp womp it was higher (" << num2 << ")" << endl;
     } else {
         cout << "Bro invalid input. ";
-        makeMove();
+        makeMove(rou);
     }
     double multAdd = (double) num1/N;
     if(choice=="l" || choice == "L") multAdd = 1.00-multAdd;
@@ -91,8 +93,8 @@ void makeMove() {
 
 }
 
-void checkDeposit() {
-    if(mult*current >= quota) {
+void checkDeposit(Round *rou) {
+    if(mult*current >= rou->quota) {
         cout << "You reached the quota for this round, play it safe and deposit all or keep the risks going?" << endl;
         cout << "If you keep going, you can earn more before next round, or win this round first." << endl;
         cout << "Enter y/Y to deposit, or n/N to keep going" << endl;
@@ -102,11 +104,11 @@ void checkDeposit() {
             cin >> choice;
         }
         if(choice == "y" || choice == "Y") {
-            cout << "Congratulations! You finished round #" << (rounds+1) << ". Entering next round." << endl;
-            deposit = quota;
+            cout << "Congratulations! You finished round #" << rou->roundNum << ". Entering next round." << endl;
+            deposit = deposit + rou->quota;
             current = mult*current;
-            current = current-quota;
-            current = round(current);
+            current = current-rou->quota;
+            current = round(current-0.5);
             cout << "Deposit: " << deposit << endl;
             cout << "Current: " << current << endl;
             winRound = true;
@@ -120,28 +122,27 @@ void checkDeposit() {
 void genRound(Round *rou) {
     winRound = false;
     mult = 1;
-    turns = rou->turns;
-    quota = rou->quota;
     cout << "Round #" << rou->roundNum << endl;
     cout << "Number of turns: " << rou->turns << endl;
     cout << "Quota: " << rou->quota << endl;
     for(int turnNum = 1; turnNum <= rou->turns; turnNum++) {
         cout << "Turn #" << turnNum << endl;
-        genTurn();
-        makeMove();
-        checkDeposit();
+        genTurn(rou);
+        makeMove(rou);
+        checkDeposit(rou);
         if(winRound) break;
     }
-    if(current*mult < quota) {
+    if(current*mult < rou->quota && !winRound) {
         cout << "Womp womp, you lost. Try harder next time :(" << endl;
         lost = true;
     }
 }
 
 int main() {
-    srand(time(0)); 
+    srand(time(0));
     intro();
     Round *r1 = new Round(), *r2 = new Round(), *r3 = new Round(), *r4 = new Round(), *r5 = new Round();
+    Turn *turn = new Turn();
     r1->roundNum = 1, r1->quota = 12, r1->turns = 10;
     r2->roundNum = 2, r2->quota = 15, r2->turns = 10;
     r3->roundNum = 3, r3->quota = 18, r3->turns = 7;
@@ -152,7 +153,10 @@ int main() {
     if(lost) return 0;
     genRound(r2);
     if(lost) return 0;
-    // genRound(r3);
+    genRound(r3);
+    if(lost) return 0;
+    genRound(r4);
+    if(lost) return 0;
     cout << "Game finished, type a string and hit enter to quit";
     string s;
     cin >> s;

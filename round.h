@@ -10,6 +10,7 @@ using namespace std;
 
 struct Round {
     int roundNum, quota, turns;
+    Turn *turn;
 };
 
 #endif

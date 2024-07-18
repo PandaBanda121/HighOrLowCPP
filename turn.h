@@ -12,6 +12,7 @@ struct Turn {
     int turnNum;
     int num1;
     int num2;
+    Turn *next;
 };
 
 #endif
