@@ -129,7 +129,9 @@ void genRound(Round *rou) {
         cout << "Turn #" << turnNum << endl;
         genTurn(rou);
         makeMove(rou);
-        checkDeposit(rou);
+        if(turnNum == rou->turns) {
+            cout << "Aight, you just finished your last move fo this turn, time to end it" << endl;
+        } else checkDeposit(rou);
         if(winRound) break;
     }
     if(current*mult < rou->quota && !winRound) {
