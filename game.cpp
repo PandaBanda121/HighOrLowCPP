@@ -6,6 +6,11 @@
 #include <math.h>
 #include <cstdlib>
 
+//testing
+#include <Windows.h>
+
+
+
 #include "round.h"
 
 using namespace std;
@@ -142,6 +147,10 @@ void genRound(Round *rou) {
 int main() {
     srand(time(0));
     intro();
+
+
+
+
     Round *r1 = new Round(), *r2 = new Round(), *r3 = new Round(), *r4 = new Round(), *r5 = new Round();
     r1->roundNum = 1, r1->quota = 12, r1->turns = 10;
     r2->roundNum = 2, r2->quota = 15, r2->turns = 10;
