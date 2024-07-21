@@ -66,6 +66,9 @@ void intro() {
             cout << "[2] How to Play" << endl;
             cout << "[3] Start" << endl << endl;
             input = getch();
+        } else {
+            input = getch();
+            checkQuit();
         }
     }
     cout << "Alright, let the risks begin!" << endl << endl;
@@ -84,7 +87,7 @@ void makeMove(Round *rou) {
         cout << "Enter h/H or l/L for higher or lower." << endl;
         input = getch();
         checkQuit();
-
+        if(quitGame) return;
         bool winTurn = ( (input == 104 || input == 72) && num2>num1 ) || ( (input == 108 || input == 76) && num2<num1 );
         if(input == 104 || input == 72) {
             if(num2>num1) cout << "Congrats, it was higher (" << num2 << ")" << endl;
@@ -107,10 +110,8 @@ void checkDeposit(Round *rou) {
         cout << "If you keep going, you can earn more before next round, or win this round first." << endl;
         cout << "Enter y/Y to deposit, or n/N to keep going" << endl;
         input = getch();
-        while(input != 121 && input != 89 && input != 110 && input != 78) {
-            cout << "Bro invalid input." << endl;
-            input = getch();
-        }
+        checkQuit();
+        if(quitGame) return;
         if(input == 121 || input == 89) {
             cout << "Congratulations! You finished round #" << rou->roundNum << ". Entering next round." << endl;
             deposit = deposit + rou->quota;
@@ -138,6 +139,7 @@ void genRound(Round *rou) {
         genTurn(rou);
         if(quitGame) break;
         makeMove(rou);
+        if(quitGame) break;
         if(turnNum == rou->turns) {
             cout << "Aight, you just finished your last move for this turn, time to end it" << endl;
         } else checkDeposit(rou);
