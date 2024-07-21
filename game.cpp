@@ -7,6 +7,9 @@
 #include <cstdlib>
 #include <conio.h>
 
+#include <Windows.h>
+#pragma execution_character_set("utf-8")
+
 
 #include "round.h"
 
@@ -21,6 +24,33 @@ bool winRound = false;
 bool winGame = false;
 bool lostGame = false;
 bool quitGame = false;
+
+
+
+void printScreen() {
+    cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" << endl;
+    cout << "┃                                                ┃" << endl;
+    cout << "┃    ╭─────────────╮          ╭─────────────╮    ┃" << endl;
+    cout << "┃    │ ┌───┐ ┌──── │          │  ─┐   ┌──── │    ┃" << endl;
+    cout << "┃    │ │   │ │     │          │   │   │     │    ┃" << endl;
+    cout << "┃    │ │   │ └───┐ │          │   │   └───┐ │    ┃" << endl;
+    cout << "┃    │ │   │     │ │          │   │       │ │    ┃" << endl;
+    cout << "┃    │ └───┘ ────┘ │          │ ──┴── ────┘ │    ┃" << endl;
+    cout << "┃    ╰─────────────╯          ╰─────────────╯    ┃" << endl;
+    cout << "┃                                                ┃" << endl;
+    cout << "┃      ╔═════════════╗       ┌─────────────┐     ┃" << endl;
+    cout << "┃      ║      ↑      ║       │      ↓      │     ┃" << endl;
+    cout << "┃      ║    ↑↑↑↑↑    ║       │      ↓      │     ┃" << endl;
+    cout << "┃      ║  ↑↑↑↑↑↑↑↑↑  ║       │  ↓↓↓↓↓↓↓↓↓  │     ┃" << endl;
+    cout << "┃      ║      ↑      ║       │    ↓↓↓↓↓    │     ┃" << endl;
+    cout << "┃      ║      ↑      ║       │      ↓      │     ┃" << endl;
+    cout << "┃      ╚═════════════╝       └─────────────┘     ┃" << endl;
+    cout << "┃                                                ┃" << endl;
+    cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" << endl;
+    cout << "12345678901234567890123456789012345678901234567890" << endl;
+}
+
+
 
 void checkQuit() {
     if(input == 13) {
@@ -155,6 +185,8 @@ void genRound(Round *rou) {
 
 
 int main() {
+    SetConsoleOutputCP(CP_UTF8);
+    printScreen();
     srand(time(0));
     intro();
 
