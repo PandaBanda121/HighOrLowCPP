@@ -7,8 +7,6 @@
 #include <cstdlib>
 #include <conio.h>
 
-//testing
-#include <Windows.h>
 
 #include "round.h"
 
@@ -197,11 +195,12 @@ int main() {
 
 /*
 
-130
-202
-413
-630
-830
-1026
+
+Ideas?
+Ideas?
+Ideas?
+Ideas?
+Ideas?
+
 
 */
