@@ -27,7 +27,23 @@ bool winGame = false;
 bool lostGame = false;
 bool quitGame = false;
 
+
+// Intro and Game Screen
+void printIntroScreen(int &introSelect, int &introPrint);
 void printGameScreen();
+
+// Back-end Main Function
+void genRound(Round *rou);
+
+// 3 smaller functions for back-end
+void genTurn(Round *rou);
+void makeMove(Round *rou);
+void checkDeposit(Round *rou);
+
+// Quit Game Checker
+void checkQuit();
+
+
 
 
 void printIntroScreen(int &introSelect, int &introPrint) {
@@ -69,7 +85,6 @@ void printIntroScreen(int &introSelect, int &introPrint) {
                              "┃                                                                    ┃\n"};
     string controls =        "┃       [W][S]: Scroll through options  [Enter]: Select option       ┃\n";
     string bottom =          "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
-    
 
     cout << top << empty << empty;
     if(introPrint == 0) for(string line : intro) cout << line;
@@ -103,12 +118,10 @@ void printIntroScreen(int &introSelect, int &introPrint) {
     } else {
         input = getch();
     }
-
 }
 
 
 void printGameScreen() {
-
     cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
     cout << "┃                                                                    ┃\n";
     cout << "┃                                                                    ┃\n";
@@ -134,60 +147,38 @@ void printGameScreen() {
     cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
     cout << "1234567890123456789012345678901234567890123456789012345678901234567890\n";
     cout << "┃ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456776543210ZYXWVUTSRQPONMLKJIHGFEDCBA┃\n";
-
 }
 
 
 
-void checkQuit() {
-    if(input == 13) {
-        cout << "Are you sure you want to quit?" << endl;
-        input = getch();
-        if(input == 13) quitGame = true;
+
+void genRound(Round *rou) {
+    winRound = false;
+    mult = 1;
+    cout << "ROUND #" << rou->roundNum << endl;
+    cout << "Number of turns: " << rou->turns << endl;
+    cout << "Quota: " << rou->quota << endl;
+    for(int turnNum = 1; turnNum <= rou->turns; turnNum++) {
+        cout << "Turn #" << turnNum << endl;
+        genTurn(rou);
+        if(quitGame) break;
+        makeMove(rou);
+        if(quitGame) break;
+        if(turnNum == rou->turns) {
+            cout << "Aight, you just finished your last move for this turn, time to end it" << endl;
+        } else checkDeposit(rou);
+        if(winRound) break;
     }
-}
-
-
-void intro() {
-    cout << "Welcome! This game is a game of risk taking, both high and low." << endl;
-    cout << "[1] Game Background" << endl;
-    cout << "[2] How to Play" << endl;
-    cout << "[3] Start" << endl << endl;
-    input = getch();
-    checkQuit();
-    if(quitGame) return;
-    while(input != 51) {
-        if(input == 49) {
-            cout << "~~==Game Background==~~" << endl;
-            cout << "Wow, you're actually reading this." << endl;
-            cout << "Well, Panda (developer) created this game in the summer of 2024, because he was bored." << endl;
-            cout << "Anyways, enjoy the game. (And there's a secret)" << endl << endl;
-            cout << "~~==MENU==~~" << endl;
-            cout << "[1] Game Background" << endl;
-            cout << "[2] How to Play" << endl;
-            cout << "[3] Start" << endl << endl;
-            input = getch();
-        } else if(input == 50) {
-            cout << "~~==How to Play==~~" << endl;
-            cout << "Initial info: You start with 10 coins and you need to reach a quota before you finish the round" << endl;
-            cout << "Initial info: In each round, you start off with how many coins you had last round" << endl;
-            cout << "1: You will be given a number between 1 and 20 (inclusive), let's say 15." << endl;
-            cout << "2: You will have to guess if the next number is higher or lower than the given number (15). (Note: no chance it will be 15 again)" << endl;
-            cout << "3: If you choose the safer option, you earn less but also lose less if you're wrong." << endl;
-            cout << "4: If you choose the *riskier* option, you earn more but also lose more if you're wrong." << endl;
-            cout << "5: Happy risk taking :)" << endl << endl;
-            cout << "~~==MENU==~~" << endl;
-            cout << "[1] Game Background" << endl;
-            cout << "[2] How to Play" << endl;
-            cout << "[3] Start" << endl << endl;
-            input = getch();
+    if(!winRound) {
+        if(current*mult < rou->quota) {
+            cout << "Womp womp, you lost. Try harder next time :(" << endl << endl;
+            lostGame = true;
         } else {
-            input = getch();
-            checkQuit();
+            cout << "Wow, played until the last round to win huh, time to go to the next round" << endl << endl;
         }
     }
-    cout << "Alright, let the risks begin!" << endl << endl;
 }
+
 
 void genTurn(Round *rou) {
     num1 = rand()%N+1;
@@ -243,30 +234,11 @@ void checkDeposit(Round *rou) {
     }
 }
 
-void genRound(Round *rou) {
-    winRound = false;
-    mult = 1;
-    cout << "ROUND #" << rou->roundNum << endl;
-    cout << "Number of turns: " << rou->turns << endl;
-    cout << "Quota: " << rou->quota << endl;
-    for(int turnNum = 1; turnNum <= rou->turns; turnNum++) {
-        cout << "Turn #" << turnNum << endl;
-        genTurn(rou);
-        if(quitGame) break;
-        makeMove(rou);
-        if(quitGame) break;
-        if(turnNum == rou->turns) {
-            cout << "Aight, you just finished your last move for this turn, time to end it" << endl;
-        } else checkDeposit(rou);
-        if(winRound) break;
-    }
-    if(!winRound) {
-        if(current*mult < rou->quota) {
-            cout << "Womp womp, you lost. Try harder next time :(" << endl << endl;
-            lostGame = true;
-        } else {
-            cout << "Wow, played until the last round to win huh, time to go to the next round" << endl << endl;
-        }
+void checkQuit() {
+    if(input == 13) {
+        cout << "Are you sure you want to quit?" << endl;
+        input = getch();
+        if(input == 13) quitGame = true;
     }
 }
 
@@ -278,7 +250,6 @@ int main() {
 
 
     srand(time(0));
-    // intro();
     /*
     int rListSize = 7;
     Round *rList[rListSize];
