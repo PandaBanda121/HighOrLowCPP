@@ -18,6 +18,10 @@ using namespace std;
 int input;
 int introSelect = 0; //0: Lore, 1: instructions, 2: startgame, 3: startgame
 int introPrint = 0; //0: welcome, 1: lore, 2: instructions
+
+int gameSelect = 1; //0: down, 1: up
+bool gameNumReveal = false;
+
 int N = 20;
 double current=10, mult=1;
 int num1, num2;
@@ -29,7 +33,7 @@ bool quitGame = false;
 
 
 // Intro and Game Screen
-void printIntroScreen(int &introSelect, int &introPrint);
+void printIntroScreen();
 void printGameScreen();
 
 // Back-end Main Function
@@ -46,7 +50,7 @@ void checkQuit();
 
 
 
-void printIntroScreen(int &introSelect, int &introPrint) {
+void printIntroScreen() {
     cout << "\033[2J\033[1;1H";
     string top =             "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
     string empty =           "┃                                                                    ┃\n";
@@ -100,54 +104,114 @@ void printIntroScreen(int &introSelect, int &introPrint) {
     
     cout << empty << empty;
     cout << controls;
+    cout << empty << empty;
     cout << bottom;
     input = getch(); //w: 119, 87 s: 115, 83
     if(input == 87 || input == 119) { // W/w
         introSelect = (introSelect-1+3)%3;
-        printIntroScreen(introSelect, introPrint);
+        printIntroScreen();
     } else if(input == 83 || input == 115) { // S/s
         introSelect = (introSelect+1+3)%3;
-        printIntroScreen(introSelect, introPrint);
+        printIntroScreen();
     } else if(input == 13) { // [Enter]
         if(introSelect == 2) printGameScreen;
         else {
             introPrint = introSelect+1;
             introSelect = 0;
-            printIntroScreen(introSelect, introPrint);
+            printIntroScreen();
         }
     } else {
-        printIntroScreen(introSelect, introPrint);
-
+        printIntroScreen();
     }
 }
 
 
 void printGameScreen() {
-    cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
-    cout << "┃                                                                    ┃\n";
-    cout << "┃                                                                    ┃\n";
-    cout << "┃                                                                    ┃\n";
-    cout << "┃                                                                    ┃\n";
-    cout << "┃                                                                    ┃\n";
-    cout << "┃    ╭─────────────╮          ╭─────────────╮                        ┃\n";
-    cout << "┃    │ ┌───┐ ┌──── │          │ ????? ????? │                        ┃\n";
-    cout << "┃    │ │   │ │     │          │ ????? ????? │                        ┃\n";
-    cout << "┃    │ │   │ └───┐ │          │ ????? ????? │                        ┃\n";
-    cout << "┃    │ │   │     │ │          │ ????? ????? │                        ┃\n";
-    cout << "┃    │ └───┘ ────┘ │          │ ????? ????? │                        ┃\n";
-    cout << "┃    ╰─────────────╯          ╰─────────────╯                        ┃\n";
-    cout << "┃                                                                    ┃\n";
-    cout << "┃                                                                    ┃\n";
-    cout << "┃                                                                    ┃\n";
-    cout << "┃    ╔═════════╗   ┌─────────┐                                       ┃\n";
-    cout << "┃    ║  ↑↑↑↑↑  ║   │  ↓↓↓↓↓  │                                       ┃\n";
-    cout << "┃    ║  ↑↑↑↑↑  ║   │  ↓↓↓↓↓  │                                       ┃\n";
-    cout << "┃    ║  ↑↑↑↑↑  ║   │  ↓↓↓↓↓  │                                       ┃\n";
-    cout << "┃    ╚═════════╝   └─────────┘                                       ┃\n";
-    cout << "┃                                                                    ┃\n";
-    cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
-    cout << "1234567890123456789012345678901234567890123456789012345678901234567890\n";
-    cout << "┃ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456776543210ZYXWVUTSRQPONMLKJIHGFEDCBA┃\n";
+    cout << "\033[2J\033[1;1H";
+
+    string gameScreenTop =                 "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
+    string gameScreenCycle[] =            {"┃                               ╭───╴╷   ╷╭───╴╷    ╭───╴ ╭───╮╭───╮ ┃\n",
+                                           "┃                               │    ╰─┬─╯│    │    ├───╴ │   ││   │ ┃\n",
+                                           "┃                               ╰───╴  ╵  ╰───╴╰───╴╰───╴ ╰───╯╰───╯ ┃\n"};
+    string gameScreenEmpty =               "┃                                                                    ┃\n";
+    string gameScreenTurnsQuotaWallet[] = {"┃             ╭─────────────────╮    ╭─────────────────╮             ┃\n",
+                                           "┃             │    Turn #00     │    │   Quota: 000.00 │             ┃\n",
+                                           "┃             │ Total turns: 00 │    │  Wallet: 000.00 │             ┃\n",
+                                           "┃             ╰─────────────────╯    ╰─────────────────╯             ┃\n"};
+    string upButtHigh[] =                 {"┃  ╔═════════╗    ",
+                                           "┃  ║  ↑↑↑↑↑  ║    ",
+                                           "┃  ║  ↑↑↑↑↑  ║    ",
+                                           "┃  ║  ↑↑↑↑↑  ║    ",
+                                           "┃  ╚═════════╝    ",
+                                           "┃                 ",
+                                           "┃  ┌─────────┐    ",
+                                           "┃  │  ↓↓↓↓↓  │    ",
+                                           "┃  │  ↓↓↓↓↓  │    ",
+                                           "┃  │  ↓↓↓↓↓  │    ",
+                                           "┃  └─────────┘    "};
+    string downButtHigh[] =               {"┃  ┌─────────┐    ",
+                                           "┃  │  ↑↑↑↑↑  │    ",
+                                           "┃  │  ↑↑↑↑↑  │    ",
+                                           "┃  │  ↑↑↑↑↑  │    ",
+                                           "┃  └─────────┘    ",
+                                           "┃                 ",
+                                           "┃  ╔═════════╗    ",
+                                           "┃  ║  ↓↓↓↓↓  ║    ",
+                                           "┃  ║  ↓↓↓↓↓  ║    ",
+                                           "┃  ║  ↓↓↓↓↓  ║    ",
+                                           "┃  ╚═════════╝    "};
+    string num1[] =                       {"                   ",
+                                           "                   ",
+                                           "╭─────────────╮    ",
+                                           "│ ┌───┐ ┌──── │    ",
+                                           "│ │   │ │     │    ",
+                                           "│ │   │ └───┐ │    ",
+                                           "│ │   │     │ │    ",
+                                           "│ └───┘ ────┘ │    ",
+                                           "╰─────────────╯    ",
+                                           "                   ",
+                                           "                   "};
+    string num2Unrevealed[] =             {"                                ┃\n",
+                                           "                                ┃\n",
+                                           "╭─────────────╮                 ┃\n",
+                                           "│ ????? ????? │                 ┃\n",
+                                           "│ ????? ????? │                 ┃\n",
+                                           "│ ????? ????? │                 ┃\n",
+                                           "│ ????? ????? │                 ┃\n",
+                                           "│ ????? ????? │                 ┃\n",
+                                           "╰─────────────╯                 ┃\n",
+                                           "                                ┃\n",
+                                           "                                ┃\n"};
+    string gameScreenControls =            "┃    [W][S][Space]: Scroll between choice  [Enter]: Select choice    ┃\n";
+    string gameScreenBottom =              "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
+    
+    cout << gameScreenTop;
+    for(string line : gameScreenCycle) cout << line;
+    cout << gameScreenEmpty;
+    for(string line : gameScreenTurnsQuotaWallet) cout << line;
+    
+    if(gameSelect == 1) for(int i = 0; i < 11; i++) cout << upButtHigh[i] << num1[i] << num2Unrevealed[i];
+    else for(int i = 0; i < 11; i++) cout << downButtHigh[i] << num1[i] << num2Unrevealed[i];
+    cout << gameScreenEmpty;
+    cout << gameScreenControls;
+    cout << gameScreenEmpty;
+    cout << gameScreenBottom;
+    input = getch();
+    //W: 87 119
+    //S: 83 115
+    //Space: 32
+    //Enter: 13
+    if(input == 87 || input == 119 || input == 83 || input == 115 || input == 32) {
+        gameSelect = (gameSelect+1)%2;
+        printGameScreen();
+    } else if(input == 13) {
+        /* Back end moment (im scared of animating revealing the number oh boy) */
+        gameNumReveal = true;
+
+    } else {
+        printGameScreen();
+    }
+
 }
 
 
@@ -246,7 +310,12 @@ void checkQuit() {
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
-    printIntroScreen(introSelect, introPrint);
+    printIntroScreen();
+    /*
+    generate round first
+    generate turn
+    then print screen
+    */
     printGameScreen();
 
 

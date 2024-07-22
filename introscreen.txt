@@ -21,6 +21,7 @@ Intro screen (none selected):
 ┃                                                                    ┃A
 ┃       [W][S]: Scroll through options  [Enter]: Select option       ┃B
 ┃                                                                    ┃A
+┃                                                                    ┃A
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 
@@ -96,6 +97,7 @@ Intro screen (opt 3 selected): create game screen
 ┃                                                                    ┃A
 ┃                                                                    ┃A
 ┃       [W][S]: Scroll through options  [Enter]: Select option       ┃B
+┃                                                                    ┃A
 ┃                                                                    ┃A
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 ┃ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456776543210ZYXWVUTSRQPONMLKJIHGFEDCBA┃
