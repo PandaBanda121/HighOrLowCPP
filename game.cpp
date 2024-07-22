@@ -16,6 +16,8 @@
 using namespace std;
 
 int input;
+int introSelect = 0; //0: Lore, 1: instructions, 2: startgame, 3: startgame
+int introPrint = 0; //0: welcome, 1: lore, 2: instructions
 int N = 20;
 double current=10, mult=1;
 int num1, num2;
@@ -25,29 +27,114 @@ bool winGame = false;
 bool lostGame = false;
 bool quitGame = false;
 
+void printGameScreen();
 
 
-void printScreen() {
-    cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" << endl;
-    cout << "┃                                                ┃" << endl;
-    cout << "┃    ╭─────────────╮          ╭─────────────╮    ┃" << endl;
-    cout << "┃    │ ┌───┐ ┌──── │          │  ─┐   ┌──── │    ┃" << endl;
-    cout << "┃    │ │   │ │     │          │   │   │     │    ┃" << endl;
-    cout << "┃    │ │   │ └───┐ │          │   │   └───┐ │    ┃" << endl;
-    cout << "┃    │ │   │     │ │          │   │       │ │    ┃" << endl;
-    cout << "┃    │ └───┘ ────┘ │          │ ──┴── ────┘ │    ┃" << endl;
-    cout << "┃    ╰─────────────╯          ╰─────────────╯    ┃" << endl;
-    cout << "┃                                                ┃" << endl;
-    cout << "┃      ╔═════════════╗       ┌─────────────┐     ┃" << endl;
-    cout << "┃      ║      ↑      ║       │      ↓      │     ┃" << endl;
-    cout << "┃      ║    ↑↑↑↑↑    ║       │      ↓      │     ┃" << endl;
-    cout << "┃      ║  ↑↑↑↑↑↑↑↑↑  ║       │  ↓↓↓↓↓↓↓↓↓  │     ┃" << endl;
-    cout << "┃      ║      ↑      ║       │    ↓↓↓↓↓    │     ┃" << endl;
-    cout << "┃      ║      ↑      ║       │      ↓      │     ┃" << endl;
-    cout << "┃      ╚═════════════╝       └─────────────┘     ┃" << endl;
-    cout << "┃                                                ┃" << endl;
-    cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" << endl;
-    cout << "12345678901234567890123456789012345678901234567890" << endl;
+void printIntroScreen(int &introSelect, int &introPrint) {
+    cout << "\033[2J\033[1;1H";
+    string top =             "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
+    string empty =           "┃                                                                    ┃\n";
+    string intro[] =        {"┃                              Welcome!                              ┃\n",
+                             "┃        Here to feed your uncontrollable gambling addiction?        ┃\n",
+                             "┃                    You came to the right place.                    ┃\n",
+                             "┃               This is a simple game of taking risks.               ┃\n",
+                             "┃                             Good luck!                             ┃\n"};
+    string lore[] =         {"┃              Oh, so you want to know lore about this?              ┃\n",
+                             "┃             Well... the game all started with a \033[;36mPanda\033[;37m.             ┃\n",
+                             "┃             He relaxed under the calm spring sunshine.             ┃\n",
+                             "┃                             That's it.                             ┃\n",
+                             "┃                            (Part 01/25)                            ┃\n"};
+    string instructions[] = {"┃  You're given a number, then guess if the next is higher or lower  ┃\n",
+                             "┃   If you guess correct, you gain coins, if wrong, you lose coins   ┃\n",
+                             "┃   Here's the twist: the riskier the guess, the better the reward   ┃\n",
+                             "┃                but also the worse the punishment...                ┃\n",
+                             "┃            Stay safe as always, don't go insane, yet ;)            ┃\n"};
+    string butt1high[] =    {"┃                    ╭──────────────────────────╮                    ┃\n",
+                             "┃                    │ [1] Game Background/Lore │                    ┃\n",
+                             "┃                    ╰──────────────────────────╯                    ┃\n"};
+    string butt1[] =        {"┃                                                                    ┃\n",
+                             "┃                      [1] Game Background/Lore                      ┃\n",
+                             "┃                                                                    ┃\n"};
+    string butt2high[] =    {"┃                        ╭──────────────────╮                        ┃\n",
+                             "┃                        │ [2] Instructions │                        ┃\n",
+                             "┃                        ╰──────────────────╯                        ┃\n"};
+    string butt2[] =        {"┃                                                                    ┃\n",
+                             "┃                          [2] Instructions                          ┃\n",
+                             "┃                                                                    ┃\n"};
+    string butt3high[] =    {"┃                         ╭────────────────╮                         ┃\n",
+                             "┃                         │ [3] Start Game │                         ┃\n",
+                             "┃                         ╰────────────────╯                         ┃\n"};
+    string butt3[] =        {"┃                                                                    ┃\n",
+                             "┃                           [3] Start Game                           ┃\n",
+                             "┃                                                                    ┃\n"};
+    string controls =        "┃       [W][S]: Scroll through options  [Enter]: Select option       ┃\n";
+    string bottom =          "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
+    
+
+    cout << top << empty << empty;
+    if(introPrint == 0) for(string line : intro) cout << line;
+    else if(introPrint == 1) for(string line : lore) cout << line;
+    else if(introPrint == 2) for(string line : instructions) cout << line;
+    cout << empty;
+    if(introSelect == 0) for(string line : butt1high) cout << line;
+    else for(string line : butt1) cout << line;
+    if(introSelect == 1) for(string line : butt2high) cout << line;
+    else for(string line : butt2) cout << line;
+    if(introSelect == 2) for(string line : butt3high) cout << line;
+    else for(string line : butt3) cout << line;
+    
+    cout << empty << empty;
+    cout << controls;
+    cout << bottom;
+    input = getch(); //w: 119, 87 s: 115, 83
+    if(input == 87 || input == 119) { // W/w
+        introSelect = (introSelect-1+3)%3;
+        printIntroScreen(introSelect, introPrint);
+    } else if(input == 83 || input == 115) { // S/s
+        introSelect = (introSelect+1+3)%3;
+        printIntroScreen(introSelect, introPrint);
+    } else if(input == 13) { // [Enter]
+        if(introSelect == 2) printGameScreen;
+        else {
+            introPrint = introSelect+1;
+            introSelect = 0;
+            printIntroScreen(introSelect, introPrint);
+        }
+    } else {
+        input = getch();
+    }
+
+}
+
+
+void printGameScreen() {
+
+    cout << "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
+    cout << "┃                                                                    ┃\n";
+    cout << "┃                                                                    ┃\n";
+    cout << "┃                                                                    ┃\n";
+    cout << "┃                                                                    ┃\n";
+    cout << "┃                                                                    ┃\n";
+    cout << "┃    ╭─────────────╮          ╭─────────────╮                        ┃\n";
+    cout << "┃    │ ┌───┐ ┌──── │          │ ????? ????? │                        ┃\n";
+    cout << "┃    │ │   │ │     │          │ ????? ????? │                        ┃\n";
+    cout << "┃    │ │   │ └───┐ │          │ ????? ????? │                        ┃\n";
+    cout << "┃    │ │   │     │ │          │ ????? ????? │                        ┃\n";
+    cout << "┃    │ └───┘ ────┘ │          │ ????? ????? │                        ┃\n";
+    cout << "┃    ╰─────────────╯          ╰─────────────╯                        ┃\n";
+    cout << "┃                                                                    ┃\n";
+    cout << "┃                                                                    ┃\n";
+    cout << "┃                                                                    ┃\n";
+    cout << "┃    ╔═════════╗   ┌─────────┐                                       ┃\n";
+    cout << "┃    ║  ↑↑↑↑↑  ║   │  ↓↓↓↓↓  │                                       ┃\n";
+    cout << "┃    ║  ↑↑↑↑↑  ║   │  ↓↓↓↓↓  │                                       ┃\n";
+    cout << "┃    ║  ↑↑↑↑↑  ║   │  ↓↓↓↓↓  │                                       ┃\n";
+    cout << "┃    ╚═════════╝   └─────────┘                                       ┃\n";
+    cout << "┃                                                                    ┃\n";
+    cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
+    cout << "1234567890123456789012345678901234567890123456789012345678901234567890\n";
+    cout << "┃ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456776543210ZYXWVUTSRQPONMLKJIHGFEDCBA┃\n";
+
 }
 
 
@@ -186,10 +273,13 @@ void genRound(Round *rou) {
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
-    printScreen();
-    srand(time(0));
-    intro();
+    printIntroScreen(introSelect, introPrint);
+    printGameScreen();
 
+
+    srand(time(0));
+    // intro();
+    /*
     int rListSize = 7;
     Round *rList[rListSize];
     Round *r1 = new Round(), *r2 = new Round(), *r3 = new Round(), *r4 = new Round(), *r5 = new Round(), *r6 = new Round(), *r7 = new Round();
@@ -221,7 +311,12 @@ int main() {
     if(lostGame) return 0;
     cout << "Wow... you won? Congratulations huh... You did it :)" << endl;
     cout << "Game finished, hit enter to quit";
-    while(input != 13) input = getch();
+    */
+    input = getch();
+    while(input != 13) {
+        cout << input << endl;
+        input = getch();
+    }
     return 0;
 }
 

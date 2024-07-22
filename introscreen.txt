@@ -1,0 +1,101 @@
+Intro screen (none selected):
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                                                                    ┃A
+┃                                                                    ┃A
+┃                              Welcome!                              ┃1
+┃        Here to feed your uncontrollable gambling addiction?        ┃2
+┃                    You came to the right place.                    ┃3
+┃               This is a simple game of taking risks.               ┃4
+┃                             Good luck!                             ┃5
+┃                                                                    ┃A
+┃                    ╭──────────────────────────╮                    ┃11
+┃                    │ [1] Game Background/Lore │                    ┃22
+┃                    ╰──────────────────────────╯                    ┃33
+┃                                                                    ┃44
+┃                          [2] Instructions                          ┃55
+┃                                                                    ┃66
+┃                                                                    ┃77
+┃                           [3] Start Game                           ┃88
+┃                                                                    ┃99
+┃                                                                    ┃A
+┃                                                                    ┃A
+┃       [W][S]: Scroll through options  [Enter]: Select option       ┃B
+┃                                                                    ┃A
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+
+┃                                                                    ┃11
+┃                      [1] Game Background/Lore                      ┃22
+┃                                                                    ┃33
+┃                                                                    ┃44
+┃                          [2] Instructions                          ┃55
+┃                                                                    ┃66
+┃                                                                    ┃77
+┃                           [3] Start Game                           ┃88
+┃                                                                    ┃99
+
+
+
+┃                    ╭──────────────────────────╮                    ┃11
+┃                    │ [1] Game Background/Lore │                    ┃22
+┃                    ╰──────────────────────────╯                    ┃33
+┃                        ╭──────────────────╮                        ┃44
+┃                        │ [2] Instructions │                        ┃55
+┃                        ╰──────────────────╯                        ┃66
+┃                         ╭────────────────╮                         ┃77
+┃                         │ [3] Start Game │                         ┃88
+┃                         ╰────────────────╯                         ┃99
+
+
+
+
+
+
+
+
+Intro screen (opt 1 selected):
+┃              Oh, so you want to know lore about this?              ┃1
+┃             Well... the game all started with a Panda.             ┃2
+┃             He relaxed under the calm spring sunshine.             ┃3
+┃                             That's it.                             ┃4
+┃                            (Part 01/25)                            ┃5
+
+
+
+
+Intro screen (opt 2 selected):
+┃  You're given a number, then guess if the next is higher or lower  ┃1
+┃   If you guess correct, you gain coins, if wrong, you lose coins   ┃2
+┃   Here's the twist: the riskier the guess, the better the reward   ┃3
+┃                but also the worse the punishment...                ┃4
+┃            Stay safe as always, don't go insane, yet ;)            ┃5
+
+
+
+Intro screen (opt 3 selected): create game screen
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                                                                    ┃A
+┃                                                                    ┃A
+┃                              Welcome!                              ┃1
+┃        Here to feed your uncontrollable gambling addiction?        ┃2
+┃                    You came to the right place.                    ┃3
+┃               This is a simple game of taking risks.               ┃4
+┃                             Good luck!                             ┃5
+┃                                                                    ┃A
+┃                    ╭──────────────────────────╮                    ┃11
+┃                    │ [1] Game Background/Lore │                    ┃22
+┃                    ╰──────────────────────────╯                    ┃33
+┃                                                                    ┃44
+┃                          [2] Instructions                          ┃55
+┃                                                                    ┃66
+┃                                                                    ┃77
+┃                           [3] Start Game                           ┃88
+┃                                                                    ┃99
+┃                                                                    ┃A
+┃                                                                    ┃A
+┃       [W][S]: Scroll through options  [Enter]: Select option       ┃B
+┃                                                                    ┃A
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+┃ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456776543210ZYXWVUTSRQPONMLKJIHGFEDCBA┃
