@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <sstream>
 #include <vector>
 #include <algorithm>
 #include <math.h>
@@ -21,6 +20,150 @@ int introPrint = 0; //0: welcome, 1: lore, 2: instructions
 
 int gameSelect = 1; //0: down, 1: up
 bool gameNumReveal = false;
+
+vector<string> num01 = {"╭─────────────╮",
+                  "│ ┌───┐  ─┐   │",
+                  "│ │   │   │   │",
+                  "│ │   │   │   │",
+                  "│ │   │   │   │",
+                  "│ └───┘ ──┴── │",
+                  "╰─────────────╯"};
+vector<string> num02 = {"╭─────────────╮",
+                  "│ ┌───┐ ╶───┐ │",
+                  "│ │   │     │ │",
+                  "│ │   │ ┌───┘ │",
+                  "│ │   │ │     │",
+                  "│ └───┘ └───╴ │",
+                  "╰─────────────╯"};
+vector<string> num03 = {"╭─────────────╮",
+                  "│ ┌───┐ ╶───┐ │",
+                  "│ │   │     │ │",
+                  "│ │   │ ╶───┤ │",
+                  "│ │   │     │ │",
+                  "│ └───┘ ╶───┘ │",
+                  "╰─────────────╯"};
+vector<string> num04 = {"╭─────────────╮",
+                  "│ ┌───┐ ╷   ╷ │",
+                  "│ │   │ │   │ │",
+                  "│ │   │ └───┤ │",
+                  "│ │   │     │ │",
+                  "│ └───┘     ╵ │",
+                  "╰─────────────╯"};
+vector<string> num05 = {"╭─────────────╮",
+                  "│ ┌───┐ ┌───╴ │",
+                  "│ │   │ │     │",
+                  "│ │   │ └───┐ │",
+                  "│ │   │     │ │",
+                  "│ └───┘ ╶───┘ │",
+                  "╰─────────────╯"};
+vector<string> num06 = {"╭─────────────╮",
+                  "│ ┌───┐ ┌───╴ │",
+                  "│ │   │ │     │",
+                  "│ │   │ ├───┐ │",
+                  "│ │   │ │   │ │",
+                  "│ └───┘ └───┘ │",
+                  "╰─────────────╯"};
+vector<string> num07 = {"╭─────────────╮",
+                  "│ ┌───┐ ┌───┐ │",
+                  "│ │   │     │ │",
+                  "│ │   │     │ │",
+                  "│ │   │     │ │",
+                  "│ └───┘     ╵ │",
+                  "╰─────────────╯"};
+vector<string> num08 = {"╭─────────────╮",
+                  "│ ┌───┐ ┌───┐ │",
+                  "│ │   │ │   │ │",
+                  "│ │   │ ├───┤ │",
+                  "│ │   │ │   │ │",
+                  "│ └───┘ └───┘ │",
+                  "╰─────────────╯"};
+vector<string> num09 = {"╭─────────────╮",
+                  "│ ┌───┐ ┌───┐ │",
+                  "│ │   │ │   │ │",
+                  "│ │   │ └───┤ │",
+                  "│ │   │     │ │",
+                  "│ └───┘     ╵ │",
+                  "╰─────────────╯"};
+vector<string> num10 = {"╭─────────────╮",
+                  "│  ─┐   ┌───┐ │",
+                  "│   │   │   │ │",
+                  "│   │   │   │ │",
+                  "│   │   │   │ │",
+                  "│ ──┴── └───┘ │",
+                  "╰─────────────╯"};
+vector<string> num11 = {"╭─────────────╮",
+                  "│  ─┐    ─┐   │",
+                  "│   │     │   │",
+                  "│   │     │   │",
+                  "│   │     │   │",
+                  "│ ──┴── ──┴── │",
+                  "╰─────────────╯"};
+vector<string> num12 = {"╭─────────────╮",
+                  "│  ─┐   ╶───┐ │",
+                  "│   │       │ │",
+                  "│   │   ┌───┘ │",
+                  "│   │   │     │",
+                  "│ ──┴── └───╴ │",
+                  "╰─────────────╯"};
+vector<string> num13 = {"╭─────────────╮",
+                  "│  ─┐   ╶───┐ │",
+                  "│   │       │ │",
+                  "│   │   ╶───┤ │",
+                  "│   │       │ │",
+                  "│ ──┴── ╶───┘ │",
+                  "╰─────────────╯"};
+vector<string> num14 = {"╭─────────────╮",
+                  "│  ─┐   ╷   ╷ │",
+                  "│   │   │   │ │",
+                  "│   │   └───┤ │",
+                  "│   │       │ │",
+                  "│ ──┴──     ╵ │",
+                  "╰─────────────╯"};
+vector<string> num15 = {"╭─────────────╮",
+                  "│  ─┐   ┌───╴ │",
+                  "│   │   │     │",
+                  "│   │   └───┐ │",
+                  "│   │       │ │",
+                  "│ ──┴── ╶───┘ │",
+                  "╰─────────────╯"};
+vector<string> num16 = {"╭─────────────╮",
+                  "│  ─┐   ┌───╴ │",
+                  "│   │   │     │",
+                  "│   │   ├───┐ │",
+                  "│   │   │   │ │",
+                  "│ ──┴── └───┘ │",
+                  "╰─────────────╯"};
+vector<string> num17 = {"╭─────────────╮",
+                  "│  ─┐   ┌───┐ │",
+                  "│   │       │ │",
+                  "│   │       │ │",
+                  "│   │       │ │",
+                  "│ ──┴──     ╵ │",
+                  "╰─────────────╯"};
+vector<string> num18 = {"╭─────────────╮",
+                  "│  ─┐   ┌───┐ │",
+                  "│   │   │   │ │",
+                  "│   │   ├───┤ │",
+                  "│   │   │   │ │",
+                  "│ ──┴── └───┘ │",
+                  "╰─────────────╯"};
+vector<string> num19 = {"╭─────────────╮",
+                  "│  ─┐   ┌───┐ │",
+                  "│   │   │   │ │",
+                  "│   │   └───┤ │",
+                  "│   │       │ │",
+                  "│ ──┴──     ╵ │",
+                  "╰─────────────╯"};
+vector<string> num20 = {"╭─────────────╮",
+                  "│ ╶───┐ ┌───┐ │",
+                  "│     │ │   │ │",
+                  "│ ┌───┘ │   │ │",
+                  "│ │     │   │ │",
+                  "│ └───╴ └───┘ │",
+                  "╰─────────────╯"};
+
+vector<vector<string>> numbers = {num01, num02, num03, num04, num05, num06, num07, num08, num09, num10, num11, num12, num13, num14, num15, num16, num17, num18, num19, num20};
+
 
 int N = 20;
 double current=10, mult=1;
@@ -52,43 +195,43 @@ void checkQuit();
 
 void printIntroScreen() {
     cout << "\033[2J\033[1;1H";
-    string top =             "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
-    string empty =           "┃                                                                    ┃\n";
-    string intro[] =        {"┃                              Welcome!                              ┃\n",
-                             "┃        Here to feed your uncontrollable gambling addiction?        ┃\n",
-                             "┃                    You came to the right place.                    ┃\n",
-                             "┃               This is a simple game of taking risks.               ┃\n",
-                             "┃                             Good luck!                             ┃\n"};
-    string lore[] =         {"┃              Oh, so you want to know lore about this?              ┃\n",
-                             "┃             Well... the game all started with a \033[;36mPanda\033[;37m.             ┃\n",
-                             "┃             He relaxed under the calm spring sunshine.             ┃\n",
-                             "┃                             That's it.                             ┃\n",
-                             "┃                            (Part 01/25)                            ┃\n"};
-    string instructions[] = {"┃  You're given a number, then guess if the next is higher or lower  ┃\n",
-                             "┃   If you guess correct, you gain coins, if wrong, you lose coins   ┃\n",
-                             "┃   Here's the twist: the riskier the guess, the better the reward   ┃\n",
-                             "┃                but also the worse the punishment...                ┃\n",
-                             "┃            Stay safe as always, don't go insane, yet ;)            ┃\n"};
-    string butt1high[] =    {"┃                    ╭──────────────────────────╮                    ┃\n",
-                             "┃                    │ [1] Game Background/Lore │                    ┃\n",
-                             "┃                    ╰──────────────────────────╯                    ┃\n"};
-    string butt1[] =        {"┃                                                                    ┃\n",
-                             "┃                      [1] Game Background/Lore                      ┃\n",
-                             "┃                                                                    ┃\n"};
-    string butt2high[] =    {"┃                        ╭──────────────────╮                        ┃\n",
-                             "┃                        │ [2] Instructions │                        ┃\n",
-                             "┃                        ╰──────────────────╯                        ┃\n"};
-    string butt2[] =        {"┃                                                                    ┃\n",
-                             "┃                          [2] Instructions                          ┃\n",
-                             "┃                                                                    ┃\n"};
-    string butt3high[] =    {"┃                         ╭────────────────╮                         ┃\n",
-                             "┃                         │ [3] Start Game │                         ┃\n",
-                             "┃                         ╰────────────────╯                         ┃\n"};
-    string butt3[] =        {"┃                                                                    ┃\n",
-                             "┃                           [3] Start Game                           ┃\n",
-                             "┃                                                                    ┃\n"};
-    string controls =        "┃       [W][S]: Scroll through options  [Enter]: Select option       ┃\n";
-    string bottom =          "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
+    string top =                  "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
+    string empty =                "┃                                                                    ┃\n";
+    vector<string> intro =        {"┃                              Welcome!                              ┃\n",
+                                   "┃        Here to feed your uncontrollable gambling addiction?        ┃\n",
+                                   "┃                    You came to the right place.                    ┃\n",
+                                   "┃               This is a simple game of taking risks.               ┃\n",
+                                   "┃                             Good luck!                             ┃\n"};
+    vector<string> lore =         {"┃              Oh, so you want to know lore about this?              ┃\n",
+                                   "┃             Well... the game all started with a \033[;36mPanda\033[;37m.             ┃\n",
+                                   "┃             He relaxed under the calm spring sunshine.             ┃\n",
+                                   "┃                             That's it.                             ┃\n",
+                                   "┃                            (Part 01/25)                            ┃\n"};
+    vector<string> instructions = {"┃  You're given a number, then guess if the next is higher or lower  ┃\n",
+                                   "┃   If you guess correct, you gain coins, if wrong, you lose coins   ┃\n",
+                                   "┃   Here's the twist: the riskier the guess, the better the reward   ┃\n",
+                                   "┃                but also the worse the punishment...                ┃\n",
+                                   "┃            Stay safe as always, don't go insane, yet ;)            ┃\n"};
+    vector<string> butt1high =    {"┃                    ╭──────────────────────────╮                    ┃\n",
+                                   "┃                    │ [1] Game Background/Lore │                    ┃\n",
+                                   "┃                    ╰──────────────────────────╯                    ┃\n"};
+    vector<string> butt1 =        {"┃                                                                    ┃\n",
+                                   "┃                      [1] Game Background/Lore                      ┃\n",
+                                   "┃                                                                    ┃\n"};
+    vector<string> butt2high =    {"┃                        ╭──────────────────╮                        ┃\n",
+                                   "┃                        │ [2] Instructions │                        ┃\n",
+                                   "┃                        ╰──────────────────╯                        ┃\n"};
+    vector<string> butt2 =        {"┃                                                                    ┃\n",
+                                   "┃                          [2] Instructions                          ┃\n",
+                                   "┃                                                                    ┃\n"};
+    vector<string> butt3high =    {"┃                         ╭────────────────╮                         ┃\n",
+                                   "┃                         │ [3] Start Game │                         ┃\n",
+                                   "┃                         ╰────────────────╯                         ┃\n"};
+    vector<string> butt3 =        {"┃                                                                    ┃\n",
+                                   "┃                           [3] Start Game                           ┃\n",
+                                   "┃                                                                    ┃\n"};
+    string controls =              "┃       [W][S]: Scroll through options  [Enter]: Select option       ┃\n";
+    string bottom =                "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
 
     cout << top << empty << empty;
     if(introPrint == 0) for(string line : intro) cout << line;
@@ -129,61 +272,61 @@ void printIntroScreen() {
 void printGameScreen() {
     cout << "\033[2J\033[1;1H";
 
-    string gameScreenTop =                 "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
-    string gameScreenCycle[] =            {"┃                               ╭───╴╷   ╷╭───╴╷    ╭───╴ ╭───╮╭───╮ ┃\n",
-                                           "┃                               │    ╰─┬─╯│    │    ├───╴ │   ││   │ ┃\n",
-                                           "┃                               ╰───╴  ╵  ╰───╴╰───╴╰───╴ ╰───╯╰───╯ ┃\n"};
-    string gameScreenEmpty =               "┃                                                                    ┃\n";
-    string gameScreenTurnsQuotaWallet[] = {"┃             ╭─────────────────╮    ╭─────────────────╮             ┃\n",
-                                           "┃             │    Turn #00     │    │   Quota: 000.00 │             ┃\n",
-                                           "┃             │ Total turns: 00 │    │  Wallet: 000.00 │             ┃\n",
-                                           "┃             ╰─────────────────╯    ╰─────────────────╯             ┃\n"};
-    string upButtHigh[] =                 {"┃  ╔═════════╗    ",
-                                           "┃  ║  ↑↑↑↑↑  ║    ",
-                                           "┃  ║  ↑↑↑↑↑  ║    ",
-                                           "┃  ║  ↑↑↑↑↑  ║    ",
-                                           "┃  ╚═════════╝    ",
-                                           "┃                 ",
-                                           "┃  ┌─────────┐    ",
-                                           "┃  │  ↓↓↓↓↓  │    ",
-                                           "┃  │  ↓↓↓↓↓  │    ",
-                                           "┃  │  ↓↓↓↓↓  │    ",
-                                           "┃  └─────────┘    "};
-    string downButtHigh[] =               {"┃  ┌─────────┐    ",
-                                           "┃  │  ↑↑↑↑↑  │    ",
-                                           "┃  │  ↑↑↑↑↑  │    ",
-                                           "┃  │  ↑↑↑↑↑  │    ",
-                                           "┃  └─────────┘    ",
-                                           "┃                 ",
-                                           "┃  ╔═════════╗    ",
-                                           "┃  ║  ↓↓↓↓↓  ║    ",
-                                           "┃  ║  ↓↓↓↓↓  ║    ",
-                                           "┃  ║  ↓↓↓↓↓  ║    ",
-                                           "┃  ╚═════════╝    "};
-    string num1[] =                       {"                   ",
-                                           "                   ",
-                                           "╭─────────────╮    ",
-                                           "│ ┌───┐ ┌──── │    ",
-                                           "│ │   │ │     │    ",
-                                           "│ │   │ └───┐ │    ",
-                                           "│ │   │     │ │    ",
-                                           "│ └───┘ ────┘ │    ",
-                                           "╰─────────────╯    ",
-                                           "                   ",
-                                           "                   "};
-    string num2Unrevealed[] =             {"                                ┃\n",
-                                           "                                ┃\n",
-                                           "╭─────────────╮                 ┃\n",
-                                           "│ ????? ????? │                 ┃\n",
-                                           "│ ????? ????? │                 ┃\n",
-                                           "│ ????? ????? │                 ┃\n",
-                                           "│ ????? ????? │                 ┃\n",
-                                           "│ ????? ????? │                 ┃\n",
-                                           "╰─────────────╯                 ┃\n",
-                                           "                                ┃\n",
-                                           "                                ┃\n"};
-    string gameScreenControls =            "┃    [W][S][Space]: Scroll between choice  [Enter]: Select choice    ┃\n";
-    string gameScreenBottom =              "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
+    string gameScreenTop =                       "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
+    vector<string> gameScreenCycle =            {"┃                               ╭───╴╷   ╷╭───╴╷    ╭───╴ ╭───╮╭───╮ ┃\n",
+                                                 "┃                               │    ╰─┬─╯│    │    ├───╴ │   ││   │ ┃\n",
+                                                 "┃                               ╰───╴  ╵  ╰───╴╰───╴╰───╴ ╰───╯╰───╯ ┃\n"};
+    string gameScreenEmpty =                     "┃                                                                    ┃\n";
+    vector<string> gameScreenTurnsQuotaWallet = {"┃             ╭─────────────────╮    ╭─────────────────╮             ┃\n",
+                                                 "┃             │    Turn #00     │    │   Quota: 000.00 │             ┃\n",
+                                                 "┃             │ Total turns: 00 │    │  Wallet: 000.00 │             ┃\n",
+                                                 "┃             ╰─────────────────╯    ╰─────────────────╯             ┃\n"};
+    vector<string> upButtHigh =                 {"┃  ╔═════════╗    ",
+                                                 "┃  ║  ↑↑↑↑↑  ║    ",
+                                                 "┃  ║  ↑↑↑↑↑  ║    ",
+                                                 "┃  ║  ↑↑↑↑↑  ║    ",
+                                                 "┃  ╚═════════╝    ",
+                                                 "┃                 ",
+                                                 "┃  ┌─────────┐    ",
+                                                 "┃  │  ↓↓↓↓↓  │    ",
+                                                 "┃  │  ↓↓↓↓↓  │    ",
+                                                 "┃  │  ↓↓↓↓↓  │    ",
+                                                 "┃  └─────────┘    "};
+    vector<string> downButtHigh =               {"┃  ┌─────────┐    ",
+                                                 "┃  │  ↑↑↑↑↑  │    ",
+                                                 "┃  │  ↑↑↑↑↑  │    ",
+                                                 "┃  │  ↑↑↑↑↑  │    ",
+                                                 "┃  └─────────┘    ",
+                                                 "┃                 ",
+                                                 "┃  ╔═════════╗    ",
+                                                 "┃  ║  ↓↓↓↓↓  ║    ",
+                                                 "┃  ║  ↓↓↓↓↓  ║    ",
+                                                 "┃  ║  ↓↓↓↓↓  ║    ",
+                                                 "┃  ╚═════════╝    "};
+    vector<string> num1 =                       {"                   ",
+                                                 "                   ",
+                                                 "╭─────────────╮    ",
+                                                 "│ ┌───┐ ┌──── │    ",
+                                                 "│ │   │ │     │    ",
+                                                 "│ │   │ └───┐ │    ",
+                                                 "│ │   │     │ │    ",
+                                                 "│ └───┘ ────┘ │    ",
+                                                 "╰─────────────╯    ",
+                                                 "                   ",
+                                                 "                   "};
+    vector<string> num2Unrevealed =             {"                                ┃\n",
+                                                 "                                ┃\n",
+                                                 "╭─────────────╮                 ┃\n",
+                                                 "│ ????? ????? │                 ┃\n",
+                                                 "│ ????? ????? │                 ┃\n",
+                                                 "│ ????? ????? │                 ┃\n",
+                                                 "│ ????? ????? │                 ┃\n",
+                                                 "│ ????? ????? │                 ┃\n",
+                                                 "╰─────────────╯                 ┃\n",
+                                                 "                                ┃\n",
+                                                 "                                ┃\n"};
+    string gameScreenControls =                  "┃    [W][S][Space]: Scroll between choice  [Enter]: Select choice    ┃\n";
+    string gameScreenBottom =                    "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
     
     cout << gameScreenTop;
     for(string line : gameScreenCycle) cout << line;
@@ -196,6 +339,7 @@ void printGameScreen() {
     cout << gameScreenControls;
     cout << gameScreenEmpty;
     cout << gameScreenBottom;
+    for(string line : num20) cout << line << endl;
     input = getch();
     //W: 87 119
     //S: 83 115
@@ -214,7 +358,9 @@ void printGameScreen() {
 
 }
 
+void reveal2ndNum() {
 
+}
 
 
 void genRound(Round *rou) {
@@ -318,6 +464,7 @@ int main() {
     */
     printGameScreen();
 
+    
 
     srand(time(0));
     /*
