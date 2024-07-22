@@ -116,7 +116,8 @@ void printIntroScreen(int &introSelect, int &introPrint) {
             printIntroScreen(introSelect, introPrint);
         }
     } else {
-        input = getch();
+        printIntroScreen(introSelect, introPrint);
+
     }
 }
 
