@@ -203,11 +203,11 @@ void printIntroScreen() {
     else for(string line : butt2) cout << line;
     if(introSelect == 2) for(string line : butt3high) cout << line;
     else for(string line : butt3) cout << line;
-    
     cout << empty << empty;
     cout << controls;
     cout << empty << empty;
     cout << bottom;
+
     input = getch(); //w: 119, 87 s: 115, 83
     if(input == 87 || input == 119) { // W/w
         introSelect = (introSelect-1+3)%3;
@@ -264,13 +264,11 @@ void printGameScreen() {
                                                  "┃  ╚═════════╝                                                       ┃\n"};
     string gameScreenControls =                  "┃    [W][S][Space]: Scroll between choice  [Enter]: Select choice    ┃\n";
     string gameScreenBottom =                    "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
-    
 
     cout << gameScreenTop;
     for(string line : gameScreenCycle) cout << line;
     cout << gameScreenEmpty;
     for(string line : gameScreenTurnsQuotaWallet) cout << line;
-    
     if(gameSelect == 1) for(int i = 0; i < 11; i++) cout << upButtHigh[i];
     else for(int i = 0; i < 11; i++) cout << downButtHigh[i];
     cout << gameScreenEmpty;
@@ -311,97 +309,34 @@ void printGameScreen() {
 
 }
 
+/*
 
+Breakdown of backend (bc it needs to be reworked):
+Game init:
+1. Create initial 10 coins and mult = 1, and prepare for cycle 1
 
-void genRound(Round *rou) {
-    winRound = false;
-    mult = 1;
-    cout << "ROUND #" << rou->roundNum << endl;
-    cout << "Number of turns: " << rou->turns << endl;
-    cout << "Quota: " << rou->quota << endl;
-    for(int turnNum = 1; turnNum <= rou->turns; turnNum++) {
-        cout << "Turn #" << turnNum << endl;
-        genTurn(rou);
-        if(quitGame) break;
-        makeMove(rou);
-        if(quitGame) break;
-        if(turnNum == rou->turns) {
-            cout << "Aight, you just finished your last move for this turn, time to end it" << endl;
-        } else checkDeposit(rou);
-        if(winRound) break;
-    }
-    if(!winRound) {
-        if(current*mult < rou->quota) {
-            cout << "Womp womp, you lost. Try harder next time :(" << endl << endl;
-            lostGame = true;
-        } else {
-            cout << "Wow, played until the last round to win huh, time to go to the next round" << endl << endl;
-        }
-    }
-}
+Cycle init:
+1. Generate cycle: initiate cycleNum, quota, and how many turns
 
+2. Wait for player move: A) select higher, B) select lower
 
-void genTurn(Round *rou) {
-    num1 = rand()%N+1;
-    while(num1 == 1 || num1 == N) num1 = rand()%N+1;
-    num2 = rand()%N+1;
-    while(num1 == num2 || num2 == 1 || num2 == N) num2 = rand()%N+1;
-    cout << "The first number is " << num1 << ". " << num2 << endl;
-}
+3. Create result:
+Front end: show right or wrong
+Back end:
+double multAdd = (double) num1/N;
+if(chosen lower) multAdd = 1.00-multAdd;
+if(!winTurn) multAdd = -multAdd;
+mult = mult+multAdd;
 
-void makeMove(Round *rou) {
-    if(!quitGame) {
-        cout << "Enter h/H or l/L for higher or lower." << endl;
-        input = getch();
-        checkQuit();
-        if(quitGame) return;
-        bool winTurn = ( (input == 104 || input == 72) && num2>num1 ) || ( (input == 108 || input == 76) && num2<num1 );
-        if(input == 104 || input == 72) {
-            if(num2>num1) cout << "Congrats, it was higher (" << num2 << ")" << endl;
-            else cout << "Womp womp it was lower (" << num2 << ")" << endl;
-        } else if(input == 108 || input == 76) {
-            if(num2<num1) cout << "Congrats, it was lower (" << num2 << ")" << endl;
-            else cout << "Womp womp it was higher (" << num2 << ")" << endl;
-        }
-        double multAdd = (double) num1/N;
-        if(input == 108 || input == 76) multAdd = 1.00-multAdd;
-        if(!winTurn) multAdd = -multAdd;
-        mult = mult+multAdd;
-        cout << "You now have " << (current*mult) << endl << endl;
-    }
-}
+4. check if deposit possible
+if not, go to next turn
 
-void checkDeposit(Round *rou) {
-    if(mult*current >= rou->quota) {
-        cout << "You reached the quota for this round, play it safe and deposit all or keep the risks going?" << endl;
-        cout << "If you keep going, you can earn more before next round, or win this round first." << endl;
-        cout << "Enter y/Y to deposit, or n/N to keep going" << endl;
-        input = getch();
-        checkQuit();
-        if(quitGame) return;
-        if(input == 121 || input == 89) {
-            cout << "Congratulations! You finished round #" << rou->roundNum << ". Entering next round." << endl;
-            deposit = deposit + rou->quota;
-            current = mult*current;
-            current = current-rou->quota;
-            current = round(current-0.5);
-            cout << "Deposit: " << deposit << endl;
-            cout << "Current: " << current << endl;
-            winRound = true;
-        } else if (input == 110 || input == 78) {
-            cout << "Alrighty, keep the risks rolling." << endl;
-            winRound = false;
-        }
-    }
-}
+turn++ until reach turn number
 
-void checkQuit() {
-    if(input == 13) {
-        cout << "Are you sure you want to quit?" << endl;
-        input = getch();
-        if(input == 13) quitGame = true;
-    }
-}
+check if reached quota: go to next round
+if not, lose, game over
+
+*/
 
 
 int main() {
@@ -441,10 +376,7 @@ int main() {
     rList[6] = r7;
 
 
-    genRound(r1);
-    if(lostGame) return 0;
-    genRound(r2);
-    if(lostGame) return 0;
+    
     cout << "Wow... you won? Congratulations huh... You did it :)" << endl;
     cout << "Game finished, hit enter to quit";
     
