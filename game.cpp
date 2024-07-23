@@ -26,56 +26,56 @@ vector<string> unrevealedLetter = {"?????",
                                    "?????",
                                    "?????"};
 
-vector<string> num0Letter = {"┌───┐",
-                       "│   │",
-                       "│   │",
-                       "│   │",
-                       "└───┘"};
-vector<string> num1Letter = {" ─┐  ",
-                       "  │  ",
-                       "  │  ",
-                       "  │  ",
-                       "──┴──"};
-vector<string> num2Letter = {"╶───┐",
-                       "    │",
-                       "┌───┘",
-                       "│    ",
-                       "└───╴"};
-vector<string> num3Letter = {"╶───┐",
-                       "    │",
-                       "╶───┤",
-                       "    │",
-                       "╶───┘"};
-vector<string> num4Letter = {"╷   ╷",
-                       "│   │",
-                       "└───┤",
-                       "    │",
-                       "    ╵"};
-vector<string> num5Letter = {"┌───╴",
-                       "│    ",
-                       "└───┐",
-                       "    │",
-                       "╶───┘"};
-vector<string> num6Letter = {"┌───╴",
-                       "│    ",
-                       "├───┐",
-                       "│   │",
-                       "└───┘"};
-vector<string> num7Letter = {"┌───┐",
-                       "    │",
-                       "    │",
-                       "    │",
-                       "    ╵"};
-vector<string> num8Letter = {"┌───┐",
-                       "│   │",
-                       "├───┤",
-                       "│   │",
-                       "└───┘"};
-vector<string> num9Letter = {"┌───┐",
-                       "│   │",
-                       "└───┤",
-                       "    │",
-                       "    │"};
+vector<string> num0Letter = {"\u250C\u2500\u2500\u2500\u2510",
+                       "\u2502   \u2502",
+                       "\u2502   \u2502",
+                       "\u2502   \u2502",
+                       "\u2514\u2500\u2500\u2500\u2518"};
+vector<string> num1Letter = {" \u2500\u2510  ",
+                       "  \u2502  ",
+                       "  \u2502  ",
+                       "  \u2502  ",
+                       "\u2500\u2500\u2534\u2500\u2500"};
+vector<string> num2Letter = {"\u2576\u2500\u2500\u2500\u2510",
+                       "    \u2502",
+                       "\u250C\u2500\u2500\u2500\u2518",
+                       "\u2502    ",
+                       "\u2514\u2500\u2500\u2500\u2574"};
+vector<string> num3Letter = {"\u2576\u2500\u2500\u2500\u2510",
+                       "    \u2502",
+                       "\u2576\u2500\u2500\u2500\u2524",
+                       "    \u2502",
+                       "\u2576\u2500\u2500\u2500\u2518"};
+vector<string> num4Letter = {"\u2577   \u2577",
+                       "\u2502   \u2502",
+                       "\u2514\u2500\u2500\u2500\u2524",
+                       "    \u2502",
+                       "    \u2514"};
+vector<string> num5Letter = {"\u250C\u2500\u2500\u2500\u2574",
+                       "\u2502    ",
+                       "\u2514\u2500\u2500\u2500\u2510",
+                       "    \u2502",
+                       "\u2576\u2500\u2500\u2500\u2518"};
+vector<string> num6Letter = {"\u250C\u2500\u2500\u2500\u2574",
+                       "\u2502    ",
+                       "\u251C\u2500\u2500\u2500\u2510",
+                       "\u2502   \u2502",
+                       "\u2514\u2500\u2500\u2500\u2518"};
+vector<string> num7Letter = {"\u250C\u2500\u2500\u2500\u2510",
+                       "    \u2502",
+                       "    \u2502",
+                       "    \u2502",
+                       "    \u2514"};
+vector<string> num8Letter = {"\u250C\u2500\u2500\u2500\u2510",
+                       "\u2502   \u2502",
+                       "\u251C\u2500\u2500\u2500\u2524",
+                       "\u2502   \u2502",
+                       "\u2514\u2500\u2500\u2500\u2518"};
+vector<string> num9Letter = {"\u250C\u2500\u2500\u2500\u2510",
+                       "\u2502   \u2502",
+                       "\u2514\u2500\u2500\u2500\u2524",
+                       "    \u2502",
+                       "    \u2502"};
 vector<vector<string>> numbers = {num0Letter, num1Letter, num2Letter, num3Letter, num4Letter, num5Letter, num6Letter, num7Letter, num8Letter, num9Letter};
 vector<string> num1TensBox = unrevealedLetter;
 vector<string> num1OnesBox = unrevealedLetter;
@@ -83,36 +83,36 @@ vector<string> num2TensBox = unrevealedLetter;
 vector<string> num2OnesBox = unrevealedLetter;
 
 
-vector<string> cycleNum0Letter = {"╭───╮",
-                            "│   │",
-                            "╰───╯"};
-vector<string> cycleNum1Letter = {" ─┐  ",
-                            "  │  ",
-                            "──┴──"};
-vector<string> cycleNum2Letter = {"╶───┐",
-                            "┌───┘",
-                            "└───╴"};
-vector<string> cycleNum3Letter = {"╶───┐",
-                            "╶───┤",
-                            "╶───┘"};
-vector<string> cycleNum4Letter = {"╷   ╷",
-                            "└───┤",
-                            "    ╵"};
-vector<string> cycleNum5Letter = {"┌───╴",
-                            "└───┐",
-                            "╶───┘"};
-vector<string> cycleNum6Letter = {"┌───╴",
-                            "├───┐",
-                            "└───┘"};
-vector<string> cycleNum7Letter = {"┌───┐",
-                            "    │",
-                            "    ╵"};
-vector<string> cycleNum8Letter = {"┌───┐",
-                            "├───┤",
-                            "└───┘"};
-vector<string> cycleNum9Letter = {"┌───┐",
-                            "└───┤",
-                            "    ╵"};
+vector<string> cycleNum0Letter = {"\u256D\u2500\u2500\u2500\u256E",
+                                  "\u2502   \u2502",
+                                  "\u2570\u2500\u2500\u2500\u256F"};
+vector<string> cycleNum1Letter = {" \u2500\u256E  ",
+                                  "  \u2502  ",
+                                  "\u2500\u2500\u2534\u2500\u2500"};
+vector<string> cycleNum2Letter = {"\u2576\u2500\u2500\u2500\u256E",
+                                  "\u256D\u2500\u2500\u2500\u256F",
+                                  "\u2570\u2500\u2500\u2500\u2574"};
+vector<string> cycleNum3Letter = {"\u2576\u2500\u2500\u2500\u256E",
+                                  "\u2576\u2500\u2500\u2500\u2524",
+                                  "\u2576\u2500\u2500\u2500\u256F"};
+vector<string> cycleNum4Letter = {"\u2577   \u2577",
+                                  "\u2570\u2500\u2500\u2500\u2524",
+                                  "    \u2514"};
+vector<string> cycleNum5Letter = {"\u256D\u2500\u2500\u2500\u2574",
+                                  "\u2570\u2500\u2500\u2500\u256E",
+                                  "\u2576\u2500\u2500\u2500\u256F"};
+vector<string> cycleNum6Letter = {"\u256D\u2500\u2500\u2500\u2574",
+                                  "\u251C\u2500\u2500\u2500\u256E",
+                                  "\u2570\u2500\u2500\u2500\u256F"};
+vector<string> cycleNum7Letter = {"\u256D\u2500\u2500\u2500\u256E",
+                                  "    \u2502",
+                                  "    \u2514"};
+vector<string> cycleNum8Letter = {"\u256D\u2500\u2500\u2500\u256E",
+                                  "\u251C\u2500\u2500\u2500\u2524",
+                                  "\u2570\u2500\u2500\u2500\u256F"};
+vector<string> cycleNum9Letter = {"\u256D\u2500\u2500\u2500\u256E",
+                                  "\u2570\u2500\u2500\u2500\u2524",
+                                  "    \u2514"};
 vector<vector<string>> cycleNumbers = {cycleNum0Letter, cycleNum1Letter, cycleNum2Letter, cycleNum3Letter, cycleNum4Letter, cycleNum5Letter, cycleNum6Letter, cycleNum7Letter, cycleNum8Letter, cycleNum9Letter};
 vector<string> cycleTensBox = cycleNumbers[0];
 vector<string> cycleOnesBox = cycleNumbers[0];
@@ -159,8 +159,8 @@ void printGameScreen();
 
 void printIntroScreen() {
     cout << "\033[2J\033[1;1H";
-    string top =                  "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
-    string empty =                "┃                                                                    ┃\n";
+    string top =                   "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
+    string empty =                 "┃                                                                    ┃\n";
     vector<string> intro =        {"┃                              Welcome!                              ┃\n",
                                    "┃        Here to feed your uncontrollable gambling addiction?        ┃\n",
                                    "┃                    You came to the right place.                    ┃\n",
