@@ -12,6 +12,8 @@
 #include <Windows.h>
 #pragma execution_character_set("utf-8")
 
+#include <fcntl.h>
+
 
 #include "cycle.h"
 
@@ -75,8 +77,8 @@ vector<string> num9Letter = {"┌───┐",
                        "    │",
                        "    │"};
 vector<vector<string>> numbers = {num0Letter, num1Letter, num2Letter, num3Letter, num4Letter, num5Letter, num6Letter, num7Letter, num8Letter, num9Letter};
-vector<string> num1TensBox = numbers[0];
-vector<string> num1OnesBox = numbers[0];
+vector<string> num1TensBox = unrevealedLetter;
+vector<string> num1OnesBox = unrevealedLetter;
 vector<string> num2TensBox = unrevealedLetter;
 vector<string> num2OnesBox = unrevealedLetter;
 
@@ -115,6 +117,10 @@ vector<vector<string>> cycleNumbers = {cycleNum0Letter, cycleNum1Letter, cycleNu
 vector<string> cycleTensBox = cycleNumbers[0];
 vector<string> cycleOnesBox = cycleNumbers[0];
 
+//                       7654321
+int animateMicroSeconds = 200000;
+
+
 int N = 20;
 int num1 = 5, num2 = 15;
 
@@ -127,6 +133,8 @@ int gameSelect = 1; //0: low, 1: high
 double current=10, mult=1;
 double totalEarned = 0;
 double totalLost = 0;
+int loststreak = 0;
+int winstreak = 0;
 
 bool winCycle = false;
 bool winGame = false;
@@ -305,17 +313,21 @@ if not, lose, game over
 */
 
 void genTurnNumbers() {
-    num1 = rand()%(N-1)+2, num2 = rand()%(N-1)+2;
-    while(num1 == 0 || num1 == 20) num1 = rand()%(N-1)+2;
-    while(num2 == num1 || num2 == 0 || num2 == 20) num2 = rand()%(N-1)+2;
-    // for(int temp = 0; temp < 50; temp++) {
-    //     int LocX = rand()*11;
-    //     int LocY = rand()*5;
-
-
-    //     sleep(1);
-    // }
-    num1TensBox = numbers[num1/10], num1OnesBox = numbers[num1%10];
+    // printGameScreen();
+    num1 = rand()%(N-1)+1, num2 = rand()%(N+1);
+    while(num1 == 0 || num1 == 20) num1 = rand()%(N-1)+1;
+    while(num2 == num1 || num2 == 0 || num2 == 20) num2 = rand()%(N+1);
+    for(int temp = 0; temp < 25; temp++) {
+        int LocX = rand()%5;
+        int LocY = rand()%5;
+        while(num1TensBox[LocX][LocY]+"" == "?") LocX = rand()%5, LocY = rand()%5;
+        num1TensBox[LocX][LocY] = numbers[num1/10][LocX][LocY];
+        LocX = rand()%5, LocY = rand()%5;
+        while(num1OnesBox[LocX][LocY]+"" == "?") LocX = rand()%5, LocY = rand()%5;
+        num1OnesBox[LocX][LocY] = numbers[num1%10][LocX][LocY];
+        printGameScreen();
+        usleep(animateMicroSeconds);
+    }
 }
 
 void genCycle() {
@@ -325,6 +337,8 @@ void genCycle() {
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
+    _setmode(_fileno(stdout), CP_UTF8);
+
     srand(time(0));
 
     printIntroScreen();
@@ -343,7 +357,7 @@ int main() {
     // genCycle();
 
     genTurnNumbers();
-
+    cout << num1 << endl;
     while(input != 13) {
         //W: 87 119 | S: 83 115 | Space: 32
         if(input == 87 || input == 119 || input == 83 || input == 115 || input == 32) gameSelect = (gameSelect+1)%2;
@@ -351,8 +365,8 @@ int main() {
         input = getch();
     }
     // Revealing animation
-    num2TensBox = numbers[num2/10], num2OnesBox = numbers[num2%10];
-    printGameScreen();
+    // num2TensBox = numbers[num2/10], num2OnesBox = numbers[num2%10];
+    // printGameScreen();
     
 
 
