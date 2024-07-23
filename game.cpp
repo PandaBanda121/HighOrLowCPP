@@ -7,12 +7,11 @@
 #include <conio.h>
 #include <iomanip>
 #include <unistd.h>
+#include <stdio.h>
 
 
-#include <Windows.h>
-#pragma execution_character_set("utf-8")
-
-#include <fcntl.h>
+// #include <Windows.h>
+// #pragma execution_character_set("utf-8")
 
 
 #include "cycle.h"
@@ -20,11 +19,11 @@
 using namespace std;
 
 
-vector<string> unrevealedLetter = {"?????",
-                                   "?????",
-                                   "?????",
-                                   "?????",
-                                   "?????"};
+vector<string> unrevealedLetter = {"\u003F\u003F\u003F\u003F\u003F",
+                                   "\u003F\u003F\u003F\u003F\u003F",
+                                   "\u003F\u003F\u003F\u003F\u003F",
+                                   "\u003F\u003F\u003F\u003F\u003F",
+                                   "\u003F\u003F\u003F\u003F\u003F"};
 
 vector<string> num0Letter = {"\u250C\u2500\u2500\u2500\u2510",
                        "\u2502   \u2502",
@@ -158,7 +157,7 @@ void printGameScreen();
 
 
 void printIntroScreen() {
-    cout << "\033[2J\033[1;1H";
+    // cout << "\033[2J\033[1;1H";
     string top =                   "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
     string empty =                 "┃                                                                    ┃\n";
     vector<string> intro =        {"┃                              Welcome!                              ┃\n",
@@ -232,7 +231,7 @@ void printIntroScreen() {
 
 
 void printGameScreen() {
-    cout << "\033[2J\033[1;1H";
+    // cout << "\033[2J\033[1;1H";
 
     string gameScreenTop =                       "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
     vector<string> gameScreenCycle =            {"┃                             ╭───╴╷   ╷╭───╴╷    ╭───╴ "+cycleTensBox[0]+" "+cycleOnesBox[0]+"  ┃\n",
@@ -319,11 +318,11 @@ void genTurnNumbers() {
     while(num2 == num1 || num2 == 0 || num2 == 20) num2 = rand()%(N+1);
     for(int temp = 0; temp < 25; temp++) {
         int LocX = rand()%5;
-        int LocY = rand()%5;
-        while(num1TensBox[LocX][LocY]+"" == "?") LocX = rand()%5, LocY = rand()%5;
+        int LocY = rand()%5;                //Unicode for question mark
+        while(num1TensBox[LocX][LocY]+"" == "\u003F") LocX = rand()%5, LocY = rand()%5;
         num1TensBox[LocX][LocY] = numbers[num1/10][LocX][LocY];
         LocX = rand()%5, LocY = rand()%5;
-        while(num1OnesBox[LocX][LocY]+"" == "?") LocX = rand()%5, LocY = rand()%5;
+        while(num1OnesBox[LocX][LocY]+"" == "\u003F") LocX = rand()%5, LocY = rand()%5;
         num1OnesBox[LocX][LocY] = numbers[num1%10][LocX][LocY];
         printGameScreen();
         usleep(animateMicroSeconds);
@@ -336,12 +335,13 @@ void genCycle() {
 
 
 int main() {
-    SetConsoleOutputCP(CP_UTF8);
-    _setmode(_fileno(stdout), CP_UTF8);
+    // SetConsoleOutputCP(CP_UTF8);
+    // _setmode(_fileno(stdout), CP_UTF8);
+
 
     srand(time(0));
 
-    printIntroScreen();
+    // printIntroScreen();
 
     /*
     generate round:
@@ -356,14 +356,31 @@ int main() {
     
     // genCycle();
 
-    genTurnNumbers();
-    cout << num1 << endl;
-    while(input != 13) {
-        //W: 87 119 | S: 83 115 | Space: 32
-        if(input == 87 || input == 119 || input == 83 || input == 115 || input == 32) gameSelect = (gameSelect+1)%2;
-        printGameScreen();
-        input = getch();
+    for(string line : num0Letter) cout << line << endl;
+
+    for(int temp = 0; temp < 25; temp++) {
+        int LocX = rand()%5;
+        int LocY = rand()%5;                //Unicode for question mark
+        while(num1TensBox[LocX][LocY]+"" == "\u003F") LocX = rand()%5, LocY = rand()%5;
+        num1TensBox[LocX][LocY] = numbers[num1/10][LocX][LocY];
+        LocX = rand()%5, LocY = rand()%5;
+        while(num1OnesBox[LocX][LocY]+"" == "\u003F") LocX = rand()%5, LocY = rand()%5;
+        num1OnesBox[LocX][LocY] = numbers[num1%10][LocX][LocY];
+        for(string line : num1TensBox) cout << line << endl;
+        usleep(animateMicroSeconds);
     }
+
+    // genTurnNumbers();
+    // cout << num1 << endl;
+
+
+
+    // while(input != 13) {
+    //     //W: 87 119 | S: 83 115 | Space: 32
+    //     if(input == 87 || input == 119 || input == 83 || input == 115 || input == 32) gameSelect = (gameSelect+1)%2;
+    //     printGameScreen();
+    //     input = getch();
+    // }
     // Revealing animation
     // num2TensBox = numbers[num2/10], num2OnesBox = numbers[num2%10];
     // printGameScreen();
@@ -445,3 +462,7 @@ input = getch();
 
 
 */
+
+
+
+// Unicode for question mark: ? = \u003F
