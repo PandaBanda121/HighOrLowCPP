@@ -3,22 +3,20 @@
 #include <vector>
 #include <algorithm>
 #include <math.h>
-#include <cstdlib>
+#include <stdlib.h>
 #include <conio.h>
+#include <iomanip>
+#include <unistd.h>
+
 
 #include <Windows.h>
 #pragma execution_character_set("utf-8")
 
 
-#include "round.h"
+#include "cycle.h"
 
 using namespace std;
 
-int input;
-int introSelect = 0; //0: Lore, 1: instructions, 2: startgame, 3: startgame
-int introPrint = 0; //0: welcome, 1: lore, 2: instructions
-
-int gameSelect = 1; //0: down, 1: up
 
 vector<string> unrevealedLetter = {"?????",
                                    "?????",
@@ -76,8 +74,12 @@ vector<string> num9Letter = {"┌───┐",
                        "└───┤",
                        "    │",
                        "    │"};
-
 vector<vector<string>> numbers = {num0Letter, num1Letter, num2Letter, num3Letter, num4Letter, num5Letter, num6Letter, num7Letter, num8Letter, num9Letter};
+vector<string> num1TensBox = numbers[0];
+vector<string> num1OnesBox = numbers[0];
+vector<string> num2TensBox = unrevealedLetter;
+vector<string> num2OnesBox = unrevealedLetter;
+
 
 vector<string> cycleNum0Letter = {"╭───╮",
                             "│   │",
@@ -109,24 +111,24 @@ vector<string> cycleNum8Letter = {"┌───┐",
 vector<string> cycleNum9Letter = {"┌───┐",
                             "└───┤",
                             "    ╵"};
-
 vector<vector<string>> cycleNumbers = {cycleNum0Letter, cycleNum1Letter, cycleNum2Letter, cycleNum3Letter, cycleNum4Letter, cycleNum5Letter, cycleNum6Letter, cycleNum7Letter, cycleNum8Letter, cycleNum9Letter};
 vector<string> cycleTensBox = cycleNumbers[0];
 vector<string> cycleOnesBox = cycleNumbers[0];
 
-
 int N = 20;
-double current=10, mult=1;
 int num1 = 5, num2 = 15;
 
-vector<string> num1TensBox = numbers[0];
-vector<string> num1OnesBox = numbers[0];
+int input;
+int introSelect = 0; //0: Lore, 1: instructions, 2: startgame
+int introPrint = 0; //0: welcome, 1: lore, 2: instructions
 
-vector<string> num2TensBox = unrevealedLetter;
-vector<string> num2OnesBox = unrevealedLetter;
+int gameSelect = 1; //0: low, 1: high
 
-double deposit = 0;
-bool winRound = false;
+double current=10, mult=1;
+double totalEarned = 0;
+double totalLost = 0;
+
+bool winCycle = false;
 bool winGame = false;
 bool lostGame = false;
 bool quitGame = false;
@@ -139,15 +141,10 @@ void printIntroScreen();
 void printGameScreen();
 
 // Back-end Main Function
-void genRound(Round *rou);
 
 // 3 smaller functions for back-end
-void genTurn(Round *rou);
-void makeMove(Round *rou);
-void checkDeposit(Round *rou);
 
 // Quit Game Checker
-void checkQuit();
 
 
 
@@ -222,9 +219,7 @@ void printIntroScreen() {
             introSelect = 0;
             printIntroScreen();
         }
-    } else {
-        printIntroScreen();
-    }
+    } else printIntroScreen();
 }
 
 
@@ -275,39 +270,10 @@ void printGameScreen() {
     cout << gameScreenControls;
     cout << gameScreenEmpty;
     cout << gameScreenBottom;
-
-    input = getch();
-    //W: 87 119
-    //S: 83 115
-    //Space: 32
-    //Enter: 13
-    if(input == 87 || input == 119 || input == 83 || input == 115 || input == 32) {
-        gameSelect = (gameSelect+1)%2;
-        printGameScreen();
-    } else if(input == 13) {
-        /* Back end moment (im scared of animating revealing the number oh boy) */
-/*
-        vector<vector<bool>> revealed = {{false, false, false, false, false, false, false, false, false, false, false},
-                                         {false, false, false, false, false, false, false, false, false, false, false},
-                                         {false, false, false, false, false, false, false, false, false, false, false},
-                                         {false, false, false, false, false, false, false, false, false, false, false},
-                                         {false, false, false, false, false, false, false, false, false, false, false}};
-        for(int i = 0; i < 5; i++) for(int j = 0; j < 11; j++) cout << revealed[i][j];
-        for(int temp = 0; temp < 50; temp++) {
-            int locX = rand()%5;
-            int locY = rand()%11;
-            while(revealed[locX][locY] || locY == 5) locX = rand()%5, locY = rand()%11;
-            revealed[locX][locY] = true;
-            num2Box[locX+3][locY+2] = num2ToShow[locX+1][locY+2];
-        }
-        for(int i = 0; i < 5; i++) for(int j = 0; j < 11; j++) cout << revealed[i][j];
-*/
-        printGameScreen();
-    } else {
-        printGameScreen();
-    }
-
 }
+
+
+
 
 /*
 
@@ -338,12 +304,31 @@ if not, lose, game over
 
 */
 
+void genTurnNumbers() {
+    num1 = rand()%(N-1)+2, num2 = rand()%(N-1)+2;
+    while(num1 == 0 || num1 == 20) num1 = rand()%(N-1)+2;
+    while(num2 == num1 || num2 == 0 || num2 == 20) num2 = rand()%(N-1)+2;
+    // for(int temp = 0; temp < 50; temp++) {
+    //     int LocX = rand()*11;
+    //     int LocY = rand()*5;
+
+
+    //     sleep(1);
+    // }
+    num1TensBox = numbers[num1/10], num1OnesBox = numbers[num1%10];
+}
+
+void genCycle() {
+    genTurnNumbers();
+}
+
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
     srand(time(0));
 
     printIntroScreen();
+
     /*
     generate round:
     1. generate turn
@@ -354,31 +339,27 @@ int main() {
     6. repeat
     i need to rework this entire thing
     */
+    
+    // genCycle();
 
+    genTurnNumbers();
+
+    while(input != 13) {
+        //W: 87 119 | S: 83 115 | Space: 32
+        if(input == 87 || input == 119 || input == 83 || input == 115 || input == 32) gameSelect = (gameSelect+1)%2;
+        printGameScreen();
+        input = getch();
+    }
+    // Revealing animation
+    num2TensBox = numbers[num2/10], num2OnesBox = numbers[num2%10];
     printGameScreen();
     
-    int rListSize = 7;
-    Round *rList[rListSize];
-    Round *r1 = new Round(), *r2 = new Round(), *r3 = new Round(), *r4 = new Round(), *r5 = new Round(), *r6 = new Round(), *r7 = new Round();
-    r1->roundNum = 1, r1->quota = 13, r1->turns = 10;
-    r2->roundNum = 2, r2->quota = 5, r2->turns = 10;
-    r3->roundNum = 3, r3->quota = 8, r3->turns = 7;
-    r4->roundNum = 4, r4->quota = 15, r4->turns = 6;
-    r5->roundNum = 5, r5->quota = 20, r5->turns = 5;
-    r6->roundNum = 6, r6->quota = 24, r6->turns = 5;
-    r7->roundNum = 6, r7->quota = 25, r7->turns = 4;
-    rList[0] = r1;
-    rList[1] = r2;
-    rList[2] = r3;
-    rList[3] = r4;
-    rList[4] = r5;
-    rList[5] = r6;
-    rList[6] = r7;
 
 
+    // printGameScreen();
     
-    cout << "Wow... you won? Congratulations huh... You did it :)" << endl;
-    cout << "Game finished, hit enter to quit";
+    
+    
     
     input = getch();
     while(input != 13) {
@@ -391,11 +372,62 @@ int main() {
 /*
 
 
-Ideas?
-Ideas?
-Ideas?
-Ideas?
-Ideas?
+
+    int cListSize = 7;
+    Cycle *cList[cListSize];
+    Cycle *c1 = new Cycle(), *c2 = new Cycle(), *c3 = new Cycle(), *c4 = new Cycle(), *c5 = new Cycle(), *c6 = new Cycle(), *c7 = new Cycle();
+    c1->cycleNum = 1, c1->quota = 13, c1->turns = 10;
+    c2->cycleNum = 2, c2->quota = 5, c2->turns = 10;
+    c3->cycleNum = 3, c3->quota = 8, c3->turns = 7;
+    c4->cycleNum = 4, c4->quota = 15, c4->turns = 6;
+    c5->cycleNum = 5, c5->quota = 20, c5->turns = 5;
+    c6->cycleNum = 6, c6->quota = 24, c6->turns = 5;
+    c7->cycleNum = 6, c7->quota = 25, c7->turns = 4;
+    cList[0] = c1;
+    cList[1] = c2;
+    cList[2] = c3;
+    cList[3] = c4;
+    cList[4] = c5;
+    cList[5] = c6;
+    cList[6] = c7;
+
+
+    cout << "Wow... you won? Congratulations huh... You did it :)" << endl;
+    cout << "Game finished, hit enter to quit";
+
+
+
+
+input = getch();
+    //W: 87 119
+    //S: 83 115
+    //Space: 32
+    //Enter: 13
+    if(input == 87 || input == 119 || input == 83 || input == 115 || input == 32) {
+        gameSelect = (gameSelect+1)%2;
+        printGameScreen();
+    } else if(input == 13) {
+        // Back end moment (im scared of animating revealing the number oh boy) 
+
+        vector<vector<bool>> revealed = {{false, false, false, false, false, false, false, false, false, false, false},
+                                         {false, false, false, false, false, false, false, false, false, false, false},
+                                         {false, false, false, false, false, false, false, false, false, false, false},
+                                         {false, false, false, false, false, false, false, false, false, false, false},
+                                         {false, false, false, false, false, false, false, false, false, false, false}};
+        for(int i = 0; i < 5; i++) for(int j = 0; j < 11; j++) cout << revealed[i][j];
+        for(int temp = 0; temp < 50; temp++) {
+            int locX = rand()%5;
+            int locY = rand()%11;
+            while(revealed[locX][locY] || locY == 5) locX = rand()%5, locY = rand()%11;
+            revealed[locX][locY] = true;
+            num2Box[locX+3][locY+2] = num2ToShow[locX+1][locY+2];
+        }
+        for(int i = 0; i < 5; i++) for(int j = 0; j < 11; j++) cout << revealed[i][j];
+
+        printGameScreen();
+    } else {
+        printGameScreen();
+    }
 
 
 */

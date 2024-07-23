@@ -9,8 +9,8 @@
 
 using namespace std;
 
-struct Round {
-    int roundNum, quota, turns;
+struct Cycle {
+    int cycleNum, quota, turns;
 };
 
 #endif
