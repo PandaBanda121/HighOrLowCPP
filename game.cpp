@@ -20,73 +20,67 @@
 using namespace std;
 
 
-vector<string> unrevealedLetter = {"?????",
-                                   "?????",
-                                   "?????",
-                                   "?????",
-                                   "?????"};
+vector<vector<string>> unrevealedLetter = {{"?","?","?","?","?"},
+                                           {"?","?","?","?","?"},
+                                           {"?","?","?","?","?"},
+                                           {"?","?","?","?","?"},
+                                           {"?","?","?","?","?"}};
 
-vector<vector<string>> num0LetterTEMPTEMP = {{"┌","─","─","─","┐"},
-                             {"│"," "," "," ","│"},
-                             {"│"," "," "," ","│"},
-                             {"│"," "," "," ","│"},
-                             {"└","─","─","─","┘"}};
-
-vector<string> num0Letter = {"┌───┐",
-                             "│   │",
-                             "│   │",
-                             "│   │",
-                             "└───┘"};
-vector<string> num1Letter = {" ─┐  ",
-                             "  │  ",
-                             "  │  ",
-                             "  │  ",
-                             "──┴──"};
-vector<string> num2Letter = {"╶───┐",
-                             "    │",
-                             "┌───┘",
-                             "│    ",
-                             "└───╴"};
-vector<string> num3Letter = {"╶───┐",
-                             "    │",
-                             "╶───┤",
-                             "    │",
-                             "╶───┘"};
-vector<string> num4Letter = {"╷   ╷",
-                             "│   │",
-                             "└───┤",
-                             "    │",
-                             "    ╵"};
-vector<string> num5Letter = {"┌───╴",
-                             "│    ",
-                             "└───┐",
-                             "    │",
-                             "╶───┘"};
-vector<string> num6Letter = {"┌───╴",
-                             "│    ",
-                             "├───┐",
-                             "│   │",
-                             "└───┘"};
-vector<string> num7Letter = {"┌───┐",
-                             "    │",
-                             "    │",
-                             "    │",
-                             "    ╵"};
-vector<string> num8Letter = {"┌───┐",
-                             "│   │",
-                             "├───┤",
-                             "│   │",
-                             "└───┘"};
-vector<string> num9Letter = {"┌───┐",
-                             "│   │",
-                             "└───┤",
-                             "    │",
-                             "    │"};
-vector<vector<string>> numbers = {num0Letter, num1Letter, num2Letter, num3Letter, num4Letter, num5Letter, num6Letter, num7Letter, num8Letter, num9Letter};
-vector<string> num1TensBox = unrevealedLetter;
-vector<string> num1OnesBox = unrevealedLetter;
-vector<string> num2TensBox = unrevealedLetter;
-vector<string> num2OnesBox = unrevealedLetter;
+vector<vector<string>> num0Letter = {{"┌","─","─","─","┐"},
+                                     {"│"," "," "," ","│"},
+                                     {"│"," "," "," ","│"},
+                                     {"│"," "," "," ","│"},
+                                     {"└","─","─","─","┘"}};
+vector<vector<string>> num1Letter = {{" ","─","┐"," "," "},
+                                     {" "," ","│"," "," "},
+                                     {" "," ","│"," "," "},
+                                     {" "," ","│"," "," "},
+                                     {"─","─","┴","─","─"}};
+vector<vector<string>> num2Letter = {{"╶","─","─","─","┐"},
+                                     {" "," "," "," ","│"},
+                                     {"┌","─","─","─","┘"},
+                                     {"│"," "," "," "," "},
+                                     {"└","─","─","─","╴"}};
+vector<vector<string>> num3Letter = {{"╶","─","─","─","┐"},
+                                     {" "," "," "," ","│"},
+                                     {"╶","─","─","─","┤"},
+                                     {" "," "," "," ","│"},
+                                     {"╶","─","─","─","┘"}};
+vector<vector<string>> num4Letter = {{"╷"," "," "," ","╷"},
+                                     {"│"," "," "," ","│"},
+                                     {"└","─","─","─","┤"},
+                                     {" "," "," "," ","│"},
+                                     {" "," "," "," ","╵"}};
+vector<vector<string>> num5Letter = {{"┌","─","─","─","╴"},
+                                     {"│"," "," "," "," "},
+                                     {"└","─","─","─","┐"},
+                                     {" "," "," "," ","│"},
+                                     {"╶","─","─","─","┘"}};
+vector<vector<string>> num6Letter = {{"┌","─","─","─","╴"},
+                                     {"│"," "," "," "," "},
+                                     {"├","─","─","─","┐"},
+                                     {"│"," "," "," ","│"},
+                                     {"└","─","─","─","┘"}};
+vector<vector<string>> num7Letter = {{"┌","─","─","─","┐"},
+                                     {" "," "," "," ","│"},
+                                     {" "," "," "," ","│"},
+                                     {" "," "," "," ","│"},
+                                     {" "," "," "," ","╵"}};
+vector<vector<string>> num8Letter = {{"┌","─","─","─","┐"},
+                                     {"│"," "," "," ","│"},
+                                     {"├","─","─","─","┤"},
+                                     {"│"," "," "," ","│"},
+                                     {"└","─","─","─","┘"}};
+vector<vector<string>> num9Letter = {{"┌","─","─","─","┐"},
+                                     {"│"," "," "," ","│"},
+                                     {"└","─","─","─","┤"},
+                                     {" "," "," "," ","│"},
+                                     {" "," "," "," ","│"}};
+vector<vector<vector<string>>> numbers = {num0Letter, num1Letter, num2Letter, num3Letter, num4Letter, num5Letter, num6Letter, num7Letter, num8Letter, num9Letter};
+vector<vector<string>> num1TensBox = unrevealedLetter;
+vector<vector<string>> num1OnesBox = unrevealedLetter;
+vector<vector<string>> num2TensBox = unrevealedLetter;
+vector<vector<string>> num2OnesBox = unrevealedLetter;
 
 
 vector<string> cycleNum0Letter = {"╭───╮",
@@ -123,8 +117,8 @@ vector<vector<string>> cycleNumbers = {cycleNum0Letter, cycleNum1Letter, cycleNu
 vector<string> cycleTensBox = cycleNumbers[0];
 vector<string> cycleOnesBox = cycleNumbers[0];
 
-//                       7654321
-int animateMicroSeconds = 200000;
+//                      7654321
+int animateMicroSeconds = 50000;
 
 
 int N = 20;
@@ -161,12 +155,18 @@ void printGameScreen();
 // Quit Game Checker
 
 
+string vectorToString(vector<string> arr) {
+    string s = "";
+    for(string thing : arr) s = s+thing;
+    return s; 
+}
+
 
 
 void printIntroScreen() {
     cout << "\033[2J\033[1;1H";
-    string top =                  "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
-    string empty =                "┃                                                                    ┃\n";
+    string top =                   "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
+    string empty =                 "┃                                                                    ┃\n";
     vector<string> intro =        {"┃                              Welcome!                              ┃\n",
                                    "┃        Here to feed your uncontrollable gambling addiction?        ┃\n",
                                    "┃                    You came to the right place.                    ┃\n",
@@ -252,22 +252,22 @@ void printGameScreen() {
     vector<string> upButtHigh =                 {"┃  ╔═════════╗                                                       ┃\n",
                                                  "┃  ║  ↑↑↑↑↑  ║                                                       ┃\n",
                                                  "┃  ║  ↑↑↑↑↑  ║    ╭─────────────╮    ╭─────────────╮                 ┃\n",
-                                                 "┃  ║  ↑↑↑↑↑  ║    │ "+num1TensBox[0]+" "+num1OnesBox[0]+" │    │ "+num2TensBox[0]+" "+num2OnesBox[0]+" │                 ┃\n",
-                                                 "┃  ╚═════════╝    │ "+num1TensBox[1]+" "+num1OnesBox[1]+" │    │ "+num2TensBox[1]+" "+num2OnesBox[1]+" │                 ┃\n",
-                                                 "┃                 │ "+num1TensBox[2]+" "+num1OnesBox[2]+" │    │ "+num2TensBox[2]+" "+num2OnesBox[2]+" │                 ┃\n",
-                                                 "┃  ┌─────────┐    │ "+num1TensBox[3]+" "+num1OnesBox[3]+" │    │ "+num2TensBox[3]+" "+num2OnesBox[3]+" │                 ┃\n",
-                                                 "┃  │  ↓↓↓↓↓  │    │ "+num1TensBox[4]+" "+num1OnesBox[4]+" │    │ "+num2TensBox[4]+" "+num2OnesBox[4]+" │                 ┃\n",
+                                                 "┃  ║  ↑↑↑↑↑  ║    │ "+vectorToString(num1TensBox[0])+" "+vectorToString(num1OnesBox[0])+" │    │ "+vectorToString(num2TensBox[0])+" "+vectorToString(num2OnesBox[0])+" │                 ┃\n",
+                                                 "┃  ╚═════════╝    │ "+vectorToString(num1TensBox[1])+" "+vectorToString(num1OnesBox[1])+" │    │ "+vectorToString(num2TensBox[1])+" "+vectorToString(num2OnesBox[1])+" │                 ┃\n",
+                                                 "┃                 │ "+vectorToString(num1TensBox[2])+" "+vectorToString(num1OnesBox[2])+" │    │ "+vectorToString(num2TensBox[2])+" "+vectorToString(num2OnesBox[2])+" │                 ┃\n",
+                                                 "┃  ┌─────────┐    │ "+vectorToString(num1TensBox[3])+" "+vectorToString(num1OnesBox[3])+" │    │ "+vectorToString(num2TensBox[3])+" "+vectorToString(num2OnesBox[3])+" │                 ┃\n",
+                                                 "┃  │  ↓↓↓↓↓  │    │ "+vectorToString(num1TensBox[4])+" "+vectorToString(num1OnesBox[4])+" │    │ "+vectorToString(num2TensBox[4])+" "+vectorToString(num2OnesBox[4])+" │                 ┃\n",
                                                  "┃  │  ↓↓↓↓↓  │    ╰─────────────╯    ╰─────────────╯                 ┃\n",
                                                  "┃  │  ↓↓↓↓↓  │                                                       ┃\n",
                                                  "┃  └─────────┘                                                       ┃\n"};
     vector<string> downButtHigh =               {"┃  ┌─────────┐                                                       ┃\n",
                                                  "┃  │  ↑↑↑↑↑  │                                                       ┃\n",
                                                  "┃  │  ↑↑↑↑↑  │    ╭─────────────╮    ╭─────────────╮                 ┃\n",
-                                                 "┃  │  ↑↑↑↑↑  │    │ "+num1TensBox[0]+" "+num1OnesBox[0]+" │    │ "+num2TensBox[0]+" "+num2OnesBox[0]+" │                 ┃\n",
-                                                 "┃  └─────────┘    │ "+num1TensBox[1]+" "+num1OnesBox[1]+" │    │ "+num2TensBox[1]+" "+num2OnesBox[1]+" │                 ┃\n",
-                                                 "┃                 │ "+num1TensBox[2]+" "+num1OnesBox[2]+" │    │ "+num2TensBox[2]+" "+num2OnesBox[2]+" │                 ┃\n",
-                                                 "┃  ╔═════════╗    │ "+num1TensBox[3]+" "+num1OnesBox[3]+" │    │ "+num2TensBox[3]+" "+num2OnesBox[3]+" │                 ┃\n",
-                                                 "┃  ║  ↓↓↓↓↓  ║    │ "+num1TensBox[4]+" "+num1OnesBox[4]+" │    │ "+num2TensBox[4]+" "+num2OnesBox[4]+" │                 ┃\n",
+                                                 "┃  │  ↑↑↑↑↑  │    │ "+vectorToString(num1TensBox[0])+" "+vectorToString(num1OnesBox[0])+" │    │ "+vectorToString(num2TensBox[0])+" "+vectorToString(num2OnesBox[0])+" │                 ┃\n",
+                                                 "┃  └─────────┘    │ "+vectorToString(num1TensBox[1])+" "+vectorToString(num1OnesBox[1])+" │    │ "+vectorToString(num2TensBox[1])+" "+vectorToString(num2OnesBox[1])+" │                 ┃\n",
+                                                 "┃                 │ "+vectorToString(num1TensBox[2])+" "+vectorToString(num1OnesBox[2])+" │    │ "+vectorToString(num2TensBox[2])+" "+vectorToString(num2OnesBox[2])+" │                 ┃\n",
+                                                 "┃  ╔═════════╗    │ "+vectorToString(num1TensBox[3])+" "+vectorToString(num1OnesBox[3])+" │    │ "+vectorToString(num2TensBox[3])+" "+vectorToString(num2OnesBox[3])+" │                 ┃\n",
+                                                 "┃  ║  ↓↓↓↓↓  ║    │ "+vectorToString(num1TensBox[4])+" "+vectorToString(num1OnesBox[4])+" │    │ "+vectorToString(num2TensBox[4])+" "+vectorToString(num2OnesBox[4])+" │                 ┃\n",
                                                  "┃  ║  ↓↓↓↓↓  ║    ╰─────────────╯    ╰─────────────╯                 ┃\n",
                                                  "┃  ║  ↓↓↓↓↓  ║                                                       ┃\n",
                                                  "┃  ╚═════════╝                                                       ┃\n"};
@@ -321,16 +321,32 @@ if not, lose, game over
 void genTurnNumbers() {
     // printGameScreen();
     num1 = rand()%(N-1)+1, num2 = rand()%(N+1);
-    while(num1 == 0 || num1 == 20) num1 = rand()%(N-1)+1;
-    while(num2 == num1 || num2 == 0 || num2 == 20) num2 = rand()%(N+1);
+    while(num2 == num1) num2 = rand()%(N+1);
     for(int temp = 0; temp < 25; temp++) {
         int LocX = rand()%5;
         int LocY = rand()%5;
-        while(num1TensBox[LocX][LocY]+"" == "?") LocX = rand()%5, LocY = rand()%5;
+        while(num1TensBox[LocX][LocY]+"" != "?") LocX = rand()%5, LocY = rand()%5;
         num1TensBox[LocX][LocY] = numbers[num1/10][LocX][LocY];
+        usleep(animateMicroSeconds);
         LocX = rand()%5, LocY = rand()%5;
-        while(num1OnesBox[LocX][LocY]+"" == "?") LocX = rand()%5, LocY = rand()%5;
+        while(num1OnesBox[LocX][LocY]+"" != "?") LocX = rand()%5, LocY = rand()%5;
         num1OnesBox[LocX][LocY] = numbers[num1%10][LocX][LocY];
+        printGameScreen();
+        usleep(animateMicroSeconds);
+    }
+}
+
+void genNextNumbers() {
+    // printGameScreen();
+    for(int temp = 0; temp < 25; temp++) {
+        int LocX = rand()%5;
+        int LocY = rand()%5;
+        while(num2TensBox[LocX][LocY]+"" != "?") LocX = rand()%5, LocY = rand()%5;
+        num2TensBox[LocX][LocY] = numbers[num2/10][LocX][LocY];
+        usleep(animateMicroSeconds);
+        LocX = rand()%5, LocY = rand()%5;
+        while(num2OnesBox[LocX][LocY]+"" != "?") LocX = rand()%5, LocY = rand()%5;
+        num2OnesBox[LocX][LocY] = numbers[num2%10][LocX][LocY];
         printGameScreen();
         usleep(animateMicroSeconds);
     }
@@ -347,8 +363,8 @@ int main() {
 
     srand(time(0));
 
-    // printIntroScreen();
-
+    printIntroScreen();
+    printGameScreen();
     /*
     generate round:
     1. generate turn
@@ -362,25 +378,18 @@ int main() {
     
     // genCycle();
 
-    for(vector<string> arr : num0LetterTEMPTEMP) {
-        for(string line : arr) cout << line;
-        cout << endl;
-    }
-    num0LetterTEMPTEMP[0][0] = '?';
-    for(vector<string> arr : num0LetterTEMPTEMP) {
-        for(string line : arr) cout << line;
-        cout << endl;
-    }
 
-    // genTurnNumbers();
-    // cout << num1 << endl;
-    // while(input != 13) {
-    //     //W: 87 119 | S: 83 115 | Space: 32
-    //     if(input == 87 || input == 119 || input == 83 || input == 115 || input == 32) gameSelect = (gameSelect+1)%2;
-    //     printGameScreen();
-    //     input = getch();
-    // }
-
+    genTurnNumbers();
+    cout << num1 << endl;
+    input = 0;
+    while(input != 13) {
+        //W: 87 119 | S: 83 115 | Space: 32
+        if(input == 87 || input == 119 || input == 83 || input == 115 || input == 32) gameSelect = (gameSelect+1)%2;
+        printGameScreen();
+        input = getch();
+    }
+    genNextNumbers();
+    printGameScreen();
 
     // Revealing animation
     // num2TensBox = numbers[num2/10], num2OnesBox = numbers[num2%10];
