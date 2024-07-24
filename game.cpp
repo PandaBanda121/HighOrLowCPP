@@ -271,7 +271,7 @@ void printGameScreen() {
                                                  "┃  ║  ↓↓↓↓↓  ║    ╰─────────────╯    ╰─────────────╯                 ┃\n",
                                                  "┃  ║  ↓↓↓↓↓  ║                                                       ┃\n",
                                                  "┃  ╚═════════╝                                                       ┃\n"};
-    string gameScreenControls =                  "┃    [W][S][Space]: Scroll between choice  [Enter]: Select choice    ┃\n";
+    string gameScreenControls =                  "┃     [W][S]: Switch Up/Down  [Space]: Deposit  [Enter]: Confirm     ┃\n";
     string gameScreenBottom =                    "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
 
     cout << gameScreenTop;
