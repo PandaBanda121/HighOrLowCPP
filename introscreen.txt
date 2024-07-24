@@ -103,37 +103,17 @@ Intro screen (opt 3 selected): create game screen
 ┃ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456776543210ZYXWVUTSRQPONMLKJIHGFEDCBA┃
 
 
+Bold red: \033[1;31m
+Bold green: \033[1;32m
+White: \033[0m
 
 
+┃ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456776543210ZYXWVUTSRQPONMLKJIHGFEDCBA┃
+┃  In each set, you have to reach a quota within a number of turns.  ┃
+┃  In each turn, you're given a number and you guess if the next is  ┃
+┃                          higher or lower.                          ┃
+┃           The riskier the guess, the greater the reward,           ┃
+┃          but, also the worse the punishment... Good Luck!          ┃
 
 
-
-string num2Unrevealed[] =             {"                                ┃\n",
-                                           "                                ┃\n",
-                                           "╭─────────────╮                 ┃\n",
-                                           "│ ????? ????? │                 ┃\n",
-                                           "│ ????? ????? │                 ┃\n",
-                                           "│ ????? ????? │                 ┃\n",
-                                           "│ ????? ????? │                 ┃\n",
-                                           "│ ????? ????? │                 ┃\n",
-                                           "╰─────────────╯                 ┃\n",
-                                           "                                ┃\n",
-                                           "                                ┃\n"};
-
-    cout << num2Unrevealed[3][2];
-    string num15[] = {" ─┐   ┌───╴",
-                      "  │   │    ",
-                      "  │   └───┐",
-                      "  │       │",
-                      "──┴── ╶───┘"};
-    
-    bool revealed[5][11];
-    for(int i = 0; i < 5; i++) for(int j = 0; j < 11; j++) revealed[i][j] = false;
-    for(int temp = 0; temp < 50; temp++) {
-        int locX = rand()%5;
-        int locY = rand()%11;
-        while(revealed[locX][locY] || locY == 5) locX = rand()%5, locY = rand()%11;
-        revealed[locX][locY] = true;
-        num2Unrevealed[locX+3][locY+2] = num15[locX][locY];
-        for(string line : num2Unrevealed) cout << line << endl;
-    }
+\033[1;31mhigher\033[0m or \033[1;32mlower\033[0m

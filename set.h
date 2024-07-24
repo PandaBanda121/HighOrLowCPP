@@ -1,5 +1,5 @@
-#ifndef ROUND_H
-#define ROUND_H
+#ifndef SET_H
+#define SET_H
 
 #include <cstdlib> 
 #include <iostream>
@@ -9,8 +9,8 @@
 
 using namespace std;
 
-struct Cycle {
-    int cycleNum, quota, turns;
+struct Set {
+    int setNum, quota, turns;
 };
 
 #endif

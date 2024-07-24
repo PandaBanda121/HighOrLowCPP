@@ -15,7 +15,7 @@
 #include <fcntl.h>
 
 
-#include "cycle.h"
+#include "set.h"
 
 using namespace std;
 
@@ -117,8 +117,8 @@ vector<vector<string>> cycleNumbers = {cycleNum0Letter, cycleNum1Letter, cycleNu
 vector<string> cycleTensBox = cycleNumbers[0];
 vector<string> cycleOnesBox = cycleNumbers[0];
 
-//                      7654321
-int animateMicroSeconds = 50000;
+//                     7654321
+int animateMicroSeconds = 1000;
 
 
 int N = 20;
@@ -177,11 +177,11 @@ void printIntroScreen() {
                                    "┃             He relaxed under the calm spring sunshine.             ┃\n",
                                    "┃                             That's it.                             ┃\n",
                                    "┃                            (Part 01/25)                            ┃\n"};
-    vector<string> instructions = {"┃  You're given a number, then guess if the next is higher or lower  ┃\n",
-                                   "┃   If you guess correct, you gain coins, if wrong, you lose coins   ┃\n",
-                                   "┃   Here's the twist: the riskier the guess, the better the reward   ┃\n",
-                                   "┃                but also the worse the punishment...                ┃\n",
-                                   "┃            Stay safe as always, don't go insane, yet ;)            ┃\n"};
+    vector<string> instructions = {"┃  In each set, you have to reach a quota within a number of turns.  ┃\n",
+                                   "┃  In each turn, you're given a number and you guess if the next is  ┃\n",
+                                   "┃                          \033[1;31mhigher\033[0m or \033[1;32mlower\033[0m.                          ┃\n",
+                                   "┃           The riskier the guess, the greater the reward,           ┃\n",
+                                   "┃          but, also the worse the punishment... Good Luck!          ┃\n"};
     vector<string> butt1high =    {"┃                    ╭──────────────────────────╮                    ┃\n",
                                    "┃                    │ [1] Game Background/Lore │                    ┃\n",
                                    "┃                    ╰──────────────────────────╯                    ┃\n"};
@@ -239,11 +239,11 @@ void printIntroScreen() {
 
 void printGameScreen() {
     cout << "\033[2J\033[1;1H";
-
+                                                                                                        //"
     string gameScreenTop =                       "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
-    vector<string> gameScreenCycle =            {"┃                             ╭───╴╷   ╷╭───╴╷    ╭───╴ "+cycleTensBox[0]+" "+cycleOnesBox[0]+"  ┃\n",
-                                                 "┃                             │    ╰─┬─╯│    │    ├───╴ "+cycleTensBox[1]+" "+cycleOnesBox[1]+"  ┃\n",
-                                                 "┃                             ╰───╴  ╵  ╰───╴╰───╴╰───╴ "+cycleTensBox[2]+" "+cycleOnesBox[2]+"  ┃\n"};
+    vector<string> gameScreenCycle =            {"┃                                         ╭───╴╭───╴╶─┬─╴ "+cycleTensBox[0]+cycleOnesBox[0]+" ┃\n",
+                                                 "┃                                         ╰───╮├───╴  │   "+cycleTensBox[1]+cycleOnesBox[1]+" ┃\n",
+                                                 "┃                                         ╶───╯╰───╴  ╵   "+cycleTensBox[2]+cycleOnesBox[2]+" ┃\n"};
     string gameScreenEmpty =                     "┃                                                                    ┃\n";
     vector<string> gameScreenTurnsQuotaWallet = {"┃             ╭─────────────────╮    ╭─────────────────╮             ┃\n",
                                                  "┃             │    Turn #00     │    │   Quota: 000.00 │             ┃\n",
