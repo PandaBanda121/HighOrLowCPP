@@ -18,7 +18,7 @@ Game screen:
 ┃  │  ↓↓↓↓↓  │    │ └───┘ ────┘ │    │ ????? ????? │                 ┃888
 ┃  │  ↓↓↓↓↓  │    ╰─────────────╯    ╰─────────────╯                 ┃999
 ┃  │  ↓↓↓↓↓  │                                                       ┃000
-┃  └─────────┘       Correct. Again. And Again... Are You Cheating?? ┃BBB
+┃  └─────────┘    Correct. Again. And Again... Are You Cheating??    ┃BBB
 ┃                                                                    ┃A
 ┃    [W][S][Space]: Scroll between choice  [Enter]: Select choice    ┃D
 ┃                                                                    ┃A

@@ -19,6 +19,10 @@
 
 using namespace std;
 
+vector<vector<bool>> falseVector3x5 = {{false, false, false, false, false},
+                                      {false, false, false, false, false},
+                                      {false, false, false, false, false}};
+
 
 vector<vector<string>> unrevealedLetter = {{"?","?","?","?","?"},
                                            {"?","?","?","?","?"},
@@ -83,39 +87,43 @@ vector<vector<string>> num2TensBox = unrevealedLetter;
 vector<vector<string>> num2OnesBox = unrevealedLetter;
 
 
-vector<string> cycleNum0Letter = {"╭───╮",
-                                  "│   │",
-                                  "╰───╯"};
-vector<string> cycleNum1Letter = {" ─┐  ",
-                                  "  │  ",
-                                  "──┴──"};
-vector<string> cycleNum2Letter = {"╶───┐",
-                                  "┌───┘",
-                                  "└───╴"};
-vector<string> cycleNum3Letter = {"╶───┐",
-                                  "╶───┤",
-                                  "╶───┘"};
-vector<string> cycleNum4Letter = {"╷   ╷",
-                                  "└───┤",
-                                  "    ╵"};
-vector<string> cycleNum5Letter = {"┌───╴",
-                                  "└───┐",
-                                  "╶───┘"};
-vector<string> cycleNum6Letter = {"┌───╴",
-                                  "├───┐",
-                                  "└───┘"};
-vector<string> cycleNum7Letter = {"┌───┐",
-                                  "    │",
-                                  "    ╵"};
-vector<string> cycleNum8Letter = {"┌───┐",
-                                  "├───┤",
-                                  "└───┘"};
-vector<string> cycleNum9Letter = {"┌───┐",
-                                  "└───┤",
-                                  "    ╵"};
-vector<vector<string>> cycleNumbers = {cycleNum0Letter, cycleNum1Letter, cycleNum2Letter, cycleNum3Letter, cycleNum4Letter, cycleNum5Letter, cycleNum6Letter, cycleNum7Letter, cycleNum8Letter, cycleNum9Letter};
-vector<string> cycleTensBox = cycleNumbers[0];
-vector<string> cycleOnesBox = cycleNumbers[0];
+vector<vector<string>> setNum0Letter = {{"╭","─","─","─","╮"},
+                                          {"│"," "," "," ","│"},
+                                          {"╰","─","─","─","╯"}};
+vector<vector<string>> setNum1Letter = {{" ","─","┐"," "," "},
+                                          {" "," ","│"," "," "},
+                                          {"─","─","┴","─","─"}};
+vector<vector<string>> setNum2Letter = {{"╶","─","─","─","┐"},
+                                          {"┌","─","─","─","┘"},
+                                          {"└","─","─","─","╴"}};
+vector<vector<string>> setNum3Letter = {{"╶","─","─","─","┐"},
+                                          {"╶","─","─","─","┤"},
+                                          {"╶","─","─","─","┘"}};
+vector<vector<string>> setNum4Letter = {{"╷"," "," "," ","╷"},
+                                          {"└","─","─","─","┤"},
+                                          {" "," "," "," ","╵"}};
+vector<vector<string>> setNum5Letter = {{"┌","─","─","─","╴"},
+                                          {"└","─","─","─","┐"},
+                                          {"╶","─","─","─","┘"}};
+vector<vector<string>> setNum6Letter = {{"┌","─","─","─","╴"},
+                                          {"├","─","─","─","┐"},
+                                          {"└","─","─","─","┘"}};
+vector<vector<string>> setNum7Letter = {{"┌","─","─","─","┐"},
+                                          {" "," "," "," ","│"},
+                                          {" "," "," "," ","╵"}};
+vector<vector<string>> setNum8Letter = {{"┌","─","─","─","┐"},
+                                          {"├","─","─","─","┤"},
+                                          {"└","─","─","─","┘"}};
+vector<vector<string>> setNum9Letter = {{"┌","─","─","─","┐"},
+                                          {"└","─","─","─","┤"},
+                                          {" "," "," "," ","╵"}};
+vector<vector<vector<string>>> setNumbers = {setNum0Letter, setNum1Letter, setNum2Letter, setNum3Letter, setNum4Letter, setNum5Letter, setNum6Letter, setNum7Letter, setNum8Letter, setNum9Letter};
+vector<vector<string>> setTensBox = setNumbers[0];
+vector<vector<string>> setOnesBox = setNumbers[0];
+vector<vector<bool>> setTensChanged = falseVector3x5;
+vector<vector<bool>> setOnesChanged = falseVector3x5;
+
+int setNum = 1;
 
 //                     7654321
 int animateMicroSeconds = 1000;
@@ -131,12 +139,26 @@ int introPrint = 0; //0: welcome, 1: lore, 2: instructions
 int gameSelect = 1; //0: low, 1: high
 
 double current=10, mult=1;
+double quota;
+
+int turns
 double totalEarned = 0;
 double totalLost = 0;
-int loststreak = 0;
-int winstreak = 0;
 
-bool winCycle = false;
+int lostStreak = 0;
+int winStreak = 0;
+
+int longestLostStreak = 0;
+int longestWinStreak = 0;
+
+string result = "                                                   ";
+
+int quota;
+
+
+
+
+bool winSet = false;
 bool winGame = false;
 bool lostGame = false;
 bool quitGame = false;
@@ -164,7 +186,6 @@ string vectorToString(vector<string> arr) {
 
 
 void printIntroScreen() {
-    cout << "\033[2J\033[1;1H";
     string top =                   "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
     string empty =                 "┃                                                                    ┃\n";
     vector<string> intro =        {"┃                              Welcome!                              ┃\n",
@@ -203,6 +224,7 @@ void printIntroScreen() {
     string controls =              "┃       [W][S]: Scroll through options  [Enter]: Select option       ┃\n";
     string bottom =                "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
 
+    cout << "\033[2J\033[1;1H";
     cout << top << empty << empty;
     if(introPrint == 0) for(string line : intro) cout << line;
     else if(introPrint == 1) for(string line : lore) cout << line;
@@ -238,12 +260,10 @@ void printIntroScreen() {
 
 
 void printGameScreen() {
-    cout << "\033[2J\033[1;1H";
-                                                                                                        //"
     string gameScreenTop =                       "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
-    vector<string> gameScreenCycle =            {"┃                                         ╭───╴╭───╴╶─┬─╴ "+cycleTensBox[0]+cycleOnesBox[0]+" ┃\n",
-                                                 "┃                                         ╰───╮├───╴  │   "+cycleTensBox[1]+cycleOnesBox[1]+" ┃\n",
-                                                 "┃                                         ╶───╯╰───╴  ╵   "+cycleTensBox[2]+cycleOnesBox[2]+" ┃\n"};
+    vector<string> gameScreenSet =            {"┃                                         ╭───╴╭───╴╶─┬─╴ "+vectorToString(setTensBox[0])+vectorToString(setOnesBox[0])+" ┃\n",
+                                                 "┃                                         ╰───╮├───╴  │   "+vectorToString(setTensBox[1])+vectorToString(setOnesBox[1])+" ┃\n",
+                                                 "┃                                         ╶───╯╰───╴  ╵   "+vectorToString(setTensBox[2])+vectorToString(setOnesBox[2])+" ┃\n"};
     string gameScreenEmpty =                     "┃                                                                    ┃\n";
     vector<string> gameScreenTurnsQuotaWallet = {"┃             ╭─────────────────╮    ╭─────────────────╮             ┃\n",
                                                  "┃             │    Turn #00     │    │   Quota: 000.00 │             ┃\n",
@@ -259,7 +279,7 @@ void printGameScreen() {
                                                  "┃  │  ↓↓↓↓↓  │    │ "+vectorToString(num1TensBox[4])+" "+vectorToString(num1OnesBox[4])+" │    │ "+vectorToString(num2TensBox[4])+" "+vectorToString(num2OnesBox[4])+" │                 ┃\n",
                                                  "┃  │  ↓↓↓↓↓  │    ╰─────────────╯    ╰─────────────╯                 ┃\n",
                                                  "┃  │  ↓↓↓↓↓  │                                                       ┃\n",
-                                                 "┃  └─────────┘                                                       ┃\n"};
+                                                 "┃  └─────────┘    "+result+"┃\n"};
     vector<string> downButtHigh =               {"┃  ┌─────────┐                                                       ┃\n",
                                                  "┃  │  ↑↑↑↑↑  │                                                       ┃\n",
                                                  "┃  │  ↑↑↑↑↑  │    ╭─────────────╮    ╭─────────────╮                 ┃\n",
@@ -270,12 +290,13 @@ void printGameScreen() {
                                                  "┃  ║  ↓↓↓↓↓  ║    │ "+vectorToString(num1TensBox[4])+" "+vectorToString(num1OnesBox[4])+" │    │ "+vectorToString(num2TensBox[4])+" "+vectorToString(num2OnesBox[4])+" │                 ┃\n",
                                                  "┃  ║  ↓↓↓↓↓  ║    ╰─────────────╯    ╰─────────────╯                 ┃\n",
                                                  "┃  ║  ↓↓↓↓↓  ║                                                       ┃\n",
-                                                 "┃  ╚═════════╝                                                       ┃\n"};
+                                                 "┃  ╚═════════╝    "+result+"┃\n"};
     string gameScreenControls =                  "┃     [W][S]: Switch Up/Down  [Space]: Deposit  [Enter]: Confirm     ┃\n";
     string gameScreenBottom =                    "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
 
+    cout << "\033[2J\033[1;1H";
     cout << gameScreenTop;
-    for(string line : gameScreenCycle) cout << line;
+    for(string line : gameScreenSet) cout << line;
     cout << gameScreenEmpty;
     for(string line : gameScreenTurnsQuotaWallet) cout << line;
     if(gameSelect == 1) for(int i = 0; i < 11; i++) cout << upButtHigh[i];
@@ -293,10 +314,10 @@ void printGameScreen() {
 
 Breakdown of backend (bc it needs to be reworked):
 Game init:
-1. Create initial 10 coins and mult = 1, and prepare for cycle 1
+1. Create initial 10 coins and mult = 1, and prepare for set 1
 
-Cycle init:
-1. Generate cycle: initiate cycleNum, quota, and how many turns
+Set init:
+1. Generate set: initiate setNum, quota, and how many turns
 
 2. Wait for player move: A) select higher, B) select lower
 
@@ -352,8 +373,60 @@ void genNextNumbers() {
     }
 }
 
-void genCycle() {
+void genSetNumbers() {
+    for(int temp = 0; temp < 15; temp++) {
+        int LocX = rand()%3;
+        int LocY = rand()%5;
+        while(setTensChanged[LocX][LocY]) LocX = rand()%3, LocY = rand()%5;
+        setTensChanged[LocX][LocY] = true;
+        setTensBox[LocX][LocY] = setNumbers[setNum/10][LocX][LocY];
+        usleep(animateMicroSeconds);
+        LocX = rand()%3, LocY = rand()%5;
+        while(setOnesChanged[LocX][LocY]) LocX = rand()%3, LocY = rand()%5;
+        setOnesChanged[LocX][LocY] = true;
+        setOnesBox[LocX][LocY] = setNumbers[setNum%10][LocX][LocY];
+        printGameScreen();
+        usleep(animateMicroSeconds);
+    }
+    setTensChanged = falseVector3x5;
+    setOnesChanged = falseVector3x5;
+}
+
+void genSet() {
+    genSetNumbers();
     genTurnNumbers();
+    input = 0;
+    while(input != 13) {
+        //W: 87 119 | S: 83 115 | Space: 32
+        if(input == 87 || input == 119) gameSelect = 1;
+        if(input == 83 || input == 115) gameSelect = 0;
+        printGameScreen();
+        input = getch();
+    }
+    genNextNumbers();
+    bool winTurn = ( (gameSelect == 1) && num2>num1 ) || ( (gameSelect == 0) && num2<num1 );
+    if(winTurn) {
+        winStreak++;
+        if(winStreak > longestWinStreak) longestWinStreak = winStreak;
+        lostStreak = 0;
+        if(winStreak == 1)       result = "Correct.                                           ";
+        else if (winStreak == 2) result = "Correct. Again.                                    ";
+        else if(winStreak >= 3)  result = "Correct. Again... Are you cheating???              ";
+    } else{
+        lostStreak++;
+        if(lostStreak > longestLostStreak) longestLostStreak = lostStreak;
+        winStreak = 0;
+        if(lostStreak == 1)      result = "Wrong.                                             ";
+        else if(lostStreak == 2) result = "Wrong. Again.                                      ";
+        else if(lostStreak >= 3) result = "Wrong. Again... Are you trying to lose???          ";
+    }
+    printGameScreen();
+    double multAdd = (double) num1/N;
+    if(gameSelect == 0) multAdd = 1.00-multAdd;
+    if(!winTurn) multAdd = -multAdd;
+    mult = mult+multAdd;
+
+    cout << "You now have " << (current*mult) << endl << endl;
 }
 
 
@@ -364,6 +437,7 @@ int main() {
     srand(time(0));
 
     printIntroScreen();
+    genSetNumbers();
     printGameScreen();
     /*
     generate round:
@@ -376,25 +450,7 @@ int main() {
     i need to rework this entire thing
     */
     
-    // genCycle();
-
-
-    genTurnNumbers();
-    cout << num1 << endl;
-    input = 0;
-    while(input != 13) {
-        //W: 87 119 | S: 83 115 | Space: 32
-        if(input == 87 || input == 119 || input == 83 || input == 115 || input == 32) gameSelect = (gameSelect+1)%2;
-        printGameScreen();
-        input = getch();
-    }
-    genNextNumbers();
-    printGameScreen();
-
-    // Revealing animation
-    // num2TensBox = numbers[num2/10], num2OnesBox = numbers[num2%10];
-    // printGameScreen();
-    
+    genSet();
 
 
     // printGameScreen();
@@ -415,15 +471,15 @@ int main() {
 
 
     int cListSize = 7;
-    Cycle *cList[cListSize];
-    Cycle *c1 = new Cycle(), *c2 = new Cycle(), *c3 = new Cycle(), *c4 = new Cycle(), *c5 = new Cycle(), *c6 = new Cycle(), *c7 = new Cycle();
-    c1->cycleNum = 1, c1->quota = 13, c1->turns = 10;
-    c2->cycleNum = 2, c2->quota = 5, c2->turns = 10;
-    c3->cycleNum = 3, c3->quota = 8, c3->turns = 7;
-    c4->cycleNum = 4, c4->quota = 15, c4->turns = 6;
-    c5->cycleNum = 5, c5->quota = 20, c5->turns = 5;
-    c6->cycleNum = 6, c6->quota = 24, c6->turns = 5;
-    c7->cycleNum = 6, c7->quota = 25, c7->turns = 4;
+    Set *cList[cListSize];
+    Set *c1 = new Set(), *c2 = new Set(), *c3 = new Set(), *c4 = new Set(), *c5 = new Set(), *c6 = new Set(), *c7 = new Set();
+    c1->setNum = 1, c1->quota = 13, c1->turns = 10;
+    c2->setNum = 2, c2->quota = 5, c2->turns = 10;
+    c3->setNum = 3, c3->quota = 8, c3->turns = 7;
+    c4->setNum = 4, c4->quota = 15, c4->turns = 6;
+    c5->setNum = 5, c5->quota = 20, c5->turns = 5;
+    c6->setNum = 6, c6->quota = 24, c6->turns = 5;
+    c7->setNum = 6, c7->quota = 25, c7->turns = 4;
     cList[0] = c1;
     cList[1] = c2;
     cList[2] = c3;
@@ -435,40 +491,5 @@ int main() {
 
     cout << "Wow... you won? Congratulations huh... You did it :)" << endl;
     cout << "Game finished, hit enter to quit";
-
-
-
-
-input = getch();
-    //W: 87 119
-    //S: 83 115
-    //Space: 32
-    //Enter: 13
-    if(input == 87 || input == 119 || input == 83 || input == 115 || input == 32) {
-        gameSelect = (gameSelect+1)%2;
-        printGameScreen();
-    } else if(input == 13) {
-        // Back end moment (im scared of animating revealing the number oh boy) 
-
-        vector<vector<bool>> revealed = {{false, false, false, false, false, false, false, false, false, false, false},
-                                         {false, false, false, false, false, false, false, false, false, false, false},
-                                         {false, false, false, false, false, false, false, false, false, false, false},
-                                         {false, false, false, false, false, false, false, false, false, false, false},
-                                         {false, false, false, false, false, false, false, false, false, false, false}};
-        for(int i = 0; i < 5; i++) for(int j = 0; j < 11; j++) cout << revealed[i][j];
-        for(int temp = 0; temp < 50; temp++) {
-            int locX = rand()%5;
-            int locY = rand()%11;
-            while(revealed[locX][locY] || locY == 5) locX = rand()%5, locY = rand()%11;
-            revealed[locX][locY] = true;
-            num2Box[locX+3][locY+2] = num2ToShow[locX+1][locY+2];
-        }
-        for(int i = 0; i < 5; i++) for(int j = 0; j < 11; j++) cout << revealed[i][j];
-
-        printGameScreen();
-    } else {
-        printGameScreen();
-    }
-
 
 */
