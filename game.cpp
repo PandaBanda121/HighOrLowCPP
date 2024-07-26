@@ -122,40 +122,37 @@ vector<vector<string>> setTensBox = setNumbers[0];
 vector<vector<string>> setOnesBox = setNumbers[0];
 vector<vector<bool>> setTensChanged = falseVector3x5;
 vector<vector<bool>> setOnesChanged = falseVector3x5;
-
 int setNum = 1;
-
-//                     7654321
-int animateMicroSeconds = 1000;
-
-
-int N = 20;
-int num1 = 5, num2 = 15;
 
 int input;
 int introSelect = 0; //0: Lore, 1: instructions, 2: startgame
 int introPrint = 0; //0: welcome, 1: lore, 2: instructions
 
-int gameSelect = 1; //0: low, 1: high
 
-double current=10, mult=1;
-double quota;
-
-int turns
-double totalEarned = 0;
-double totalLost = 0;
-
-int lostStreak = 0;
-int winStreak = 0;
-
-int longestLostStreak = 0;
-int longestWinStreak = 0;
+//                     7654321
+int animateMicroSeconds = 1000;
+int resultMicroSeconds=1000000;
 
 string result = "                                                   ";
 
-int quota;
+
+int N = 20;
+int num1 = 5, num2 = 15;
+int gameSelect = 1; //0: low, 1: high
+
+double wallet=10, mult=1;
+string stringTurns;
+string stringTotalTurns;
+string stringWallet;
+string stringQuota;
 
 
+double totalEarned = 0;
+double totalLost = 0;
+int lostStreak = 0;
+int winStreak = 0;
+int longestLostStreak = 0;
+int longestWinStreak = 0;
 
 
 bool winSet = false;
@@ -261,13 +258,13 @@ void printIntroScreen() {
 
 void printGameScreen() {
     string gameScreenTop =                       "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
-    vector<string> gameScreenSet =            {"┃                                         ╭───╴╭───╴╶─┬─╴ "+vectorToString(setTensBox[0])+vectorToString(setOnesBox[0])+" ┃\n",
+    vector<string> gameScreenSet =              {"┃                                         ╭───╴╭───╴╶─┬─╴ "+vectorToString(setTensBox[0])+vectorToString(setOnesBox[0])+" ┃\n",
                                                  "┃                                         ╰───╮├───╴  │   "+vectorToString(setTensBox[1])+vectorToString(setOnesBox[1])+" ┃\n",
                                                  "┃                                         ╶───╯╰───╴  ╵   "+vectorToString(setTensBox[2])+vectorToString(setOnesBox[2])+" ┃\n"};
     string gameScreenEmpty =                     "┃                                                                    ┃\n";
     vector<string> gameScreenTurnsQuotaWallet = {"┃             ╭─────────────────╮    ╭─────────────────╮             ┃\n",
-                                                 "┃             │    Turn #00     │    │   Quota: 000.00 │             ┃\n",
-                                                 "┃             │ Total turns: 00 │    │  Wallet: 000.00 │             ┃\n",
+                                                 "┃             │    Turn #"+stringTurns+"     │    │   Quota: "+stringQuota+" │             ┃\n",
+                                                 "┃             │ Total turns: "+stringTotalTurns+" │    │  Wallet: "+stringWallet+" │             ┃\n",
                                                  "┃             ╰─────────────────╯    ╰─────────────────╯             ┃\n"};
     vector<string> upButtHigh =                 {"┃  ╔═════════╗                                                       ┃\n",
                                                  "┃  ║  ↑↑↑↑↑  ║                                                       ┃\n",
@@ -392,7 +389,7 @@ void genSetNumbers() {
     setOnesChanged = falseVector3x5;
 }
 
-void genSet() {
+void genRound() {
     genSetNumbers();
     genTurnNumbers();
     input = 0;
@@ -425,16 +422,50 @@ void genSet() {
     if(gameSelect == 0) multAdd = 1.00-multAdd;
     if(!winTurn) multAdd = -multAdd;
     mult = mult+multAdd;
+    
+}
 
-    cout << "You now have " << (current*mult) << endl << endl;
+void genSet(Set *&s1) {
+    if(s1->turns < 10) stringTotalTurns = "0"+to_string(s1->turns);
+    else stringTotalTurns = to_string(s1->turns);
+    string wal = to_string(int(round(wallet*mult*100)));
+    wal = wal.substr(0, wal.length()-2)+"."+wal.substr(wal.length()-2,wal.length());
+    if(wallet*mult < 10) stringWallet = "00"+wal;
+    else if(wallet*mult < 100) stringWallet = "0"+wal;
+    else stringWallet = wal;
+    if(s1->quota < 10) stringQuota = "00" + to_string(s1->quota)+".00";
+    else if(s1->quota < 100) stringQuota = "0" + to_string(s1->quota)+".00";
+    else stringQuota = to_string(s1->quota)+".00";
+
+    for(int currentTurn = 1; currentTurn <= s1->turns; currentTurn++) {
+        gameSelect = 1;
+        num1TensBox = unrevealedLetter;
+        num1OnesBox = unrevealedLetter;
+        num2TensBox = unrevealedLetter;
+        num2OnesBox = unrevealedLetter;
+        if(currentTurn < 10) stringTurns = "0"+to_string(currentTurn);
+        else stringTurns = to_string(currentTurn);
+        genRound();
+        wal = to_string(int(wallet*mult*100));
+        wal = wal.substr(0, wal.length()-2)+"."+wal.substr(wal.length()-2,wal.length());
+        if(wallet*mult < 10) stringWallet = "00"+wal;
+        else if(wallet*mult < 100) stringWallet = "0"+wal;
+        else stringWallet = wal;
+        printGameScreen();
+        usleep(resultMicroSeconds);
+
+    }
+
 }
 
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
     _setmode(_fileno(stdout), CP_UTF8);
-
+    cout << fixed <<  setprecision(2);
     srand(time(0));
+
+    
 
     printIntroScreen();
     genSetNumbers();
@@ -450,13 +481,29 @@ int main() {
     i need to rework this entire thing
     */
     
-    genSet();
 
 
     // printGameScreen();
     
+    int sListSize = 7;
+    Set *sList[sListSize];
+    Set *s1 = new Set(), *s2 = new Set(), *s3 = new Set(), *s4 = new Set(), *s5 = new Set(), *s6 = new Set(), *s7 = new Set();
+    s1->setNum = 1, s1->quota = 13, s1->turns = 10;
+    s2->setNum = 2, s2->quota = 5, s2->turns = 10;
+    s3->setNum = 3, s3->quota = 8, s3->turns = 7;
+    s4->setNum = 4, s4->quota = 15, s4->turns = 6;
+    s5->setNum = 5, s5->quota = 20, s5->turns = 5;
+    s6->setNum = 6, s6->quota = 24, s6->turns = 5;
+    s7->setNum = 6, s7->quota = 25, s7->turns = 4;
+    sList[0] = s1;
+    sList[1] = s2;
+    sList[2] = s3;
+    sList[3] = s4;
+    sList[4] = s5;
+    sList[5] = s6;
+    sList[6] = s7;
     
-    
+    genSet(s1);
     
     input = getch();
     while(input != 13) {
@@ -465,31 +512,3 @@ int main() {
     }
     return 0;
 }
-
-/*
-
-
-
-    int cListSize = 7;
-    Set *cList[cListSize];
-    Set *c1 = new Set(), *c2 = new Set(), *c3 = new Set(), *c4 = new Set(), *c5 = new Set(), *c6 = new Set(), *c7 = new Set();
-    c1->setNum = 1, c1->quota = 13, c1->turns = 10;
-    c2->setNum = 2, c2->quota = 5, c2->turns = 10;
-    c3->setNum = 3, c3->quota = 8, c3->turns = 7;
-    c4->setNum = 4, c4->quota = 15, c4->turns = 6;
-    c5->setNum = 5, c5->quota = 20, c5->turns = 5;
-    c6->setNum = 6, c6->quota = 24, c6->turns = 5;
-    c7->setNum = 6, c7->quota = 25, c7->turns = 4;
-    cList[0] = c1;
-    cList[1] = c2;
-    cList[2] = c3;
-    cList[3] = c4;
-    cList[4] = c5;
-    cList[5] = c6;
-    cList[6] = c7;
-
-
-    cout << "Wow... you won? Congratulations huh... You did it :)" << endl;
-    cout << "Game finished, hit enter to quit";
-
-*/
