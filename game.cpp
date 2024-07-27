@@ -446,6 +446,7 @@ void genRound(Set *&s1) {
 
 void genSet(Set *&s1) {
     winSet = false;
+    setNum = s1->setNum;
     if(s1->turns < 10) stringTotalTurns = "0"+to_string(s1->turns);
     else stringTotalTurns = to_string(s1->turns);
     
