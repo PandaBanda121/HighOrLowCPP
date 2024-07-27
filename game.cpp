@@ -7,6 +7,7 @@
 #include <conio.h>
 #include <iomanip>
 #include <unistd.h>
+#include <sstream>
 
 
 #include <Windows.h>
@@ -141,10 +142,10 @@ int num1 = 5, num2 = 15;
 int gameSelect = 1; //0: low, 1: high
 
 double wallet=10, mult=1;
-string stringTurns;
-string stringTotalTurns;
-string stringWallet;
-string stringQuota;
+string stringTurns = "00";
+string stringTotalTurns = "00";
+string stringWallet = "000.00";
+string stringQuota = "000.00";
 
 
 double totalEarned = 0;
@@ -171,8 +172,11 @@ void printGameScreen();
 
 // 3 smaller functions for back-end
 
-// Quit Game Checker
+// restart function
+void restart();
 
+// Quit Game Checker
+void quit();
 
 string vectorToString(vector<string> arr) {
     string s = "";
@@ -389,50 +393,71 @@ void genSetNumbers() {
     setOnesChanged = falseVector3x5;
 }
 
-void genRound() {
+void genRound(Set *&s1) {
+    winSet = false;
+    result = "                                                   ";
     genSetNumbers();
     genTurnNumbers();
     input = 0;
-    while(input != 13) {
+    while(input != 13 && input != 32) {
         //W: 87 119 | S: 83 115 | Space: 32
         if(input == 87 || input == 119) gameSelect = 1;
         if(input == 83 || input == 115) gameSelect = 0;
         printGameScreen();
         input = getch();
     }
-    genNextNumbers();
-    bool winTurn = ( (gameSelect == 1) && num2>num1 ) || ( (gameSelect == 0) && num2<num1 );
-    if(winTurn) {
-        winStreak++;
-        if(winStreak > longestWinStreak) longestWinStreak = winStreak;
-        lostStreak = 0;
-        if(winStreak == 1)       result = "Correct.                                           ";
-        else if (winStreak == 2) result = "Correct. Again.                                    ";
-        else if(winStreak >= 3)  result = "Correct. Again... Are you cheating???              ";
-    } else{
-        lostStreak++;
-        if(lostStreak > longestLostStreak) longestLostStreak = lostStreak;
-        winStreak = 0;
-        if(lostStreak == 1)      result = "Wrong.                                             ";
-        else if(lostStreak == 2) result = "Wrong. Again.                                      ";
-        else if(lostStreak >= 3) result = "Wrong. Again... Are you trying to lose???          ";
+    if(input == 32) {
+        if(wallet*mult > s1->quota) {
+            result = "Alrighty, you deposited, good luck on the next set!";
+            printGameScreen();
+            winSet = true;
+            usleep(resultMicroSeconds*3);
+        } else {
+            result = "You don't even have enough to deposit, try harder. ";
+            printGameScreen();
+        }
     }
-    printGameScreen();
-    double multAdd = (double) num1/N;
-    if(gameSelect == 0) multAdd = 1.00-multAdd;
-    if(!winTurn) multAdd = -multAdd;
-    mult = mult+multAdd;
-    
+    if(!winSet) {
+        genNextNumbers();
+        bool winTurn = ( (gameSelect == 1) && num2>num1 ) || ( (gameSelect == 0) && num2<num1 );
+        if(winTurn) {
+            winStreak++;
+            if(winStreak > longestWinStreak) longestWinStreak = winStreak;
+            lostStreak = 0;
+            if(winStreak == 1)       result = "Correct.                                           ";
+            else if (winStreak == 2) result = "Correct, again.                                    ";
+            else if (winStreak == 3) result = "Correct, again, AGAIN.                             ";
+            else if (winStreak >= 4) result = "Correct, again and again... Are you cheating???    ";
+        } else{
+            lostStreak++;
+            if(lostStreak > longestLostStreak) longestLostStreak = lostStreak;
+            winStreak = 0;
+            if(lostStreak == 1)      result = "Wrong.                                             ";
+            else if(lostStreak == 2) result = "Wrong, again. AGAIN.                               ";
+            else if(lostStreak >= 4) result = "Wrong, again and again... Are you trying to lose???";
+        }
+        printGameScreen();
+        double multAdd = (double) num1/N;
+        if(gameSelect == 0) multAdd = 1.00-multAdd;
+        if(!winTurn) multAdd = -multAdd;
+        mult = mult+multAdd;
+    }
 }
 
 void genSet(Set *&s1) {
+    winSet = false;
     if(s1->turns < 10) stringTotalTurns = "0"+to_string(s1->turns);
     else stringTotalTurns = to_string(s1->turns);
-    string wal = to_string(int(round(wallet*mult*100)));
-    wal = wal.substr(0, wal.length()-2)+"."+wal.substr(wal.length()-2,wal.length());
-    if(wallet*mult < 10) stringWallet = "00"+wal;
-    else if(wallet*mult < 100) stringWallet = "0"+wal;
-    else stringWallet = wal;
+    
+    double printedAmount = wallet*mult;
+    stringstream stream;
+    stream << fixed << setprecision(2) << printedAmount;
+    stringWallet = stream.str();
+    if(printedAmount < 0) stringWallet = "000.00";
+    else if(printedAmount < 10) stringWallet = "00"+stringWallet;
+    else if(printedAmount < 100) stringWallet = "0"+stringWallet;
+    else stringWallet = stringWallet;
+    
     if(s1->quota < 10) stringQuota = "00" + to_string(s1->quota)+".00";
     else if(s1->quota < 100) stringQuota = "0" + to_string(s1->quota)+".00";
     else stringQuota = to_string(s1->quota)+".00";
@@ -445,19 +470,50 @@ void genSet(Set *&s1) {
         num2OnesBox = unrevealedLetter;
         if(currentTurn < 10) stringTurns = "0"+to_string(currentTurn);
         else stringTurns = to_string(currentTurn);
-        genRound();
-        wal = to_string(int(wallet*mult*100));
-        wal = wal.substr(0, wal.length()-2)+"."+wal.substr(wal.length()-2,wal.length());
-        if(wallet*mult < 10) stringWallet = "00"+wal;
-        else if(wallet*mult < 100) stringWallet = "0"+wal;
-        else stringWallet = wal;
+        genRound(s1);
+        printedAmount = wallet*mult;
+        stringstream stream;
+        stream << fixed << setprecision(2) << printedAmount;
+        stringWallet = stream.str();
+        if(printedAmount < 0) stringWallet = "000.00";
+        else if(printedAmount < 10) stringWallet = "00"+stringWallet;
+        else if(printedAmount < 100) stringWallet = "0"+stringWallet;
+        else stringWallet = stringWallet;
         printGameScreen();
+        if(winSet) {
+            wallet = wallet*mult;
+            wallet = wallet-s1->quota;
+            break;
+        }
         usleep(resultMicroSeconds);
-
+        if(mult <= 0) {
+            usleep(resultMicroSeconds*2);
+            wallet = 0;
+            stringWallet = "000.00";
+            result = "You lost it all... press [Q] quit or [Enter] retry.";
+            printGameScreen();
+            input = getch();
+            while(input != 13 && input != 113 && input != 81) input = getch();
+            if(input == 13) restart();
+            else if(input == 113 || input == 81) quit();
+        }
+        
     }
 
 }
 
+void restart() {
+    winSet = false;
+    lostGame = false;
+    winGame = false;
+    wallet = 10;
+    mult = 1;
+}
+
+void quit() {
+    lostGame = true;
+    return;
+}
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
@@ -504,7 +560,9 @@ int main() {
     sList[6] = s7;
     
     genSet(s1);
-    
+    genSet(s2);
+    genSet(s3);
+
     input = getch();
     while(input != 13) {
         cout << input << endl;

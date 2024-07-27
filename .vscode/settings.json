@@ -6,6 +6,7 @@
         "cstdlib": "cpp",
         "string": "cpp",
         "new": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "iomanip": "cpp"
     }
 }
