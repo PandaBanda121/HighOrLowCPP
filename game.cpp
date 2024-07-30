@@ -263,8 +263,6 @@ void printGameScreen();
 
 // 3 smaller functions for back-end
 
-// restart function
-void restart();
 
 // Quit Game Checker
 void quit();
@@ -507,27 +505,47 @@ void genRound(Set *&s1) {
     genSetNumbers();
     genTurnNumbers();
     input = 0;
-    while(input != 13 && input != 32 && input != 113 && input != 81) {
-        //W: 87 119 | S: 83 115 | Space: 32 | Q: 81 113
-        if(input == 87 || input == 119) gameSelect = 1;
-        if(input == 83 || input == 115) gameSelect = 0;
-        printGameScreen();
-        input = getch();
-    }
-    if(input == 32) {
-        if(wallet*mult > s1->quota) {
-            result = "Alrighty, you deposited, good luck on the next set!";
-            printGameScreen();
-            winSet = true;
-            usleep(resultMicroSeconds*3);
-        } else {
-            result = "You don't even have enough to deposit, try harder. ";
+    
+    while(true) {
+        if(input == 13) break;
+        if(input == 87 || input == 119) {
+            gameSelect = 1;
             printGameScreen();
         }
+        if(input == 83 || input == 115) {
+            gameSelect = 0;
+            printGameScreen();
+        }
+        
+        if(input == 32) {
+            if(wallet*mult > s1->quota) {
+                result = "Alrighty, you deposited, good luck on the next set!";
+                printGameScreen();
+                winSet = true;
+                usleep(resultMicroSeconds*3);
+                break;
+            } else {
+                result = "You don't even have enough to deposit, try harder. ";
+                printGameScreen();
+            }
+        }
+
+        if(input == 113 || input == 81) {
+            result = "Press [Q] again to quit. Press any key to cancel.  ";
+            result = "You don't even have enough to deposit, try harder. ";
+            printGameScreen();
+            input = getch();
+            if(input == 113 || input == 81) {
+                quitGame = true;
+                break;
+            } else {
+                result = "Good choice, keep going! Persevere on pal          ";
+                printGameScreen();
+            }
+        }
+        input = getch();
     }
-    if(input == 113 || input == 81) {
-        quitGame = true;
-    }
+
     if(!winSet && !quitGame) {
         genNextNumbers();
         bool winTurn = ( (gameSelect == 1) && num2>num1 ) || ( (gameSelect == 0) && num2<num1 );
@@ -595,22 +613,34 @@ void genSet(Set *&s1) {
         else if(printedAmount < 100) stringWallet = "0"+stringWallet;
         else stringWallet = stringWallet;
         printGameScreen();
+        
+        usleep(resultMicroSeconds);
+        if(currentTurn == s1->turns) {
+            if(mult*wallet > s1->quota) {
+                result = "You played until the end huh, going to next set.   ";
+                winSet = true;
+                printGameScreen();
+                usleep(resultMicroSeconds*3);
+            }
+        }
         if(winSet) {
             wallet = wallet*mult;
             wallet = wallet-s1->quota;
             break;
         }
-        usleep(resultMicroSeconds);
         if(mult <= 0) {
             usleep(resultMicroSeconds*2);
             wallet = 0;
-            stringWallet = "000.00";
-            result = "You lost it all... press [Q] quit or [Enter] retry.";
+            if(mult <= 0) {
+                stringWallet = "000.00";
+                result = "You lost it all. press [Q] to quit.                    ";
+            } else if(currentTurn == s1->turns) {
+                result = "You didn't meet quota. press [Q] to quit.              ";
+            }
             printGameScreen();
             input = getch();
-            while(input != 13 && input != 113 && input != 81) input = getch();
-            if(input == 13) restart();
-            else if(input == 113 || input == 81) quit();
+            while(input != 113 && input != 81) input = getch();
+            quit();
         }
         
     }
@@ -618,17 +648,8 @@ void genSet(Set *&s1) {
 
 }
 
-void restart() {
-    winSet = false;
-    lostGame = false;
-    winGame = false;
-    wallet = 10;
-    mult = 1;
-}
-
 void quit() {
     lostGame = true;
-    return;
 }
 
 int main() {
@@ -677,7 +698,7 @@ int main() {
     
     for(int i = 0; i < 3; i++) {
         genSet(sList[i]);
-        if(quitGame) {
+        if(quitGame || !winSet) {
             break;
         }
     }
