@@ -81,7 +81,59 @@ vector<vector<string>> num9Letter = {{"┌","─","─","─","┐"},
                                      {"└","─","─","─","┤"},
                                      {" "," "," "," ","│"},
                                      {" "," "," "," ","│"}};
-vector<vector<vector<string>>> numbers = {num0Letter, num1Letter, num2Letter, num3Letter, num4Letter, num5Letter, num6Letter, num7Letter, num8Letter, num9Letter};
+
+vector<vector<string>> num0LetterBold = {{"┏","━","━","━","┓"},
+                                     {"┃"," "," "," ","┃"},
+                                     {"┃"," "," "," ","┃"},
+                                     {"┃"," "," "," ","┃"},
+                                     {"┗","━","━","━","┛"}};
+vector<vector<string>> num1LetterBold = {{" ","━","┓"," "," "},
+                                     {" "," ","┃"," "," "},
+                                     {" "," ","┃"," "," "},
+                                     {" "," ","┃"," "," "},
+                                     {"━","━","┻","━","━"}};
+vector<vector<string>> num2LetterBold = {{"╺","━","━","━","┓"},
+                                     {" "," "," "," ","┃"},
+                                     {"┏","━","━","━","┛"},
+                                     {"┃"," "," "," "," "},
+                                     {"┗","━","━","━","╸"}};
+vector<vector<string>> num3LetterBold = {{"╺","━","━","━","┓"},
+                                     {" "," "," "," ","┃"},
+                                     {"╺","━","━","━","┫"},
+                                     {" "," "," "," ","┃"},
+                                     {"╺","━","━","━","┛"}};
+vector<vector<string>> num4LetterBold = {{"╻"," "," "," ","╻"},
+                                     {"┃"," "," "," ","┃"},
+                                     {"┗","━","━","━","┫"},
+                                     {" "," "," "," ","┃"},
+                                     {" "," "," "," ","╹"}};
+vector<vector<string>> num5LetterBold = {{"┏","━","━","━","╸"},
+                                     {"┃"," "," "," "," "},
+                                     {"┗","━","━","━","┓"},
+                                     {" "," "," "," ","┃"},
+                                     {"╺","━","━","━","┛"}};
+vector<vector<string>> num6LetterBold = {{"┏","━","━","━","╸"},
+                                     {"┃"," "," "," "," "},
+                                     {"┣","━","━","━","┓"},
+                                     {"┃"," "," "," ","┃"},
+                                     {"┗","━","━","━","┛"}};
+vector<vector<string>> num7LetterBold = {{"┏","━","━","━","┓"},
+                                     {" "," "," "," ","┃"},
+                                     {" "," "," "," ","┃"},
+                                     {" "," "," "," ","┃"},
+                                     {" "," "," "," ","╹"}};
+vector<vector<string>> num8LetterBold = {{"┏","━","━","━","┓"},
+                                     {"┃"," "," "," ","┃"},
+                                     {"┣","━","━","━","┫"},
+                                     {"┃"," "," "," ","┃"},
+                                     {"┗","━","━","━","┛"}};
+vector<vector<string>> num9LetterBold = {{"┏","━","━","━","┓"},
+                                     {"┃"," "," "," ","┃"},
+                                     {"┗","━","━","━","┫"},
+                                     {" "," "," "," ","┃"},
+                                     {" "," "," "," ","┃"}};
+vector<vector<vector<string>>> numbers = {num0LetterBold, num1LetterBold, num2LetterBold, num3LetterBold, num4LetterBold, num5LetterBold, num6LetterBold, num7LetterBold, num8LetterBold, num9LetterBold};
+
 vector<vector<string>> num1TensBox = unrevealedLetter;
 vector<vector<string>> num1OnesBox = unrevealedLetter;
 vector<vector<string>> num2TensBox = unrevealedLetter;
@@ -119,6 +171,39 @@ vector<vector<string>> setNum9Letter = {{"╭","─","─","─","╮"},
                                           {"╰","─","─","─","┤"},
                                           {" "," "," "," ","╵"}};
 vector<vector<vector<string>>> setNumbers = {setNum0Letter, setNum1Letter, setNum2Letter, setNum3Letter, setNum4Letter, setNum5Letter, setNum6Letter, setNum7Letter, setNum8Letter, setNum9Letter};
+
+vector<vector<string>> setNum0LetterBold = {{"╭","━","━","━","╮"},
+                                          {"┃"," "," "," ","┃"},
+                                          {"╰","━","━","━","╯"}};
+vector<vector<string>> setNum1LetterBold = {{" ","━","╮"," "," "},
+                                          {" "," ","┃"," "," "},
+                                          {"━","━","┻","━","━"}};
+vector<vector<string>> setNum2LetterBold = {{"╺","━","━","━","╮"},
+                                          {"╭","━","━","━","╯"},
+                                          {"╰","━","━","━","╴"}};
+vector<vector<string>> setNum3LetterBold = {{"╺","━","━","━","╮"},
+                                          {"╺","━","━","━","┫"},
+                                          {"╺","━","━","━","╯"}};
+vector<vector<string>> setNum4LetterBold = {{"╻"," "," "," ","╻"},
+                                          {"╰","━","━","━","┫"},
+                                          {" "," "," "," ","╵"}};
+vector<vector<string>> setNum5LetterBold = {{"╭","━","━","━","╴"},
+                                          {"╰","━","━","━","╮"},
+                                          {"╺","━","━","━","╯"}};
+vector<vector<string>> setNum6LetterBold = {{"╭","━","━","━","╴"},
+                                          {"┣","━","━","━","╮"},
+                                          {"╰","━","━","━","╯"}};
+vector<vector<string>> setNum7LetterBold = {{"╭","━","━","━","╮"},
+                                          {" "," "," "," ","┃"},
+                                          {" "," "," "," ","╵"}};
+vector<vector<string>> setNum8LetterBold = {{"╭","━","━","━","╮"},
+                                          {"┣","━","━","━","┫"},
+                                          {"╰","━","━","━","╯"}};
+vector<vector<string>> setNum9LetterBold = {{"╭","━","━","━","╮"},
+                                          {"╰","━","━","━","┫"},
+                                          {" "," "," "," ","╵"}};
+vector<vector<vector<string>>> setNumbersBold = {setNum0LetterBold, setNum1LetterBold, setNum2LetterBold, setNum3LetterBold, setNum4LetterBold, setNum5LetterBold, setNum6LetterBold, setNum7LetterBold, setNum8LetterBold, setNum9LetterBold};
+
 vector<vector<string>> setTensBox = setNumbers[0];
 vector<vector<string>> setOnesBox = setNumbers[0];
 vector<vector<bool>> setTensChanged = falseVector3x5;
@@ -131,7 +216,8 @@ int introPrint = 0; //0: welcome, 1: lore, 2: instructions
 
 string bGreen = "\033[1;32m"; // choose higher
 string bRed = "\033[1;31m"; // choose lower
-string bYellow = "\033[0;33m"; // Set Color
+string bYellow = "\033[1;33m"; // Set Color
+string bBlue = "\033[1;34m"; // Turn/Quota/Wallet Color
 string white = "\033[0m";
 
 
@@ -271,10 +357,10 @@ void printGameScreen() {
                                                  "┃                                         "+bYellow+"╰───╮├───╴  │   "+vectorToString(setTensBox[1])+vectorToString(setOnesBox[1])+white+" ┃\n",
                                                  "┃                                         "+bYellow+"╶───╯╰───╴  ╵   "+vectorToString(setTensBox[2])+vectorToString(setOnesBox[2])+white+" ┃\n"};
     string gameScreenEmpty =                     "┃                                                                    ┃\n";
-    vector<string> gameScreenTurnsQuotaWallet = {"┃             ╭─────────────────╮    ╭─────────────────╮             ┃\n",
-                                                 "┃             │    Turn #"+stringTurns+"     │    │   Quota: "+stringQuota+" │             ┃\n",
-                                                 "┃             │ Total turns: "+stringTotalTurns+" │    │  Wallet: "+stringWallet+" │             ┃\n",
-                                                 "┃             ╰─────────────────╯    ╰─────────────────╯             ┃\n"};
+    vector<string> gameScreenTurnsQuotaWallet = {"┃             "+bBlue+"╭─────────────────╮    ╭─────────────────╮"+white+"             ┃\n",
+                                                 "┃             "+bBlue+"│    Turn #"+stringTurns+"     │    │   Quota: "+stringQuota+" │"+white+"             ┃\n",
+                                                 "┃             "+bBlue+"│ Total turns: "+stringTotalTurns+" │    │  Wallet: "+stringWallet+" │"+white+"             ┃\n",
+                                                 "┃             "+bBlue+"╰─────────────────╯    ╰─────────────────╯"+white+"             ┃\n"};
     vector<string> upButtHigh =                 {"┃  "+bGreen+"╔═════════╗"+white+"                                                       ┃\n",
                                                  "┃  "+bGreen+"║  ↑↑↑↑↑  ║"+white+"                                                       ┃\n",
                                                  "┃  "+bGreen+"║  ↑↑↑↑↑  ║    ╭─────────────╮    ╭─────────────╮"+white+"                 ┃\n",
@@ -350,6 +436,22 @@ void genTurnNumbers() {
     // printGameScreen();
     num1 = rand()%(N-1)+1, num2 = rand()%(N+1);
     while(num2 == num1) num2 = rand()%(N+1);
+    // 3 ways to show the new numbers: 
+    // OG: rng through them
+    // Cliche: checker board, use this: █
+    // Smooth if good animation: Reveal from top to bottom, one by one left to right
+    /* 
+    I'm kinda lazy rn I'll do these tmrw :3
+    */
+    // int transitionType = rand()%3;
+    // switch(transitionType) {
+    //     case 0:
+
+    //     case 1:
+
+    //     case 2:
+    // }
+
     for(int temp = 0; temp < 25; temp++) {
         int LocX = rand()%5;
         int LocY = rand()%5;
@@ -405,8 +507,8 @@ void genRound(Set *&s1) {
     genSetNumbers();
     genTurnNumbers();
     input = 0;
-    while(input != 13 && input != 32) {
-        //W: 87 119 | S: 83 115 | Space: 32
+    while(input != 13 && input != 32 && input != 113 && input != 81) {
+        //W: 87 119 | S: 83 115 | Space: 32 | Q: 81 113
         if(input == 87 || input == 119) gameSelect = 1;
         if(input == 83 || input == 115) gameSelect = 0;
         printGameScreen();
@@ -423,7 +525,10 @@ void genRound(Set *&s1) {
             printGameScreen();
         }
     }
-    if(!winSet) {
+    if(input == 113 || input == 81) {
+        quitGame = true;
+    }
+    if(!winSet && !quitGame) {
         genNextNumbers();
         bool winTurn = ( (gameSelect == 1) && num2>num1 ) || ( (gameSelect == 0) && num2<num1 );
         if(winTurn) {
@@ -478,6 +583,9 @@ void genSet(Set *&s1) {
         if(currentTurn < 10) stringTurns = "0"+to_string(currentTurn);
         else stringTurns = to_string(currentTurn);
         genRound(s1);
+        if(quitGame) {
+            break;
+        }
         printedAmount = wallet*mult;
         stringstream stream;
         stream << fixed << setprecision(2) << printedAmount;
@@ -506,6 +614,7 @@ void genSet(Set *&s1) {
         }
         
     }
+    cout << " Thank you for playing!" << endl;
 
 }
 
@@ -525,7 +634,7 @@ void quit() {
 int main() {
     SetConsoleOutputCP(CP_UTF8);
     _setmode(_fileno(stdout), CP_UTF8);
-    cout << fixed <<  setprecision(2);
+    cout << fixed << setprecision(2);
     srand(time(0));
 
     
@@ -566,9 +675,15 @@ int main() {
     sList[5] = s6;
     sList[6] = s7;
     
-    genSet(s1);
-    genSet(s2);
-    genSet(s3);
+    for(int i = 0; i < 3; i++) {
+        genSet(sList[i]);
+        if(quitGame) {
+            break;
+        }
+    }
+    // genSet(s1);
+    // genSet(s2);
+    // genSet(s3);
 
     input = getch();
     while(input != 13) {
