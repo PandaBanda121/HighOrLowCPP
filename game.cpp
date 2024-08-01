@@ -441,7 +441,7 @@ void genTurnNumbers() {
     /* 
     I'm kinda lazy rn I'll do these tmrw :3
     */
-    int transitionType = rand()%3;
+    int transitionType = rand()%2;
     switch(transitionType) {
         case 0:
             for(int temp = 0; temp < 25; temp++) {
