@@ -221,9 +221,9 @@ string bBlue = "\033[1;34m"; // Turn/Quota/Wallet Color
 string white = "\033[0m";
 
 
-//                     7654321
-int animateMicroSeconds = 1000;
-int resultMicroSeconds=1000000;
+//                      7654321
+int animateMicroSeconds = 10000;
+int resultMicroSeconds =1000000;
 
 string result = "                                                   ";
 
@@ -441,26 +441,85 @@ void genTurnNumbers() {
     /* 
     I'm kinda lazy rn I'll do these tmrw :3
     */
-    // int transitionType = rand()%3;
-    // switch(transitionType) {
-    //     case 0:
+    int transitionType = rand()%3;
+    switch(transitionType) {
+        case 0:
+            for(int temp = 0; temp < 25; temp++) {
+                int LocX = rand()%5, LocY = rand()%5;
+                while(num1TensBox[LocX][LocY]+"" != "?") LocX = rand()%5, LocY = rand()%5;
+                num1TensBox[LocX][LocY] = numbers[num1/10][LocX][LocY];
+                LocX = rand()%5, LocY = rand()%5;
+                while(num1OnesBox[LocX][LocY]+"" != "?") LocX = rand()%5, LocY = rand()%5;
+                num1OnesBox[LocX][LocY] = numbers[num1%10][LocX][LocY];
+                printGameScreen();
+                usleep(animateMicroSeconds*2);
+            }
+            break;
+        case 1:
+            num1TensBox[0][0] = numbers[num1/10][0][0];
+            printGameScreen();
+            usleep(animateMicroSeconds*4);
+            for(int i = 0; i <= 2; i++) num1TensBox[2-i][i] = numbers[num1/10][2-i][i];
+            printGameScreen();
+            usleep(animateMicroSeconds*4);
+            for(int i = 0; i <= 4; i++) num1TensBox[4-i][i] = numbers[num1/10][4-i][i];
+            printGameScreen();
+            usleep(animateMicroSeconds*4);
+            for(int i = 0; i <= 2; i++) num1TensBox[4-i][i+2] = numbers[num1/10][4-i][i+2];
+            printGameScreen();
+            usleep(animateMicroSeconds*4);
+            num1TensBox[4][4] = numbers[num1/10][4][4];
+            printGameScreen();
+            usleep(animateMicroSeconds*4);
 
-    //     case 1:
+            num1OnesBox[0][0] = numbers[num1%10][0][0];
+            printGameScreen();
+            usleep(animateMicroSeconds*4);
+            for(int i = 0; i <= 2; i++) num1OnesBox[2-i][i] = numbers[num1%10][2-i][i];
+            printGameScreen();
+            usleep(animateMicroSeconds*4);
+            for(int i = 0; i <= 4; i++) num1OnesBox[4-i][i] = numbers[num1%10][4-i][i];
+            printGameScreen();
+            usleep(animateMicroSeconds*4);
+            for(int i = 0; i <= 2; i++) num1OnesBox[4-i][i+2] = numbers[num1%10][4-i][i+2];
+            printGameScreen();
+            usleep(animateMicroSeconds*4);
+            num1OnesBox[4][4] = numbers[num1%10][4][4];
+            printGameScreen();
+            usleep(animateMicroSeconds*4);
 
-    //     case 2:
-    // }
 
-    for(int temp = 0; temp < 25; temp++) {
-        int LocX = rand()%5;
-        int LocY = rand()%5;
-        while(num1TensBox[LocX][LocY]+"" != "?") LocX = rand()%5, LocY = rand()%5;
-        num1TensBox[LocX][LocY] = numbers[num1/10][LocX][LocY];
-        usleep(animateMicroSeconds);
-        LocX = rand()%5, LocY = rand()%5;
-        while(num1OnesBox[LocX][LocY]+"" != "?") LocX = rand()%5, LocY = rand()%5;
-        num1OnesBox[LocX][LocY] = numbers[num1%10][LocX][LocY];
-        printGameScreen();
-        usleep(animateMicroSeconds);
+            num1TensBox[1][0] = numbers[num1/10][1][0];
+            num1TensBox[0][1] = numbers[num1/10][0][1];
+            printGameScreen();
+            usleep(animateMicroSeconds*4);
+            for(int i = 0; i <= 3; i++) num1TensBox[3-i][i] = numbers[num1/10][3-i][i];
+            printGameScreen();
+            usleep(animateMicroSeconds*4);
+            for(int i = 1; i <= 4; i++) num1TensBox[5-i][i] = numbers[num1/10][5-i][i];
+            printGameScreen();
+            usleep(animateMicroSeconds*4);
+            num1TensBox[4][3] = numbers[num1/10][4][3];
+            num1TensBox[3][4] = numbers[num1/10][3][4];
+            printGameScreen();
+            usleep(animateMicroSeconds*4);
+
+            num1OnesBox[1][0] = numbers[num1%10][1][0];
+            num1OnesBox[0][1] = numbers[num1%10][0][1];
+            printGameScreen();
+            usleep(animateMicroSeconds*4);
+            for(int i = 0; i <= 3; i++) num1OnesBox[3-i][i] = numbers[num1%10][3-i][i];
+            printGameScreen();
+            usleep(animateMicroSeconds*4);
+            for(int i = 1; i <= 4; i++) num1OnesBox[5-i][i] = numbers[num1%10][5-i][i];
+            printGameScreen();
+            usleep(animateMicroSeconds*4);
+            num1OnesBox[4][3] = numbers[num1%10][4][3];
+            num1OnesBox[3][4] = numbers[num1%10][3][4];
+            printGameScreen();
+            usleep(animateMicroSeconds*4);
+            
+            break;
     }
 }
 
@@ -504,8 +563,8 @@ void genRound(Set *&s1) {
     result = "                                                   ";
     genSetNumbers();
     genTurnNumbers();
-    input = 0;
     
+    input = getch();
     while(true) {
         if(input == 13) break;
         if(input == 87 || input == 119) {
@@ -532,7 +591,6 @@ void genRound(Set *&s1) {
 
         if(input == 113 || input == 81) {
             result = "Press [Q] again to quit. Press any key to cancel.  ";
-            result = "You don't even have enough to deposit, try harder. ";
             printGameScreen();
             input = getch();
             if(input == 113 || input == 81) {
@@ -706,10 +764,6 @@ int main() {
     // genSet(s2);
     // genSet(s3);
 
-    input = getch();
-    while(input != 13) {
-        cout << input << endl;
-        input = getch();
-    }
+    
     return 0;
 }
