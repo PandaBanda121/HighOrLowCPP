@@ -221,9 +221,15 @@ string bBlue = "\033[1;34m"; // Turn/Quota/Wallet Color
 string white = "\033[0m";
 
 
-//                      7654321
-int animateMicroSeconds = 20000;
-int resultMicroSeconds =1000000;
+//                       7654321
+int animateSetMicroSeconds = 20000;  // Set animation
+int animateMicroSeconds0 = 20000;  // Turn Num animation 0
+int animateMicroSeconds1 = 80000;  // Turn Num animation 1
+int animateMicroSeconds2 = 20000;  // Turn Num animation 2
+int animateMicroSeconds3 = 20000;  // Turn Num animation 3
+int animateMicroSeconds4 = 20000;  // Turn Num animation 4
+int animateMicroSeconds5 = 20000;  // Turn Num animation 5
+int resultMicroSeconds =1000000;  // result
 
 string result = "                                                   ";
 
@@ -441,7 +447,7 @@ void genTurnNumbers() {
     /* 
     I'm kinda lazy rn I'll do these tmrw :3
     */
-    int transitionType = rand()%2;
+    int transitionType = rand()%6;
     if(transitionType == 0) {
         for(int temp = 0; temp < 25; temp++) {
             int LocX = rand()%5, LocY = rand()%5;
@@ -451,75 +457,129 @@ void genTurnNumbers() {
             while(num1OnesBox[LocX][LocY]+"" != "?") LocX = rand()%5, LocY = rand()%5;
             num1OnesBox[LocX][LocY] = numbers[num1%10][LocX][LocY];
             printGameScreen();
-            usleep(animateMicroSeconds);
+            usleep(animateMicroSeconds0);
         }
     } else if(transitionType == 1) {
         num1TensBox[0][0] = numbers[num1/10][0][0];
         printGameScreen();
-        usleep(animateMicroSeconds);
+        usleep(animateMicroSeconds1);
         for(int i = 0; i <= 2; i++) num1TensBox[2-i][i] = numbers[num1/10][2-i][i];
         printGameScreen();
-        usleep(animateMicroSeconds);
+        usleep(animateMicroSeconds1);
         for(int i = 0; i <= 4; i++) num1TensBox[4-i][i] = numbers[num1/10][4-i][i];
         printGameScreen();
-        usleep(animateMicroSeconds);
+        usleep(animateMicroSeconds1);
         for(int i = 0; i <= 2; i++) num1TensBox[4-i][i+2] = numbers[num1/10][4-i][i+2];
         printGameScreen();
-        usleep(animateMicroSeconds);
+        usleep(animateMicroSeconds1);
         num1TensBox[4][4] = numbers[num1/10][4][4];
         printGameScreen();
-        usleep(animateMicroSeconds);
+        usleep(animateMicroSeconds1);
 
         num1OnesBox[0][0] = numbers[num1%10][0][0];
         printGameScreen();
-        usleep(animateMicroSeconds);
+        usleep(animateMicroSeconds1);
         for(int i = 0; i <= 2; i++) num1OnesBox[2-i][i] = numbers[num1%10][2-i][i];
         printGameScreen();
-        usleep(animateMicroSeconds);
+        usleep(animateMicroSeconds1);
         for(int i = 0; i <= 4; i++) num1OnesBox[4-i][i] = numbers[num1%10][4-i][i];
         printGameScreen();
-        usleep(animateMicroSeconds);
+        usleep(animateMicroSeconds1);
         for(int i = 0; i <= 2; i++) num1OnesBox[4-i][i+2] = numbers[num1%10][4-i][i+2];
         printGameScreen();
-        usleep(animateMicroSeconds);
+        usleep(animateMicroSeconds1);
         num1OnesBox[4][4] = numbers[num1%10][4][4];
         printGameScreen();
-        usleep(animateMicroSeconds);
+        usleep(animateMicroSeconds1);
 
 
         num1TensBox[1][0] = numbers[num1/10][1][0];
         num1TensBox[0][1] = numbers[num1/10][0][1];
         printGameScreen();
-        usleep(animateMicroSeconds);
+        usleep(animateMicroSeconds1);
         for(int i = 0; i <= 3; i++) num1TensBox[3-i][i] = numbers[num1/10][3-i][i];
         printGameScreen();
-        usleep(animateMicroSeconds);
+        usleep(animateMicroSeconds1);
         for(int i = 1; i <= 4; i++) num1TensBox[5-i][i] = numbers[num1/10][5-i][i];
         printGameScreen();
-        usleep(animateMicroSeconds);
+        usleep(animateMicroSeconds1);
         num1TensBox[4][3] = numbers[num1/10][4][3];
         num1TensBox[3][4] = numbers[num1/10][3][4];
         printGameScreen();
-        usleep(animateMicroSeconds);
+        usleep(animateMicroSeconds1);
 
         num1OnesBox[1][0] = numbers[num1%10][1][0];
         num1OnesBox[0][1] = numbers[num1%10][0][1];
         printGameScreen();
-        usleep(animateMicroSeconds);
+        usleep(animateMicroSeconds1);
         for(int i = 0; i <= 3; i++) num1OnesBox[3-i][i] = numbers[num1%10][3-i][i];
         printGameScreen();
-        usleep(animateMicroSeconds);
+        usleep(animateMicroSeconds1);
         for(int i = 1; i <= 4; i++) num1OnesBox[5-i][i] = numbers[num1%10][5-i][i];
         printGameScreen();
-        usleep(animateMicroSeconds);
+        usleep(animateMicroSeconds1);
         num1OnesBox[4][3] = numbers[num1%10][4][3];
         num1OnesBox[3][4] = numbers[num1%10][3][4];
         printGameScreen();
-        usleep(animateMicroSeconds);
+        usleep(animateMicroSeconds1);
     } else if(transitionType==2) {
         for(int i = 0; i < 5; i++) {
             for(int j = 0; j < 5; j++) {
-
+                num1TensBox[i][j] = numbers[num1/10][i][j];
+                printGameScreen();
+                usleep(animateMicroSeconds2);
+            }
+        }
+        for(int i = 0; i < 5; i++) {
+            for(int j = 0; j < 5; j++) {
+                num1OnesBox[i][j] = numbers[num1%10][i][j];
+                printGameScreen();
+                usleep(animateMicroSeconds2);
+            }
+        }
+    } else if(transitionType==3) {
+        for(int j = 0; j < 5; j++) {
+            for(int i = 0; i < 5; i++) {
+                num1TensBox[i][j] = numbers[num1/10][i][j];
+                printGameScreen();
+                usleep(animateMicroSeconds3);
+            }
+        }
+        for(int j = 0; j < 5; j++) {
+            for(int i = 0; i < 5; i++) {
+                num1OnesBox[i][j] = numbers[num1%10][i][j];
+                printGameScreen();
+                usleep(animateMicroSeconds3);
+            }
+        }
+    } else if(transitionType==4) {
+        for(int j = 4; j >= 0; j--) {
+            for(int i = 0; i < 5; i++) {
+                num1OnesBox[i][j] = numbers[num1%10][i][j];
+                printGameScreen();
+                usleep(animateMicroSeconds4);
+            }
+        }
+        for(int j = 4; j >= 0; j--) {
+            for(int i = 0; i < 5; i++) {
+                num1TensBox[i][j] = numbers[num1/10][i][j];
+                printGameScreen();
+                usleep(animateMicroSeconds4);
+            }
+        }
+    } else if(transitionType==5) {
+        for(int i = 4; i >= 0; i--) {
+            for(int j = 0; j < 5; j++) {
+                num1TensBox[i][j] = numbers[num1/10][i][j];
+                printGameScreen();
+                usleep(animateMicroSeconds5);
+            }
+        }
+        for(int i = 4; i >= 0; i--) {
+            for(int j = 0; j < 5; j++) {
+                num1OnesBox[i][j] = numbers[num1%10][i][j];
+                printGameScreen();
+                usleep(animateMicroSeconds5);
             }
         }
     }
@@ -532,12 +592,12 @@ void genNextNumbers() {
         int LocY = rand()%5;
         while(num2TensBox[LocX][LocY]+"" != "?") LocX = rand()%5, LocY = rand()%5;
         num2TensBox[LocX][LocY] = numbers[num2/10][LocX][LocY];
-        usleep(animateMicroSeconds);
+        usleep(animateMicroSeconds0);
         LocX = rand()%5, LocY = rand()%5;
         while(num2OnesBox[LocX][LocY]+"" != "?") LocX = rand()%5, LocY = rand()%5;
         num2OnesBox[LocX][LocY] = numbers[num2%10][LocX][LocY];
         printGameScreen();
-        usleep(animateMicroSeconds);
+        usleep(animateMicroSeconds0);
     }
 }
 
@@ -548,13 +608,13 @@ void genSetNumbers() {
         while(setTensChanged[LocX][LocY]) LocX = rand()%3, LocY = rand()%5;
         setTensChanged[LocX][LocY] = true;
         setTensBox[LocX][LocY] = setNumbers[setNum/10][LocX][LocY];
-        usleep(animateMicroSeconds);
+        usleep(animateSetMicroSeconds);
         LocX = rand()%3, LocY = rand()%5;
         while(setOnesChanged[LocX][LocY]) LocX = rand()%3, LocY = rand()%5;
         setOnesChanged[LocX][LocY] = true;
         setOnesBox[LocX][LocY] = setNumbers[setNum%10][LocX][LocY];
         printGameScreen();
-        usleep(animateMicroSeconds);
+        usleep(animateSetMicroSeconds);
     }
     setTensChanged = falseVector3x5;
     setOnesChanged = falseVector3x5;
