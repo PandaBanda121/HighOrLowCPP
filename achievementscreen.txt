@@ -1,0 +1,35 @@
+Achievements screen:
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Goal Finisher                                                      ┃1
+┃                                                                    ┃2
+┃                                                                    ┃3
+┃                                                                    ┃4
+┃                                                                    ┃5
+┃ Flawless Win                                                       ┃1
+┃                                                                    ┃2
+┃                                                                    ┃3
+┃                                                                    ┃4
+┃                                                                    ┃5
+┃ Undeniable Perseverance                                            ┃1
+┃                                                                    ┃2
+┃                                                                    ┃3
+┃                                                                    ┃4
+┃                                                                    ┃5
+┃ The next rich Warrior                                              ┃1
+┃                                                                    ┃2
+┃                                                                    ┃3
+┃                                                                    ┃4
+┃                                                                    ┃5
+┃ Unlucky bastard                                                    ┃1
+┃                                                                    ┃2
+┃                                                                    ┃3
+┃                                                                    ┃4
+┃                                                                    ┃5
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+Flawless Win: not lose once for an entire round (played to end)
+Undeniable Perseverance: both win and lost is above 100 coins and net is less than 10
+The next rich Warrior: net win 100 coins
+Unlucky bastard: lost 100 coins
+Goal finisher: won all 7 sets
+

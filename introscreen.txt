@@ -1,52 +1,58 @@
 Intro screen (none selected):
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃                                                                    ┃A
-┃                                                                    ┃A
-┃                              Welcome!                              ┃1
-┃        Here to feed your uncontrollable gambling addiction?        ┃2
-┃                    You came to the right place.                    ┃3
-┃               This is a simple game of taking risks.               ┃4
-┃                             Good luck!                             ┃5
-┃                                                                    ┃A
+┃                                                                    ┃E
+┃                                                                    ┃E
+┃                              Welcome!                              ┃A
+┃        Here to feed your uncontrollable gambling addiction?        ┃B
+┃                    You came to the right place.                    ┃C
+┃               This is a simple game of taking risks.               ┃D
+┃                             Good luck!                             ┃E
+┃                                                                    ┃E
 ┃                    ╭──────────────────────────╮                    ┃11
-┃                    │ [1] Game Background/Lore │                    ┃22
-┃                    ╰──────────────────────────╯                    ┃33
+┃                    │ [1] Game Background/Lore │                    ┃11
+┃                    ╰──────────────────────────╯                    ┃11
+┃                                                                    ┃22
+┃                          [2] Instructions                          ┃22
+┃                                                                    ┃22
+┃                                                                    ┃33
+┃                           [3] Start Game                           ┃33
+┃                                                                    ┃33
 ┃                                                                    ┃44
-┃                          [2] Instructions                          ┃55
-┃                                                                    ┃66
-┃                                                                    ┃77
-┃                           [3] Start Game                           ┃88
-┃                                                                    ┃99
-┃                                                                    ┃A
-┃                                                                    ┃A
-┃       [W][S]: Scroll through options  [Enter]: Select option       ┃B
-┃                                                                    ┃A
-┃                                                                    ┃A
+┃                          [4] Achievements                          ┃44
+┃                                                                    ┃44
+┃                                                                    ┃E
+┃       [W][S]: Scroll through options  [Enter]: Select option       ┃F
+┃                                                                    ┃E
+┃                                                                    ┃E
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 
 ┃                                                                    ┃11
-┃                      [1] Game Background/Lore                      ┃22
+┃                      [1] Game Background/Lore                      ┃11
+┃                                                                    ┃11
+┃                                                                    ┃22
+┃                          [2] Instructions                          ┃22
+┃                                                                    ┃22
+┃                                                                    ┃33
+┃                           [3] Start Game                           ┃33
 ┃                                                                    ┃33
 ┃                                                                    ┃44
-┃                          [2] Instructions                          ┃55
-┃                                                                    ┃66
-┃                                                                    ┃77
-┃                           [3] Start Game                           ┃88
-┃                                                                    ┃99
-
+┃                          [4] Achievements                          ┃44
+┃                                                                    ┃44
 
 
 ┃                    ╭──────────────────────────╮                    ┃11
-┃                    │ [1] Game Background/Lore │                    ┃22
-┃                    ╰──────────────────────────╯                    ┃33
+┃                    │ [1] Game Background/Lore │                    ┃11
+┃                    ╰──────────────────────────╯                    ┃11
+┃                        ╭──────────────────╮                        ┃22
+┃                        │ [2] Instructions │                        ┃22
+┃                        ╰──────────────────╯                        ┃22
+┃                         ╭────────────────╮                         ┃33
+┃                         │ [3] Start Game │                         ┃33
+┃                         ╰────────────────╯                         ┃33
 ┃                        ╭──────────────────╮                        ┃44
-┃                        │ [2] Instructions │                        ┃55
-┃                        ╰──────────────────╯                        ┃66
-┃                         ╭────────────────╮                         ┃77
-┃                         │ [3] Start Game │                         ┃88
-┃                         ╰────────────────╯                         ┃99
-
+┃                        │ [4] Achievements │                        ┃44
+┃                        ╰──────────────────╯                        ┃44
 
 
 

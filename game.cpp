@@ -211,7 +211,7 @@ vector<vector<bool>> setOnesChanged = falseVector3x5;
 int setNum = 1;
 
 int input;
-int introSelect = 0; //0: Lore, 1: instructions, 2: startgame
+int introSelect = 0; //0: Lore, 1: instructions, 2: gameScreen, 3: achievementScreen
 int introPrint = 0; //0: welcome, 1: lore, 2: instructions
 
 string bGreen = "\033[1;32m"; // choose higher
@@ -253,6 +253,40 @@ int longestLostStreak = 0;
 int longestWinStreak = 0;
 
 
+
+string goalFinisherTitleUnlocked =                   "┃ Goal Finisher                                                      ┃\n";
+string flawlessWinTitleUnlocked =                    "┃ Flawless Win                                                       ┃\n";
+string undeniablePerseveranceTitleUnlocked =         "┃ Undeniable Perseverance                                            ┃\n";
+string theNextRichWarriorTitleUnlocked =             "┃ The next rich Warrior                                              ┃\n";
+string unluckyBastardTitleUnlocked =                 "┃ Unlucky bastard                                                    ┃\n";
+
+vector<string> goalFinisherLoreUnlocked =           {"┃ Temporary place holder11                                           ┃\n",
+                                                     "┃ Temporary place holder12                                           ┃\n",
+                                                     "┃ Temporary place holder13                                           ┃\n",
+                                                     "┃ Temporary place holder14                                           ┃\n"};
+vector<string> flawlessWinLoreUnlocked =            {"┃ Temporary place holder21                                           ┃\n",
+                                                     "┃ Temporary place holder22                                           ┃\n",
+                                                     "┃ Temporary place holder23                                           ┃\n",
+                                                     "┃ Temporary place holder24                                           ┃\n"};
+vector<string> undeniablePerseveranceLoreUnlocked = {"┃ Temporary place holder31                                           ┃\n",
+                                                     "┃ Temporary place holder32                                           ┃\n",
+                                                     "┃ Temporary place holder33                                           ┃\n",
+                                                     "┃ Temporary place holder34                                           ┃\n"};
+vector<string> theNextRichWarriorLoreUnlocked =     {"┃ Temporary place holder41                                           ┃\n",
+                                                     "┃ Temporary place holder42                                           ┃\n",
+                                                     "┃ Temporary place holder43                                           ┃\n",
+                                                     "┃ Temporary place holder44                                           ┃\n"};
+vector<string> unluckyBastardLoreUnlocked =         {"┃ Temporary place holder51                                           ┃\n",
+                                                     "┃ Temporary place holder52                                           ┃\n",
+                                                     "┃ Temporary place holder53                                           ┃\n",
+                                                     "┃ Temporary place holder54                                           ┃\n"};
+
+bool goalFinisherUnlocked = false;
+bool flawlessWinUnlocked = false;
+bool undeniablePerseveranceUnlocked = false;
+bool theNextRichWarriorUnlocked = false;
+bool unluckyBastardUnlocked = false;
+
 bool winSet = false;
 bool winGame = false;
 bool lostGame = false;
@@ -264,6 +298,9 @@ void printIntroScreen();
 
 //Game Screen
 void printGameScreen();
+
+//Achievement Screen
+void printAchievementsScreen();
 
 // Back-end Main Function
 
@@ -317,6 +354,12 @@ void printIntroScreen() {
     vector<string> butt3 =        {"┃                                                                    ┃\n",
                                    "┃                           [3] Start Game                           ┃\n",
                                    "┃                                                                    ┃\n"};
+    vector<string> butt4high =    {"┃                        ╭──────────────────╮                        ┃\n",
+                                   "┃                        │ [4] Achievements │                        ┃\n",
+                                   "┃                        ╰──────────────────╯                        ┃\n"};
+    vector<string> butt4 =        {"┃                                                                    ┃\n",
+                                   "┃                          [4] Achievements                          ┃\n",
+                                   "┃                                                                    ┃\n"};
     string controls =              "┃       [W][S]: Scroll through options  [Enter]: Select option       ┃\n";
     string bottom =                "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
 
@@ -325,13 +368,16 @@ void printIntroScreen() {
     if(introPrint == 0) for(string line : intro) cout << line;
     else if(introPrint == 1) for(string line : lore) cout << line;
     else if(introPrint == 2) for(string line : instructions) cout << line;
-    cout << empty;
+    cout << empty << empty;
     if(introSelect == 0) for(string line : butt1high) cout << line;
     else for(string line : butt1) cout << line;
     if(introSelect == 1) for(string line : butt2high) cout << line;
     else for(string line : butt2) cout << line;
     if(introSelect == 2) for(string line : butt3high) cout << line;
     else for(string line : butt3) cout << line;
+    if(introSelect == 3) for(string line : butt4high) cout << line;
+    else for(string line : butt4) cout << line;
+    
     cout << empty << empty;
     cout << controls;
     cout << empty << empty;
@@ -342,15 +388,16 @@ void printIntroScreen() {
         introSelect = (introSelect-1+3)%3;
         printIntroScreen();
     } else if(input == 83 || input == 115) { // S/s
-        introSelect = (introSelect+1+3)%3;
-        printIntroScreen();
-    } else if(input == 13) { // [Enter]
-        if(introSelect == 2) printGameScreen;
-        else {
-            introPrint = introSelect+1;
-            introSelect = 0;
+            introSelect = (introSelect+1+4)%4;
             printIntroScreen();
-        }
+        } else if(input == 13) { // [Enter]
+            if(introSelect == 2) printGameScreen();
+            else if(introSelect == 3) printAchievementsScreen();
+            else {
+                introPrint = introSelect+1;
+                introSelect = 0;
+                printIntroScreen();
+            }
     } else printIntroScreen();
 }
 
@@ -387,8 +434,10 @@ void printGameScreen() {
                                                  "┃  "+bRed+"║  ↓↓↓↓↓  ║    ╰─────────────╯    ╰─────────────╯"+white+"                 ┃\n",
                                                  "┃  "+bRed+"║  ↓↓↓↓↓  ║"+white+"                                                       ┃\n",
                                                  "┃  "+bRed+"╚═════════╝"+white+"    "+result+"┃\n"};
-    string gameScreenControls =                  "┃     [W][S]: Switch Up/Down  [Space]: Deposit  [Enter]: Confirm     ┃\n";
-    string quitControl =                         "┃                       [Q]: quit (no saving!)                       ┃\n";
+    string lore1 =                               "┃                                                                    ┃\n";
+    string lore2 =                               "┃                                                                    ┃\n";
+    string lore3 =                               "┃                                                                    ┃\n";
+    string gameScreenControls =                  "┃   [W][S]: Up/Down  [Space]: Deposit  [Enter]: Confirm  [Q]: Quit   ┃\n";
     string gameScreenBottom =                    "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
 
     cout << "\033[2J\033[1;1H";
@@ -396,12 +445,84 @@ void printGameScreen() {
     for(string line : gameScreenSet) cout << line;
     cout << gameScreenEmpty;
     for(string line : gameScreenTurnsQuotaWallet) cout << line;
+    cout << gameScreenEmpty;
     if(gameSelect == 1) for(int i = 0; i < 11; i++) cout << upButtHigh[i];
     else for(int i = 0; i < 11; i++) cout << downButtHigh[i];
-    cout << gameScreenEmpty;
+    cout << lore1;
+    cout << lore2;
+    cout << lore3;
     cout << gameScreenControls;
-    cout << quitControl;
+    cout << gameScreenEmpty;
+    cout << gameScreenEmpty;
     cout << gameScreenBottom;
+}
+
+void printAchievementsScreen() {
+    string achievementsTop =                     "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n";
+    string goalFinisherTitle =                   "┃ title1?????                                                        ┃\n";
+    string flawlessWinTitle =                    "┃ title2?????                                                        ┃\n";
+    string undeniablePerseveranceTitle =         "┃ title3?????                                                        ┃\n";
+    string theNextRichWarriorTitle =             "┃ title4?????                                                        ┃\n";
+    string unluckyBastardTitle =                 "┃ title5?????                                                        ┃\n";
+    vector<string> goalFinisherLore =           {"┃ ?????11                                                            ┃\n",
+                                                 "┃ ?????12                                                            ┃\n",
+                                                 "┃ ?????13                                                            ┃\n",
+                                                 "┃ ?????14                                                            ┃\n"};
+    vector<string> flawlessWinLore =            {"┃ ?????21                                                            ┃\n",
+                                                 "┃ ?????22                                                            ┃\n",
+                                                 "┃ ?????23                                                            ┃\n",
+                                                 "┃ ?????24                                                            ┃\n"};
+    vector<string> undeniablePerseveranceLore = {"┃ ?????31                                                            ┃\n",
+                                                 "┃ ?????32                                                            ┃\n",
+                                                 "┃ ?????33                                                            ┃\n",
+                                                 "┃ ?????34                                                            ┃\n"};
+    vector<string> theNextRichWarriorLore =     {"┃ ?????41                                                            ┃\n",
+                                                 "┃ ?????42                                                            ┃\n",
+                                                 "┃ ?????43                                                            ┃\n",
+                                                 "┃ ?????44                                                            ┃\n"};
+    vector<string> unluckyBastardLore =         {"┃ ?????51                                                            ┃\n",
+                                                 "┃ ?????52                                                            ┃\n",
+                                                 "┃ ?????53                                                            ┃\n",
+                                                 "┃ ?????54                                                            ┃\n"};
+    string control =                             "┃ > Press any key to go back to intro screen                         ┃\n";
+    string achievementsBottom =                  "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
+    
+    cout << "\033[2J\033[1;1H";
+    if(goalFinisherUnlocked) {
+        goalFinisherTitle = goalFinisherTitleUnlocked;
+        goalFinisherLore = goalFinisherLoreUnlocked;
+    }
+    if(flawlessWinUnlocked) {
+        flawlessWinTitle = flawlessWinTitleUnlocked;
+        flawlessWinLore = flawlessWinLoreUnlocked;
+    }
+    if(undeniablePerseveranceUnlocked) {
+        undeniablePerseveranceTitle = undeniablePerseveranceTitleUnlocked;
+        undeniablePerseveranceLore = undeniablePerseveranceLoreUnlocked;
+    }
+    if(theNextRichWarriorUnlocked) {
+        theNextRichWarriorTitle = theNextRichWarriorTitleUnlocked;
+        theNextRichWarriorLore = theNextRichWarriorLoreUnlocked;
+    }
+    if(unluckyBastardUnlocked) {
+        unluckyBastardTitle = unluckyBastardTitleUnlocked;
+        unluckyBastardLore = unluckyBastardLoreUnlocked;
+    }
+    cout << achievementsTop;
+    cout << goalFinisherTitle;
+    for(string line : goalFinisherLore) cout << line;
+    cout << flawlessWinTitle;
+    for(string line : flawlessWinLore) cout << line;
+    cout << undeniablePerseveranceTitle;
+    for(string line : undeniablePerseveranceLore) cout << line;
+    cout << theNextRichWarriorTitle;
+    for(string line : theNextRichWarriorLore) cout << line;
+    cout << unluckyBastardTitle;
+    for(string line : unluckyBastardLore) cout << line;
+    cout << control;
+    cout << achievementsBottom;
+    input = getch();
+    printIntroScreen();
 }
 
 
