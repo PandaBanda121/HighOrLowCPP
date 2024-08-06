@@ -221,15 +221,15 @@ string bBlue = "\033[1;34m"; // Turn/Quota/Wallet Color
 string white = "\033[0m";
 
 
-//                       7654321
-int animateSetMicroSeconds = 20000;  // Set animation
-int animateMicroSeconds0 = 20000;  // Turn Num animation 0
-int animateMicroSeconds1 = 80000;  // Turn Num animation 1
-int animateMicroSeconds2 = 20000;  // Turn Num animation 2
-int animateMicroSeconds3 = 20000;  // Turn Num animation 3
-int animateMicroSeconds4 = 20000;  // Turn Num animation 4
-int animateMicroSeconds5 = 20000;  // Turn Num animation 5
-int resultMicroSeconds =1000000;  // result
+//                         7654321
+int animateSetMicroSeconds = 10000;  // Set animation
+int animateMicroSeconds0 =   20000;  // Turn Num animation 0
+int animateMicroSeconds1 =   20000;  // Turn Num animation 1
+int animateMicroSeconds2 =   20000;  // Turn Num animation 2
+int animateMicroSeconds3 =   20000;  // Turn Num animation 3
+int animateMicroSeconds4 =   20000;  // Turn Num animation 4
+int animateMicroSeconds5 =   20000;  // Turn Num animation 5
+int resultMicroSeconds =   1000000;  // result
 
 string result = "                                                   ";
 
@@ -254,13 +254,13 @@ int longestWinStreak = 0;
 
 
 
-string goalFinisherTitleUnlocked =                   "┃ Goal Finisher                                                      ┃\n";
-string flawlessWinTitleUnlocked =                    "┃ Flawless Win                                                       ┃\n";
-string undeniablePerseveranceTitleUnlocked =         "┃ Undeniable Perseverance                                            ┃\n";
-string theNextRichWarriorTitleUnlocked =             "┃ The next rich Warrior                                              ┃\n";
-string unluckyBastardTitleUnlocked =                 "┃ Unlucky bastard                                                    ┃\n";
+string goalFinisherTitleUnlocked =                   "┃ Goal Finisher            (02/25)                                   ┃\n";
+string flawlessWinTitleUnlocked =                    "┃ Flawless Win             (03/25)                                   ┃\n";
+string undeniablePerseveranceTitleUnlocked =         "┃ Undeniable Perseverance  (04/25)                                   ┃\n";
+string theNextRichWarriorTitleUnlocked =             "┃ The next rich Warrior    (05/25)                                   ┃\n";
+string unluckyBastardTitleUnlocked =                 "┃ Unlucky bastard          (06/25)                                   ┃\n";
 
-vector<string> goalFinisherLoreUnlocked =           {"┃ Temporary place holder11                                           ┃\n",
+vector<string> goalFinisherLoreUnlocked =           {"┃ As Panda relaxed, well? He                                                  ┃\n",
                                                      "┃ Temporary place holder12                                           ┃\n",
                                                      "┃ Temporary place holder13                                           ┃\n",
                                                      "┃ Temporary place holder14                                           ┃\n"};
@@ -797,7 +797,7 @@ void genRound(Set *&s1) {
             else if (winStreak == 2) result = "Correct, again.                                    ";
             else if (winStreak == 3) result = "Correct, again, AGAIN.                             ";
             else if (winStreak >= 4) result = "Correct, again and again... Are you cheating???    ";
-        } else{
+        } else {
             lostStreak++;
             if(lostStreak > longestLostStreak) longestLostStreak = lostStreak;
             winStreak = 0;
@@ -816,6 +816,7 @@ void genRound(Set *&s1) {
 void genSet(Set *&s1) {
     winSet = false;
     setNum = s1->setNum;
+    mult = 1;
     genSetNumbers();
     if(s1->turns < 10) stringTotalTurns = "0"+to_string(s1->turns);
     else stringTotalTurns = to_string(s1->turns);
@@ -852,7 +853,6 @@ void genSet(Set *&s1) {
         if(printedAmount < 0) stringWallet = "000.00";
         else if(printedAmount < 10) stringWallet = "00"+stringWallet;
         else if(printedAmount < 100) stringWallet = "0"+stringWallet;
-        else stringWallet = stringWallet;
         printGameScreen();
         
         usleep(resultMicroSeconds);
@@ -860,6 +860,11 @@ void genSet(Set *&s1) {
             if(mult*wallet > s1->quota) {
                 result = "You played until the end huh, going to next set.   ";
                 winSet = true;
+                printGameScreen();
+                usleep(resultMicroSeconds*3);
+            } else {
+                result = "Wow... you tried all you could but still lost. GG. ";
+                lostGame = true;
                 printGameScreen();
                 usleep(resultMicroSeconds*3);
             }
@@ -883,7 +888,6 @@ void genSet(Set *&s1) {
             while(input != 113 && input != 81) input = getch();
             quit();
         }
-        
     }
     cout << " Thank you for playing!" << endl;
 
@@ -949,3 +953,12 @@ int main() {
     
     return 0;
 }
+
+/*
+
+22.5
+5 3
+
+
+
+*/
