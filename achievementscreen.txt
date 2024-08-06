@@ -33,3 +33,8 @@ The next rich Warrior: net win 100 coins
 Unlucky bastard: lost 100 coins
 Goal finisher: won all 7 sets
 
+┃ Stats:                                                             ┃1
+┃ Total earned:                                                      ┃2
+┃ Total lost:                                                        ┃3
+┃ Net earned:                                                        ┃4
+┃ Total rounds played:                                               ┃5
