@@ -287,6 +287,8 @@ bool undeniablePerseveranceUnlocked = false;
 bool theNextRichWarriorUnlocked = false;
 bool unluckyBastardUnlocked = false;
 
+bool notLostRoundYetForFlawlessWin = true;
+bool endOfSetForFlawlessWin = false;
 bool winSet = false;
 bool winGame = false;
 bool lostGame = false;
@@ -306,6 +308,8 @@ void printAchievementsScreen();
 
 // 3 smaller functions for back-end
 
+// Achievements Checker
+void checkAchievements(Set *&s1);
 
 // Quit Game Checker
 void quit();
@@ -743,6 +747,7 @@ void genSetNumbers() {
 
 void genRound(Set *&s1) {
     winSet = false;
+    
     result = "                                                   ";
     genTurnNumbers();
     
@@ -798,6 +803,7 @@ void genRound(Set *&s1) {
             else if (winStreak == 3) result = "Correct, again, AGAIN.                             ";
             else if (winStreak >= 4) result = "Correct, again and again... Are you cheating???    ";
         } else {
+            notLostRoundYetForFlawlessWin = false;
             lostStreak++;
             if(lostStreak > longestLostStreak) longestLostStreak = lostStreak;
             winStreak = 0;
@@ -810,6 +816,11 @@ void genRound(Set *&s1) {
         if(gameSelect == 0) multAdd = 1.00-multAdd;
         if(!winTurn) multAdd = -multAdd;
         mult = mult+multAdd;
+        if(winTurn) {
+            totalEarned = totalEarned + wallet*multAdd;
+        } else {
+            totalLost = totalLost + wallet*multAdd;
+        }
     }
 }
 
@@ -833,6 +844,8 @@ void genSet(Set *&s1) {
     if(s1->quota < 10) stringQuota = "00" + to_string(s1->quota)+".00";
     else if(s1->quota < 100) stringQuota = "0" + to_string(s1->quota)+".00";
     else stringQuota = to_string(s1->quota)+".00";
+    
+    notLostRoundYetForFlawlessWin = true;
 
     for(int currentTurn = 1; currentTurn <= s1->turns; currentTurn++) {
         gameSelect = 1;
@@ -857,6 +870,7 @@ void genSet(Set *&s1) {
         
         usleep(resultMicroSeconds);
         if(currentTurn == s1->turns) {
+            endOfSetForFlawlessWin = true;
             if(mult*wallet > s1->quota) {
                 result = "You played until the end huh, going to next set.   ";
                 winSet = true;
@@ -888,10 +902,29 @@ void genSet(Set *&s1) {
             while(input != 113 && input != 81) input = getch();
             quit();
         }
+        checkAchievements(s1);
     }
-    cout << " Thank you for playing!" << endl;
-
 }
+
+void checkAchievements(Set *&s1) {
+    if(endOfSetForFlawlessWin && notLostRoundYetForFlawlessWin) {
+        flawlessWinUnlocked = true;
+    }
+    if(totalLost >= 15 && s1->setNum >= 3) {
+        undeniablePerseveranceUnlocked = true;
+    }
+    if(totalEarned-totalLost >= 50) {
+        theNextRichWarriorUnlocked = true;
+    }
+    if(totalLost >= 50) {
+        unluckyBastardUnlocked = true;
+    }
+    if(winSet && s1->setNum == 7) {
+        goalFinisherUnlocked = true;
+    }
+}
+
+
 
 void quit() {
     lostGame = true;
@@ -931,7 +964,7 @@ int main() {
     s4->setNum = 4, s4->quota = 15, s4->turns = 6;
     s5->setNum = 5, s5->quota = 20, s5->turns = 5;
     s6->setNum = 6, s6->quota = 24, s6->turns = 5;
-    s7->setNum = 6, s7->quota = 25, s7->turns = 4;
+    s7->setNum = 6, s7->quota = 100, s7->turns = 20;
     sList[0] = s1;
     sList[1] = s2;
     sList[2] = s3;
@@ -946,6 +979,8 @@ int main() {
             break;
         }
     }
+    cout << " Thank you for playing!" << endl;
+
     // genSet(s1);
     // genSet(s2);
     // genSet(s3);

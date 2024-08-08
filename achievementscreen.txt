@@ -28,9 +28,9 @@ Achievements screen:
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 Flawless Win: not lose once for an entire round (played to end)
-Undeniable Perseverance: both win and lost is above 100 coins and net is less than 10
-The next rich Warrior: net win 100 coins
-Unlucky bastard: lost 100 coins
+Undeniable Perseverance: lost is above 15 coins and at set 3 or higher
+The next rich Warrior: net win 50 coins
+Unlucky bastard: lost 50 coins
 Goal finisher: won all 7 sets
 
 ┃ Stats:                                                             ┃1
