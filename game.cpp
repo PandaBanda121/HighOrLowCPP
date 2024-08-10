@@ -1163,7 +1163,7 @@ int main() {
             break;
         }
     }
-    cout << " Thank you for playing!" << endl;
+    cout << "Thank you for playing!" << endl;
 
     // genSet(s1);
     // genSet(s2);
