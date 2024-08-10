@@ -904,7 +904,6 @@ void genRound(Set *&s1) {
     input = getch();
     while(true) {
         if(input == 13) break; // Enter
-        if(input == 82 || input == 114) break; // R
         if(input == 87 || input == 119) { // W
             gameSelect = 1;
             printGameScreen();
@@ -927,6 +926,9 @@ void genRound(Set *&s1) {
             }
         }
 
+        if(input == 82 || input == 114) { // R
+            result = "Press [R] again to restart. Press any key to cancel";
+        }
         if(input == 113 || input == 81) { // Q
             result = "Press [Q] again to quit. Press any key to cancel.  ";
             printGameScreen();
@@ -943,9 +945,7 @@ void genRound(Set *&s1) {
     }
     if(input == 82 || input == 114) {
         restart();
-    }
-
-    if(!winSet && !quitGame) {
+    } else if(!winSet && !quitGame) {
         genNextNumbers();
         bool winTurn = ( (gameSelect == 1) && num2>num1 ) || ( (gameSelect == 0) && num2<num1 );
         if(winTurn) {
@@ -1085,7 +1085,7 @@ void checkAchievements(Set *&s1) {
 
 void restart() {
     setTensBox = setNumbers[0];
-    setOnesBox = setNumbers[0];
+    setOnesBox = setNumbers[1];
     setTensChanged = falseVector3x5;
     setTensChanged = falseVector3x5;
     setNum = 1;
@@ -1157,10 +1157,12 @@ int main() {
     sList[5] = s6;
     sList[6] = s7;
     
-    for(int i = 0; i < 3; i++) {
-        genSet(sList[i]);
-        if(quitGame || !winSet) {
-            break;
+    while(!quitGame && !winGame) {
+        for(int i = 0; i < 3; i++) {
+            genSet(sList[i]);
+            if(quitGame) {
+                break;
+            }
         }
     }
     cout << "Thank you for playing!" << endl;
