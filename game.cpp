@@ -230,6 +230,7 @@ int animateMicroSeconds3 =   20000;  // Turn Num animation 3
 int animateMicroSeconds4 =   20000;  // Turn Num animation 4
 int animateMicroSeconds5 =   20000;  // Turn Num animation 5
 int resultMicroSeconds =   1000000;  // result
+int loreMicroSeconds =     5000000;
 
 string result = "                                                   ";
 
@@ -281,6 +282,11 @@ vector<string> unluckyBastardLoreUnlocked =         {"┃ Temporary place holder
                                                      "┃ Temporary place holder53                                           ┃\n",
                                                      "┃ Temporary place holder54                                           ┃\n"};
 
+string lore0 = "                                                                    ";
+string lore1 = "                                                                    ";
+string lore2 = "                                                                    ";
+
+
 bool goalFinisherUnlocked = false;
 bool flawlessWinUnlocked = false;
 bool undeniablePerseveranceUnlocked = false;
@@ -306,14 +312,31 @@ void printAchievementsScreen();
 
 // Back-end Main Function
 
-// 3 smaller functions for back-end
+//Creaint num 1 and num 2, then animating num 1: turn numbers
+void genTurnNumbers();
 
-// Achievements Checker
+//Animating num 2: next numbers
+void genNextNumbers();
+
+//Animating set changing aka next level transition
+void genSetNumbers();
+
+//Generating one round under a set:
+void genRound(Set *&s1);
+
+//Generating one of seven sets:
+void genSet(Set *&s1);
+
+// Achievements Checker, reprinting gamescreen if achievements unlocked
 void checkAchievements(Set *&s1);
 
-// Quit Game Checker
+// Restart game
+void restart();
+
+// Quit Game: lostGame = true;
 void quit();
 
+// Converting a vector<string> to a single string, good tool used in printIntroScreen(), printGameScreen, and printAchievementsScreen()
 string vectorToString(vector<string> arr) {
     string s = "";
     for(string thing : arr) s = s+thing;
@@ -438,10 +461,11 @@ void printGameScreen() {
                                                  "┃  "+bRed+"║  ↓↓↓↓↓  ║    ╰─────────────╯    ╰─────────────╯"+white+"                 ┃\n",
                                                  "┃  "+bRed+"║  ↓↓↓↓↓  ║"+white+"                                                       ┃\n",
                                                  "┃  "+bRed+"╚═════════╝"+white+"    "+result+"┃\n"};
-    string lore1 =                               "┃                                                                    ┃\n";
-    string lore2 =                               "┃                                                                    ┃\n";
-    string lore3 =                               "┃                                                                    ┃\n";
-    string gameScreenControls =                  "┃   [W][S]: Up/Down  [Space]: Deposit  [Enter]: Confirm  [Q]: Quit   ┃\n";
+    string printLore0 =                          "┃"+lore0+"┃\n";
+    string printLore1 =                          "┃"+lore1+"┃\n";
+    string printLore2 =                          "┃"+lore2+"┃\n";
+    string gameScreenControls0 =                 "┃       [W]: Up  [S]: Down  [Space]: Deposit  [Enter]: Confirm       ┃\n";
+    string gameScreenControls1 =                 "┃                    [R]: Restart Game  [Q]: Quit                    ┃\n";
     string gameScreenBottom =                    "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n";
 
     cout << "\033[2J\033[1;1H";
@@ -452,11 +476,11 @@ void printGameScreen() {
     cout << gameScreenEmpty;
     if(gameSelect == 1) for(int i = 0; i < 11; i++) cout << upButtHigh[i];
     else for(int i = 0; i < 11; i++) cout << downButtHigh[i];
-    cout << lore1;
-    cout << lore2;
-    cout << lore3;
-    cout << gameScreenControls;
-    cout << gameScreenEmpty;
+    cout << printLore0;
+    cout << printLore1;
+    cout << printLore2;
+    cout << gameScreenControls0;
+    cout << gameScreenControls1;
     cout << gameScreenEmpty;
     cout << gameScreenBottom;
 }
@@ -879,17 +903,18 @@ void genRound(Set *&s1) {
     
     input = getch();
     while(true) {
-        if(input == 13) break;
-        if(input == 87 || input == 119) {
+        if(input == 13) break; // Enter
+        if(input == 82 || input == 114) break; // R
+        if(input == 87 || input == 119) { // W
             gameSelect = 1;
             printGameScreen();
         }
-        if(input == 83 || input == 115) {
+        if(input == 83 || input == 115) { // S
             gameSelect = 0;
             printGameScreen();
         }
         
-        if(input == 32) {
+        if(input == 32) { // Space
             if(wallet*mult > s1->quota) {
                 result = "Alrighty, you deposited, good luck on the next set!";
                 printGameScreen();
@@ -902,7 +927,7 @@ void genRound(Set *&s1) {
             }
         }
 
-        if(input == 113 || input == 81) {
+        if(input == 113 || input == 81) { // Q
             result = "Press [Q] again to quit. Press any key to cancel.  ";
             printGameScreen();
             input = getch();
@@ -915,6 +940,9 @@ void genRound(Set *&s1) {
             }
         }
         input = getch();
+    }
+    if(input == 82 || input == 114) {
+        restart();
     }
 
     if(!winSet && !quitGame) {
@@ -1035,6 +1063,10 @@ void genSet(Set *&s1) {
 void checkAchievements(Set *&s1) {
     if(endOfSetForFlawlessWin && notLostRoundYetForFlawlessWin) {
         flawlessWinUnlocked = true;
+        lore0 = "Well well well, this is the last lore you wanted right?";
+        lore1 = "";
+        lore2 = ""; 
+        usleep(loreMicroSeconds);
     }
     if(totalLost >= 15 && s1->setNum >= 3) {
         undeniablePerseveranceUnlocked = true;
@@ -1051,6 +1083,32 @@ void checkAchievements(Set *&s1) {
 }
 
 
+void restart() {
+    setTensBox = setNumbers[0];
+    setOnesBox = setNumbers[0];
+    setTensChanged = falseVector3x5;
+    setTensChanged = falseVector3x5;
+    setNum = 1;
+    input = 0;
+    introSelect = 0;
+    introPrint = 0;
+    result = "                                                   ";
+    gameSelect = 1;
+    wallet = 10, mult = 1;
+    stringTurns = "00";
+    stringTotalTurns = "00";
+    stringWallet = "000.00";
+    stringQuota = "000.00";
+    notLostRoundYetForFlawlessWin = true;
+    endOfSetForFlawlessWin = false;
+    winSet = false;
+    winGame = false;
+    lostGame = false;
+    quitGame = false;
+    lore0 = "                                                                    ";
+    lore1 = "                                                                    ";
+    lore2 = "                                                                    ";
+}
 
 void quit() {
     lostGame = true;
