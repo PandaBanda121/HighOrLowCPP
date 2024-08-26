@@ -1,37 +1,37 @@
 Achievements screen:
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃ Goal Finisher                                                      ┃1
-┃                                                                    ┃2
-┃                                                                    ┃3
-┃                                                                    ┃4
-┃                                                                    ┃5
+┃ Oh? What's that? An incoming stampede?? Erm...                     ┃2
+┃ Panda might wanna get up, and get away too.                        ┃3
+┃ After running away, he found an oak tree as his resting spot.      ┃4
+┃ Sitting down, he meets Rabbit who is also relaxing with him.       ┃5
 ┃ Flawless Win                                                       ┃1
-┃                                                                    ┃2
-┃                                                                    ┃3
-┃                                                                    ┃4
-┃                                                                    ┃5
+┃ "Oh who's this? Pleasure to meet you!"                             ┃2
+┃ "Hi. I just ran away from a stampede, scared the shit out of me."  ┃3
+┃ "Aw, well I'm here to help if you need anything!"                  ┃4
+┃ "You..? What can you do..? How do you even face a stampede...??"   ┃5
 ┃ Undeniable Perseverance                                            ┃1
-┃                                                                    ┃2
-┃                                                                    ┃3
-┃                                                                    ┃4
-┃                                                                    ┃5
+┃ The rabbit brings out a touchpad and in a few clicks,              ┃2
+┃ the oak tree reveals a hidden ladder leading upwards.              ┃3
+┃ "Follow me! I want to introduce you to my friends,"                ┃4
+┃ Scared, but wishing for a stable social circle... he follows.      ┃5
 ┃ The next rich Warrior                                              ┃1
-┃                                                                    ┃2
-┃                                                                    ┃3
-┃                                                                    ┃4
-┃                                                                    ┃5
+┃ "Who's that" "Woah a panda" "Wait how did he fit up here"          ┃2
+┃ "Hey everyone! This is Panda! I met him below our tree"            ┃3
+┃ "Hello, I'm Panda, you guys seem really nice, um, yea"             ┃4
+┃ "Should we let him stay..." "He seems cool..?" "He's fine ig"      ┃5
 ┃ Unlucky bastard                                                    ┃1
-┃                                                                    ┃2
-┃                                                                    ┃3
-┃                                                                    ┃4
-┃                                                                    ┃5
+┃ As Panda continues his stay with Rabbit and her friends, he        ┃2
+┃ becomes happier, but his fear from stampedes still grows..         ┃3
+┃ A fear where stampedes don't even exist in trees still exist       ┃4
+┃ in his brain.                                                      ┃5
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
+Goal finisher: won all 7 sets
 Flawless Win: not lose once for an entire round (played to end)
 Undeniable Perseverance: lost is above 15 coins and at set 3 or higher
 The next rich Warrior: net win 50 coins
 Unlucky bastard: lost 50 coins
-Goal finisher: won all 7 sets
 
 ┃ Stats:                                                             ┃1
 ┃ Total earned:                                                      ┃2
